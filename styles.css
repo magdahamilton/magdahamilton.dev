@@ -24,19 +24,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-nav.with-border {
-    border-bottom: 1px solid #e0e0e0;
-}
-
-nav .nav-content {
-    max-width: 800px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
+    border-bottom: 1px solid rgba(224, 224, 224, 0.3);
 }
 
 nav ul {
@@ -121,39 +109,35 @@ p {
     padding: 6rem 2rem 4rem;
 }
 
-.content {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 4rem 2rem;
-}
-
 section {
-    min-height: 80vh;
     padding: 4rem 0;
 }
 
-/* ===== HOME PAGE SPECIFIC ===== */
+/* ===== ABOUT SECTION ===== */
 .bio {
     font-size: 1rem;
     line-height: 1.8;
     max-width: 600px;
+    margin-bottom: 3rem;
 }
 
 .tech-stack {
     margin-top: 3rem;
     position: relative;
-    height: 250px;
+    height: 400px;
     max-width: 600px;
+    cursor: crosshair;
 }
 
 .tech-icon {
     position: absolute;
-    transition: transform 0.3s ease;
     cursor: pointer;
+    transition: filter 0.3s ease;
+    user-select: none;
 }
 
 .tech-icon:hover {
-    transform: scale(1.1) !important;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2)) grayscale(80%) brightness(0.4) !important;
 }
 
 .tech-icon svg {
@@ -164,8 +148,7 @@ section {
 
 /* ===== PORTFOLIO STYLES ===== */
 #portfolio {
-    min-height: 100vh;
-    padding: 6rem 0 0 0;
+    padding: 6rem 0 4rem 0;
 }
 
 .portfolio-carousel {
@@ -254,7 +237,7 @@ section {
     text-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 
-/* ===== PROJECT PAGE HERO ===== */
+/* ===== PROJECT PAGE STYLES ===== */
 .hero {
     height: 70vh;
     position: relative;
@@ -301,7 +284,12 @@ section {
     text-shadow: 0 1px 10px rgba(0,0,0,0.5);
 }
 
-/* ===== PROJECT META ===== */
+.content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
 .project-meta {
     display: flex;
     gap: 3rem;
@@ -327,7 +315,6 @@ section {
     color: #2a2a2a;
 }
 
-/* ===== PROJECT COMPONENTS ===== */
 .tech-list {
     display: flex;
     flex-wrap: wrap;
@@ -340,21 +327,6 @@ section {
     background: rgba(42, 42, 42, 0.05);
     border: 1px solid rgba(42, 42, 42, 0.1);
     font-size: 0.9rem;
-    letter-spacing: 0.5px;
-}
-
-.features {
-    margin: 3rem 0;
-}
-
-.feature-item {
-    margin-bottom: 2rem;
-}
-
-.feature-item h3 {
-    font-size: 1.2rem;
-    font-weight: 400;
-    margin-bottom: 0.5rem;
     letter-spacing: 0.5px;
 }
 
@@ -372,88 +344,6 @@ section {
     letter-spacing: 0.5px;
 }
 
-.version-section ul {
-    margin-left: 1.5rem;
-    line-height: 2;
-}
-
-.version-section li {
-    margin-bottom: 0.5rem;
-}
-
-/* ===== ARTICLE STYLES ===== */
-article {
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 8rem 2rem 4rem;
-}
-
-.article-meta {
-    text-align: center;
-    margin-bottom: 4rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid #e0e0e0;
-}
-
-.article-meta .notice {
-    font-size: 0.85rem;
-    color: #666;
-    font-style: italic;
-    margin-top: 1rem;
-}
-
-article h1 {
-    font-size: 2.5rem;
-    line-height: 1.2;
-}
-
-article h2 {
-    font-size: 1.6rem;
-    font-weight: 300;
-    margin: 3rem 0 1.5rem;
-    letter-spacing: 0.5px;
-    text-transform: none;
-}
-
-article a {
-    color: #2a2a2a;
-    text-decoration: underline;
-}
-
-article a:hover {
-    opacity: 0.6;
-}
-
-code {
-    background: rgba(42, 42, 42, 0.05);
-    padding: 0.2rem 0.4rem;
-    font-family: 'Courier New', monospace;
-    font-size: 0.95rem;
-}
-
-pre {
-    background: rgba(42, 42, 42, 0.03);
-    border-left: 3px solid #2a2a2a;
-    padding: 1.5rem;
-    margin: 2rem 0;
-    overflow-x: auto;
-    line-height: 1.5;
-}
-
-pre code {
-    background: none;
-    padding: 0;
-}
-
-blockquote {
-    border-left: 3px solid #2a2a2a;
-    padding-left: 1.5rem;
-    margin: 2rem 0;
-    font-style: italic;
-    color: #555;
-}
-
-/* ===== BUTTONS & CTA ===== */
 .cta {
     text-align: center;
     margin: 4rem 0 2rem;
@@ -461,48 +351,22 @@ blockquote {
     border-top: 1px solid #e0e0e0;
 }
 
-.btn,
-.demo-link {
+.btn {
     display: inline-block;
-    padding: 1rem 2rem;
-    background: rgba(42, 42, 42, 0.05);
-    border: 2px solid #2a2a2a;
+    padding: 1rem 2.5rem;
+    background: #2a2a2a;
+    color: #fafaf8;
     text-decoration: none;
-    margin: 2rem 0;
-    transition: all 0.3s ease;
-    color: #2a2a2a;
     font-size: 0.9rem;
     letter-spacing: 1px;
-}
-
-.btn {
-    background: #2a2a2a;
-    color: #fafaf8;
     text-transform: uppercase;
-    padding: 1rem 2.5rem;
-    margin: 0 0.5rem;
-}
-
-.btn:hover,
-.demo-link:hover {
-    background: #2a2a2a;
-    color: #fafaf8;
-    opacity: 1;
+    transition: all 0.3s ease;
 }
 
 .btn:hover {
     background: transparent;
     color: #2a2a2a;
-}
-
-.btn.secondary {
-    background: transparent;
-    color: #2a2a2a;
-}
-
-.btn.secondary:hover {
-    background: #2a2a2a;
-    color: #fafaf8;
+    border: 2px solid #2a2a2a;
 }
 
 /* ===== FOOTER ===== */
@@ -523,21 +387,14 @@ footer {
         font-size: 1.4rem;
     }
 
-    article h1 {
-        font-size: 2rem;
-    }
-
-    article h2 {
-        font-size: 1.3rem;
-    }
-
     .tech-stack {
-        height: 300px;
+        height: 350px;
     }
 
     nav {
         flex-direction: column;
         gap: 1rem;
+        padding: 1rem;
     }
 
     .nav-links {
@@ -565,12 +422,15 @@ footer {
         padding: 3rem 1.5rem;
     }
 
-    article {
-        padding: 6rem 1.5rem 3rem;
+    .portfolio-video {
+        height: 50vh;
     }
 
-    .btn {
-        display: block;
-        margin: 0.5rem 0;
+    .portfolio-info h3 {
+        font-size: 2rem;
+    }
+
+    .portfolio-tagline {
+        font-size: 1.1rem;
     }
 }
