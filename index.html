@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#000000">
     <title>Magda Hamilton - Graphics & Design Engineer + Creative Technologist</title>
-    <meta name="description" content="Graphics & Design Engineer and Creative Technologist exploring the intersection of interaction design, computation, and systems thinking. Founder of Velvet Disruption studio.">
-    <meta name="keywords" content="graphics engineer, design engineer, creative technologist, interaction design, WebGL, Three.js, Swift, Metal, computational design, design systems, Magda Hamilton, Magdalena Hamilton">
+    <meta name="description" content="Magda Hamilton is a Graphics & Design Engineer and Creative Technologist exploring the intersection of interaction design, computation, and systems thinking. Founder of Velvet Disruption studio. Creator of Solaris and Tensilk.">
+    <meta name="keywords" content="Magda Hamilton, Magdalena Hamilton, graphics engineer, design engineer, creative technologist, interaction design, WebGL, Three.js, Swift, Metal, computational design, design systems, Velvet Disruption, Solaris, Tensilk, iOS developer, Harvard Extension">
     <meta name="author" content="Magda Hamilton">
-    <meta name="alternate-name" content="Magdalena Hamilton">
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -17,36 +16,110 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://magdahamilton.dev">
     <meta property="og:title" content="Magda Hamilton - Graphics & Design Engineer + Creative Technologist">
-    <meta property="og:description" content="Graphics & Design Engineer + Creative Technologist exploring the intersection of interaction design, computation, and systems thinking.">
+    <meta property="og:description" content="Graphics & Design Engineer + Creative Technologist. Founder of Velvet Disruption. Creator of Solaris and Tensilk.">
     <meta property="og:image" content="https://magdahamilton.dev/images/og-image.jpg">
     <meta property="og:site_name" content="Magda Hamilton">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Magda Hamilton - Graphics & Design Engineer + Creative Technologist">
-    <meta name="twitter:description" content="Graphics & Design Engineer + Creative Technologist exploring the intersection of interaction design, computation, and systems thinking.">
+    <meta name="twitter:description" content="Graphics & Design Engineer + Creative Technologist. Founder of Velvet Disruption. Creator of Solaris and Tensilk.">
     <meta name="twitter:image" content="https://magdahamilton.dev/images/og-image.jpg">
     
     <link rel="canonical" href="https://magdahamilton.dev">
     <link rel="stylesheet" href="styles.css">
     
+    <!-- Enhanced Schema.org markup for better SEO -->
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Magda Hamilton",
-  "alternateName": "Magdalena Hamilton",
-  "givenName": "Magdalena",
-  "familyName": "Hamilton",
-  "jobTitle": "Founder",
-  "worksFor": {
-    "@type": "Organization",
-    "name": "Velvet Disruption",
-    "url": "https://velvetdisruption.com"
-  },
-  "url": "https://magdahamilton.dev",
-  "sameAs": [
-    "https://www.linkedin.com/in/magdahamilton"
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://magdahamilton.dev/#person",
+      "name": "Magda Hamilton",
+      "alternateName": ["Magdalena Hamilton", "magdhamilt"],
+      "givenName": "Magdalena",
+      "familyName": "Hamilton",
+      "jobTitle": ["Graphics & Design Engineer", "Creative Technologist", "Founder"],
+      "description": "Graphics & Design Engineer and Creative Technologist exploring the intersection of interaction design, computation, and systems thinking.",
+      "url": "https://magdahamilton.dev",
+      "image": "https://magdahamilton.dev/images/og-image.jpg",
+      "email": "hi@magdahamilton.dev",
+      "sameAs": [
+        "https://github.com/magdhamilt",
+        "https://www.linkedin.com/in/magdahamilton",
+        "https://www.instagram.com/mhamilton.py"
+      ],
+      "knowsAbout": [
+        "WebGL", "Three.js", "GLSL", "Swift", "SwiftUI", "Metal", 
+        "iOS Development", "Creative Coding", "Interaction Design", 
+        "Computational Design", "Graphics Programming"
+      ],
+      "worksFor": {
+        "@type": "Organization",
+        "@id": "https://velvetdisruption.com/#organization"
+      },
+      "founder": [
+        {"@id": "https://velvetdisruption.com/#organization"}
+      ],
+      "makesOffer": [
+        {"@id": "https://solaris.observer/#project"},
+        {"@id": "https://tensilk.app/#project"}
+      ]
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://velvetdisruption.com/#organization",
+      "name": "Velvet Disruption",
+      "url": "https://velvetdisruption.com",
+      "description": "A creative studio dedicated to exploring the edges of technology and design.",
+      "founder": {
+        "@id": "https://magdahamilton.dev/#person"
+      },
+      "sameAs": [
+        "https://magdahamilton.dev"
+      ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://solaris.observer/#project",
+      "name": "Solaris",
+      "url": "https://solaris.observer",
+      "description": "An interactive meditation on consciousness and the unknowable. Built with WebGL, Three.js, and GLSL.",
+      "applicationCategory": "Creative",
+      "author": {
+        "@id": "https://magdahamilton.dev/#person"
+      },
+      "creator": {
+        "@id": "https://magdahamilton.dev/#person"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://tensilk.app/#project",
+      "name": "Tensilk",
+      "url": "https://tensilk.app",
+      "operatingSystem": "iOS",
+      "author": {
+        "@id": "https://magdahamilton.dev/#person"
+      },
+      "creator": {
+        "@id": "https://magdahamilton.dev/#person"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://magdahamilton.dev/#website",
+      "name": "Magda Hamilton Portfolio",
+      "url": "https://magdahamilton.dev",
+      "author": {
+        "@id": "https://magdahamilton.dev/#person"
+      },
+      "about": {
+        "@id": "https://magdahamilton.dev/#person"
+      }
+    }
   ]
 }
 </script>
@@ -60,7 +133,7 @@
             </ul>
         </div>
         <div class="contact-icons">
-            <a href="/cdn-cgi/l/email-protection#e88081a885898f8c8980898581849c8786c68c8d9e" aria-label="Email">
+            <a href="mailto:hi@magdahamilton.dev" aria-label="Email">
                 <svg viewBox="0 0 24 24">
                     <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                 </svg>
@@ -129,17 +202,17 @@
                             <video autoplay loop muted playsinline aria-label="Solaris interactive experience demonstration">
                                 <source src="https://pub-9f205d406ae74fe29f7a63bd0a1e6df0.r2.dev/solaris.mp4" type="video/mp4">
                             </video>
-                            <img src="images/solaris1.jpg" alt="Solaris - Interactive consciousness visualization">
-                            <img src="images/solaris2.jpg" alt="Solaris - WebGL fluid simulation">
-                            <img src="images/solaris3.jpg" alt="Solaris - GLSL shader effects">
+                            <img src="images/solaris1.jpg" alt="Solaris by Magda Hamilton - Interactive consciousness visualization">
+                            <img src="images/solaris2.jpg" alt="Solaris by Magda Hamilton - WebGL fluid simulation">
+                            <img src="images/solaris3.jpg" alt="Solaris by Magda Hamilton - GLSL shader effects">
                         </div>
                         <div class="ribbon-track" aria-hidden="true">
                             <video autoplay loop muted playsinline aria-label="Solaris interactive experience demonstration">
                                 <source src="https://pub-9f205d406ae74fe29f7a63bd0a1e6df0.r2.dev/solaris.mp4" type="video/mp4">
                             </video>
-                            <img src="images/solaris1.jpg" alt="Solaris - Interactive consciousness visualization">
-                            <img src="images/solaris2.jpg" alt="Solaris - WebGL fluid simulation">
-                            <img src="images/solaris3.jpg" alt="Solaris - GLSL shader effects">
+                            <img src="images/solaris1.jpg" alt="Solaris by Magda Hamilton - Interactive consciousness visualization">
+                            <img src="images/solaris2.jpg" alt="Solaris by Magda Hamilton - WebGL fluid simulation">
+                            <img src="images/solaris3.jpg" alt="Solaris by Magda Hamilton - GLSL shader effects">
                         </div>
                     </div>
                 </a>
