@@ -39,53 +39,69 @@
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "TechArticle",
-  "headline": "Solaris: Building an Interactive Simulation of Alien Consciousness",
-  "description": "An interactive WebGL simulation inspired by Stanisław Lem's Solaris, featuring emergent formations, gravitational engineering, and observation-responsive behavior.",
-  "image": "https://magdahamilton.dev/images/solaris-og.jpg",
-  "datePublished": "2025-01-22",
-  "dateModified": "2026-01-24",
-  "author": {
-    "@type": "Person",
-    "@id": "https://magdahamilton.dev/#person",
-    "name": "Magda Hamilton",
-    "url": "https://magdahamilton.dev",
-    "jobTitle": "Graphics & Design Engineer",
-    "sameAs": [
-      "https://github.com/magdahamilton",
-      "https://linkedin.com/in/magdahamilton"
-    ]
-  },
-  "publisher": {
-    "@type": "Organization",
-    "@id": "https://velvetdisruption.com/#organization",
-    "name": "Velvet Disruption",
-    "url": "https://velvetdisruption.com"
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://magdahamilton.dev/solaris.html"
-  },
-  "about": {
-    "@type": "SoftwareApplication",
-    "name": "Solaris",
-    "url": "https://solaris.observer",
-    "applicationCategory": "Interactive Art",
-    "operatingSystem": "Web Browser",
-    "browserRequirements": "Requires WebGL support"
-  },
-  "isBasedOn": {
-    "@type": "Book",
-    "name": "Solaris",
-    "author": {
-      "@type": "Person",
-      "name": "Stanisław Lem"
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://magdahamilton.dev/solaris.html#article",
+      "headline": "Solaris: Building an Interactive Simulation of Alien Consciousness",
+      "description": "A technical deep-dive into building an interactive WebGL simulation inspired by Stanisław Lem's Solaris, featuring emergent formations, gravitational engineering, and observation-responsive behavior.",
+      "image": "https://magdahamilton.dev/images/solaris-og.jpg",
+      "datePublished": "2025-01-22",
+      "dateModified": "2026-01-25",
+      "author": {
+        "@id": "https://magdahamilton.dev/#person"
+      },
+      "publisher": {
+        "@id": "https://magdahamilton.dev/#person"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://magdahamilton.dev/solaris.html"
+      },
+      "about": {
+        "@id": "https://solaris.observer/#creativework"
+      },
+      "isBasedOn": {
+        "@type": "Book",
+        "name": "Solaris",
+        "author": {
+          "@type": "Person",
+          "name": "Stanisław Lem"
+        },
+        "datePublished": "1961"
+      },
+      "keywords": "WebGL, Three.js, GLSL, interactive simulation, creative technology, three-body problem, generative art",
+      "proficiencyLevel": "Expert",
+      "dependencies": "Three.js r128, WebGL 2.0, GLSL ES 3.0",
+      "inLanguage": "en"
     },
-    "datePublished": "1961"
-  },
-  "keywords": "WebGL, Three.js, GLSL, interactive simulation, creative technology, three-body problem, generative art",
-  "proficiencyLevel": "Expert",
-  "dependencies": "Three.js r128, WebGL 2.0, GLSL ES 3.0"
+    {
+      "@type": "WebApplication",
+      "@id": "https://solaris.observer/#creativework",
+      "name": "Solaris",
+      "url": "https://solaris.observer",
+      "description": "An interactive WebGL meditation on consciousness and the unknowable, inspired by Stanisław Lem's novel.",
+      "applicationCategory": "Interactive Art",
+      "operatingSystem": "Web Browser",
+      "browserRequirements": "Requires WebGL support",
+      "creator": {
+        "@id": "https://magdahamilton.dev/#person"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://magdahamilton.dev/#person",
+      "name": "Magda Hamilton",
+      "alternateName": ["Magdalena Hamilton", "magdahamilton"],
+      "url": "https://magdahamilton.dev",
+      "jobTitle": "Graphics & Design Engineer",
+      "sameAs": [
+        "https://github.com/magdahamilton",
+        "https://www.linkedin.com/in/magdahamilton",
+        "https://www.instagram.com/mhamilton.py"
+      ]
+    }
+  ]
 }
     </script>
 </head>
@@ -93,7 +109,7 @@
     <nav>
         <a href="index.html" class="back-link">← BACK TO PORTFOLIO</a>
         <div class="contact-icons">
-            <a href="mailto:hi@magdahamilton.dev" aria-label="Email">
+            <a href="/cdn-cgi/l/email-protection#a9c1c0e9c4c8cecdc8c1c8c4c0c5ddc6c787cdccdf" aria-label="Email">
                 <svg viewBox="0 0 24 24">
                     <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                 </svg>
@@ -302,7 +318,6 @@ displacement.y += fbm(position.xz * 0.1 + time * 0.05) * 2.0;</code></pre>
             <a href="https://github.com/magdahamilton/ocean-solaris" target="_blank" rel="noopener noreferrer" class="btn" style="background: transparent; color: #2a2a2a; border: 2px solid #2a2a2a; margin-left: 1rem;">View Source on GitHub</a>
         </div>
     </div>
-
     <footer>
         <p>© 2026 Magda Hamilton</p>
     </footer>
