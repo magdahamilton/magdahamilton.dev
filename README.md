@@ -6,6 +6,12 @@ A minimalist portfolio website showcasing iOS design engineering and creative te
 
 This portfolio explores the intersection of design and engineering through interactive experiences. The site features a physics-based technology stack visualization and project showcases with infinite scrolling media ribbons.
 
+## Screenshots
+
+![Screenshot 1](images/screenshot1.jpg)
+![Screenshot 2](images/screenshot2.jpg)
+![Screenshot 3](images/screenshot3.jpg)
+
 ## Features
 
 ### Interactive Physics Visualization
