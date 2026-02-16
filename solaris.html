@@ -15,8 +15,8 @@
     <title>Solaris - Interactive WebGL Ocean Simulation | Magda Hamilton</title>
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="An interactive WebGL simulation inspired by Stanisław Lem's Solaris. Experience a sentient ocean planet with emergent formations, gravitational engineering, and observation-responsive behavior built with Three.js and custom GLSL shaders.">
-    <meta name="keywords" content="Solaris, Stanisław Lem, WebGL simulation, Three.js, ocean simulation, interactive art, creative technology, GLSL shaders, Magda Hamilton, three-body problem, creative coding, generative art">
+    <meta name="description" content="An interactive simulation inspired by Stanisław Lem's Solaris. A sentient ocean driven by C++/WebAssembly viscoelastic physics, with real-time tidal force computation, observation-responsive behavior, and AI-driven mimoid formations. Built with Three.js, custom GLSL shaders, and Emscripten.">
+    <meta name="keywords" content="Solaris, Stanisław Lem, C++, WebAssembly, viscoelastic simulation, WebGL, Three.js, ocean simulation, interactive art, creative technology, GLSL shaders, Magda Hamilton, three-body problem, Emscripten, real-time physics, creative coding, generative art">
     <meta name="author" content="Magda Hamilton">
     
     <!-- Open Graph / Facebook -->
@@ -82,9 +82,9 @@
         },
         "datePublished": "1961"
       },
-      "keywords": "WebGL, Three.js, GLSL, interactive simulation, creative technology, three-body problem, generative art",
+      "keywords": "C++, WebAssembly, Emscripten, WebGL, Three.js, GLSL, viscoelastic simulation, interactive simulation, creative technology, three-body problem, generative art",
       "proficiencyLevel": "Expert",
-      "dependencies": "Three.js r128, WebGL 2.0, GLSL ES 3.0",
+      "dependencies": "Three.js, WebGL 2.0, GLSL ES 3.0, Emscripten (C++ to WebAssembly)",
       "inLanguage": "en"
     },
     {
@@ -158,7 +158,7 @@
             </div>
             <div class="meta-item">
                 <div class="meta-label">Tech Stack</div>
-                <div class="meta-value">Three.js, WebGL, GLSL</div>
+                <div class="meta-value">C++, WebAssembly, Three.js, WebGL, GLSL</div>
             </div>
             <div class="meta-item">
                 <div class="meta-label">Published by</div>
@@ -172,7 +172,7 @@
             In Stanisław Lem's 1961 novel <em>Solaris</em>, scientists discover a planet-sized ocean that thinks—but operates on logic so alien that despite decades of research, humans cannot communicate with it or understand its purpose. It generates elaborate structures, materializes visitors' deepest memories, and maintains a stable orbit around two suns through incomprehensible means.
         </p>
         <p>
-            This project brings that entity to life: a living WebGL simulation that resists comprehension. The ocean responds to observation, but unpredictably. It creates formations that emerge and dissolve on their own timeline. It performs planetary-scale engineering that we can only glimpse through surface shimmer.
+            This project brings that entity to life: a living simulation driven by C++ physics running in WebAssembly. Beneath the visual surface, a Kelvin-Voigt viscoelastic solver models the ocean as sentient gel—not water—that stores stress, remembers past deformations, and actively shapes its own surface. The ocean responds to observation, but unpredictably. It creates formations that emerge and dissolve on their own timeline. It performs planetary-scale engineering that we can only glimpse through surface shimmer.
         </p>
         <p>
             Most "alien" experiences in digital media are just exotic versions of familiar patterns. Solaris explores something harder: consciousness that operates on fundamentally different logic. The ocean isn't performing for you—it simply exists, and you're privileged to witness its incomprehensible work.
@@ -192,14 +192,19 @@
 
         <div class="version-section">
             <h3>Implementing Gravitational Chaos</h3>
-            <p>I created two suns with fundamentally unstable orbits. The red giant moves slowly (0.08 rad/s) along a 250-unit radius orbit, while the blue dwarf races faster (0.12 rad/s) at 220 units. Their gravitational interference creates chaotic perturbations:</p>
-            <pre><code>const sunInterference = Math.sin(redSunAngle - blueSunAngle) * 
-    Math.cos(time * 0.3);
-const resonanceEffect = Math.sin(time * 0.17) * 
-    Math.cos(time * 0.23);</code></pre>
-            <p>These competing frequencies would normally cause 8% orbital deviations—catastrophic for any planet. But then the Ocean intervenes, counteracting 95% of the chaos and leaving only 5% visible as surface shimmer:</p>
-            <pre><code>const oceanCorrectionFactor = 0.95;
-const stabilizedChaosX = chaosX * (1.0 - oceanCorrectionFactor);</code></pre>
+            <p>I created two suns with fundamentally unstable orbits. The red giant moves slowly (0.08 rad/s) along a 250-unit radius orbit, while the blue dwarf races faster (0.12 rad/s) at 220 units. Their gravitational interference creates chaotic perturbations.</p>
+            <p>But then the Ocean intervenes. Each frame, both sun positions feed into a C++ simulation running in WebAssembly. The solver computes tidal potential per cell across a 128×128 grid using the standard tidal force formula:</p>
+            <pre><code>// C++ WASM — tidal force per cell
+float tidal = (3.0f * dot * dot - 1.0f) * 0.5f * sun_tidal;
+
+// The ocean counteracts 95% (gravitational engineering)
+float leaked_force = total_tidal * 0.05f;
+cell.velocity += leaked_force * dt;
+
+// Counteraction effort generates stress
+float counteraction_effort = fabsf(total_tidal) * 0.95f;
+cell.stress += counteraction_effort * dt * 0.5f;</code></pre>
+            <p>The stress is exported as a texture and visualized in the fragment shader—warm glow where the ocean is working hardest. This isn't a visual trick: the glow corresponds to actual computed gravitational counteraction happening in C++ 60 times per second.</p>
         </div>
 
         <div class="version-section">
@@ -213,34 +218,27 @@ float blueEngineering = calculateEngineeringZone(uBlueSunPos, uBlueSunColor, 1);
         <!-- OCEAN RENDERING SECTION -->
         <h2 id="ocean-surface">The Living Surface</h2>
         <p>
-            The ocean uses custom vertex and fragment shaders to achieve its unique gelatinous appearance. Multi-layered wave displacement with Fractal Brownian Motion creates a surface that never repeats the same pattern.
+            The ocean's visual surface is driven by two systems working together. Custom vertex and fragment shaders handle the rendering—multi-layered wave displacement with Fractal Brownian Motion creates a surface that never repeats. But underneath, a C++/WebAssembly simulation computes the actual physics: a 128×128 grid of cells, each tracking height, velocity, stress, strain, viscosity, elasticity, intent, and memory.
         </p>
 
         <div class="version-section">
-            <h3>Vertex Displacement</h3>
-            <p>Multi-frequency wave layers combine with FBM for organic, non-repeating motion:</p>
-            <pre><code>vec3 displacement = vec3(0.0);
+            <h3>Viscoelastic Physics (C++/WASM)</h3>
+            <p>The ocean is modeled as a Kelvin-Voigt viscoelastic gel—not water. Water follows the wave equation (∂²h/∂t² = c²∇²h); gel follows a fundamentally different model where stress equals elastic strain plus viscous resistance. This matters because gel <em>resists</em> deformation, <em>stores</em> stress, and releases energy in wobbles rather than clean waves:</p>
+            <pre><code>// C++ — Kelvin-Voigt viscoelastic solver
+float elastic_force = -elasticity * (height - rest_position);
+float viscous_force = -viscosity * velocity;
+float neighbor_pull = (avg_neighbor_height - height) * stress_propagation;
 
-// Multi-frequency wave layers
-for (int i = 0; i < 3; i++) {
-    float freq = 3.0 + float(i) * 2.0;  // 3.0, 5.0, 7.0 Hz
-    float amp = 1.0 / (float(i) + 1.0);
-    displacement.y += sin(position.x * freq + time) * amp;
-    displacement.y += cos(position.z * freq + time * 0.8) * amp;
-}
-
-// Add Fractal Brownian Motion for organic variation
-displacement.y += fbm(position.xz * 0.1 + time * 0.05) * 2.0;</code></pre>
+velocity += (elastic_force + viscous_force + neighbor_pull) * dt;
+velocity += intent * intent_responsiveness;  // The ocean CHOOSES
+height += velocity * dt;
+velocity *= damping;</code></pre>
+            <p>The intent field is what makes this alien: each cell can actively push itself in a direction the ocean "wants" to go. The simulation also maintains memory—the rest position drifts based on past deformations, so the ocean never quite returns to the same shape.</p>
         </div>
 
         <div class="version-section">
-            <h3>Dynamic Viscosity</h3>
-            <p>Procedural noise controls viscosity variations across the surface. High viscosity regions appear gel-like with lower transparency and slower wave motion. Low viscosity regions flow like liquid with subsurface scattering and faster motion. Transition zones use Perlin noise for smooth gradients.</p>
-        </div>
-
-        <div class="version-section">
-            <h3>Fragment Shader Effects</h3>
-            <p>The fragment shader implements several key visual effects: subsurface scattering with exponential attenuation based on depth, Fresnel edge glow that intensifies in liquid regions, animated bioluminescence using 3D Simplex noise, and chromatic aberration that creates subtle "wrong physics" light refraction—reinforcing the alien nature of the ocean.</p>
+            <h3>Mood-Driven Material Properties</h3>
+            <p>The ocean's mood directly changes the physics. When agitated, viscosity drops and stress propagation increases—the gel becomes volatile and reactive. When aloof, viscosity rises dramatically—the ocean becomes sluggish, barely responding. When curious, elasticity peaks—the surface becomes springy and reaching. These aren't visual parameters; they're material properties in the C++ solver that change how the physics behaves.</p>
         </div>
 
         <!-- FORMATIONS SECTION -->
@@ -295,10 +293,10 @@ displacement.y += fbm(position.xz * 0.1 + time * 0.05) * 2.0;</code></pre>
         <!-- PERFORMANCE SECTION -->
         <h2 id="performance">Performance</h2>
         <p>
-            The simulation uses a three-tier LOD system that automatically adjusts ocean surface complexity based on camera distance (128, 64, or 32 segments). Instanced geometries for plasma fountains and formations minimize draw calls. Shader optimizations include varying caching, selective uniform updates, and precision management.
+            The C++ viscoelastic simulation runs in ~1-2ms per frame for the full 128×128 grid (16,384 cells). Heightmap and stressmap are uploaded to the GPU as Float32Array views directly into WASM memory—zero-copy texture transfer. The rendering pipeline uses a three-tier LOD system that adjusts ocean surface complexity based on camera distance (128, 64, or 32 segments), instanced geometries for formations and plasma, and shader optimizations including varying caching and precision management.
         </p>
         <p>
-            Results: consistent 60fps on high-end desktops at 1440p, 60fps on mid-range hardware at 1080p, and 30-60fps on modern mobile devices with automatic quality adjustment.
+            Results: consistent 60fps on high-end desktops at 1440p, 60fps on mid-range hardware at 1080p, and 30-60fps on modern mobile devices with automatic quality adjustment. The WASM simulation gracefully degrades—if it fails to load, the ocean falls back to shader-only rendering.
         </p>
 
         <!-- PHILOSOPHY SECTION -->
@@ -314,10 +312,13 @@ displacement.y += fbm(position.xz * 0.1 + time * 0.05) * 2.0;</code></pre>
         </p>
 
         <div class="tech-list">
-            <span class="tech-tag">Three.js r128</span>
+            <span class="tech-tag">C++</span>
+            <span class="tech-tag">WebAssembly</span>
+            <span class="tech-tag">Emscripten</span>
+            <span class="tech-tag">Three.js</span>
             <span class="tech-tag">WebGL 2.0</span>
-            <span class="tech-tag">GLSL ES 3.0</span>
-            <span class="tech-tag">Custom Shaders</span>
+            <span class="tech-tag">GLSL</span>
+            <span class="tech-tag">Kelvin-Voigt Solver</span>
             <span class="tech-tag">Fractal Brownian Motion</span>
             <span class="tech-tag">Simplex Noise</span>
             <span class="tech-tag">Raycasting</span>
