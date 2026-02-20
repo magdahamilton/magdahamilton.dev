@@ -88,11 +88,12 @@ h1 {
 }
 
 h2 {
-    font-size: 1.8rem;
+    font-size: clamp(2.2rem, 6vw, 4.5rem);
     font-weight: 300;
-    margin-bottom: 2rem;
-    letter-spacing: 2px;
+    margin: 4rem 0 1.5rem;
+    letter-spacing: -1px;
     text-transform: uppercase;
+    line-height: 1.05;
 }
 
 .subtitle {
@@ -401,7 +402,7 @@ section {
 }
 
 .content {
-    max-width: 800px;
+    max-width: 720px;
     margin: 0 auto;
     padding: 4rem 2rem;
 }
@@ -448,16 +449,72 @@ section {
 
 .version-section {
     background: rgba(42, 42, 42, 0.02);
-    padding: 2rem;
-    margin: 3rem 0;
+    padding: 2.5rem;
+    margin: 3rem -1rem;
     border-left: 3px solid #2a2a2a;
+    position: relative;
 }
 
 .version-section h3 {
-    font-size: 1.3rem;
+    font-size: 0.75rem;
     font-weight: 400;
-    margin-bottom: 1rem;
-    letter-spacing: 0.5px;
+    margin-bottom: 1.5rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #888;
+}
+
+/* ===== EDITORIAL MEDIA BREAKS ===== */
+.media-break {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.media-break img,
+.media-break video {
+    width: 100%;
+    height: 60vh;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(20%);
+}
+
+.media-break .media-caption {
+    position: absolute;
+    bottom: 1.5rem;
+    right: 2rem;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.7);
+    text-transform: uppercase;
+}
+
+/* ===== PULL QUOTE ===== */
+.pull-quote {
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    font-weight: 300;
+    line-height: 1.5;
+    letter-spacing: -0.3px;
+    color: #2a2a2a;
+    border-top: 2px solid #2a2a2a;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 2rem 0;
+    margin: 3.5rem 0;
+    font-style: italic;
+}
+
+/* ===== SECTION MARKER ===== */
+.section-marker {
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #aaa;
+    margin-bottom: 0.5rem;
+    display: block;
 }
 
 .cta {
@@ -491,19 +548,6 @@ footer {
     padding: 2rem 0;
     font-size: 0.9rem;
     color: #666;
-}
-
-/* ===== CODE BLOCKS ===== */
-pre {
-    overflow-x: auto;
-    max-width: 100%;
-    box-sizing: border-box;
-}
-
-pre code {
-    white-space: pre;
-    word-break: normal;
-    overflow-wrap: normal;
 }
 
 /* ===== RESPONSIVE DESIGN ===== */

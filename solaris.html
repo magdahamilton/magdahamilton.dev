@@ -167,6 +167,7 @@
         </div>
 
         <!-- CONCEPT SECTION -->
+        <span class="section-marker">01 — Concept</span>
         <h2 id="concept">The Concept</h2>
         <p>
             In Stanisław Lem's 1961 novel <em>Solaris</em>, scientists discover a planet-sized ocean that thinks—but operates on logic so alien that despite decades of research, humans cannot communicate with it or understand its purpose. It generates elaborate structures, materializes visitors' deepest memories, and maintains a stable orbit around two suns through incomprehensible means.
@@ -174,11 +175,15 @@
         <p>
             This project brings that entity to life: a living simulation driven by C++ physics running in WebAssembly. Beneath the visual surface, a Kelvin-Voigt viscoelastic solver models the ocean as sentient gel—not water—that stores stress, remembers past deformations, and actively shapes its own surface. The ocean responds to observation, but unpredictably. It creates formations that emerge and dissolve on their own timeline. It performs planetary-scale engineering that we can only glimpse through surface shimmer.
         </p>
+
+        <p class="pull-quote">The ocean isn't performing for you—it simply exists, and you're privileged to witness its incomprehensible work.</p>
+
         <p>
             Most "alien" experiences in digital media are just exotic versions of familiar patterns. Solaris explores something harder: consciousness that operates on fundamentally different logic. The ocean isn't performing for you—it simply exists, and you're privileged to witness its incomprehensible work.
         </p>
 
         <!-- THREE-BODY PROBLEM SECTION -->
+        <span class="section-marker">02 — Physics</span>
         <h2 id="three-body-problem">Solving the Three-Body Problem</h2>
         <p>
             One of the most fascinating aspects of Lem's novel: the planet orbits two suns—a configuration that should be gravitationally chaotic. In 1687, Newton formulated universal gravitation and could predict the motion of two celestial bodies perfectly. Then he tried to add a third body. The math disintegrated.
@@ -189,6 +194,26 @@
         <p>
             But Lem imagined something extraordinary: the ocean actively stabilizes its orbit through continuous mass redistribution. It doesn't solve the equations—it rewrites them constantly, treating the three-body problem not as a mathematical puzzle requiring an elegant solution, but as a control problem demanding constant intervention.
         </p>
+
+        <!-- THREE-BODY DIAGRAM -->
+        <div class="diagram-wrap">
+            <div class="diagram-label">Fig. 01 — Three-Body Gravitational System</div>
+            <canvas id="three-body-canvas" width="720" height="420"></canvas>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-dot" style="background:#c0392b;"></div>
+                    Red Giant (0.08 rad/s, r=250)
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background:#2980b9;"></div>
+                    Blue Dwarf (0.12 rad/s, r=220)
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background:#2a2a2a;"></div>
+                    Solaris (ocean stabilised)
+                </div>
+            </div>
+        </div>
 
         <div class="version-section">
             <h3>Implementing Gravitational Chaos</h3>
@@ -216,6 +241,14 @@ float blueEngineering = calculateEngineeringZone(uBlueSunPos, uBlueSunColor, 1);
         </div>
 
         <!-- OCEAN RENDERING SECTION -->
+        <div class="media-break">
+            <video autoplay loop muted playsinline poster="images/solaris1.jpg">
+                <source src="https://pub-9f205d406ae74fe29f7a63bd0a1e6df0.r2.dev/solaris_full.mp4" type="video/mp4">
+            </video>
+            <span class="media-caption">The living surface — viscoelastic physics rendered in real time</span>
+        </div>
+
+        <span class="section-marker">03 — Rendering</span>
         <h2 id="ocean-surface">The Living Surface</h2>
         <p>
             The ocean's visual surface is driven by two systems working together. Custom vertex and fragment shaders handle the rendering—multi-layered wave displacement with Fractal Brownian Motion creates a surface that never repeats. But underneath, a C++/WebAssembly simulation computes the actual physics: a 128×128 grid of cells, each tracking height, velocity, stress, strain, viscosity, elasticity, intent, and memory.
@@ -242,6 +275,7 @@ velocity *= damping;</code></pre>
         </div>
 
         <!-- FORMATIONS SECTION -->
+        <span class="section-marker">04 — Formations</span>
         <h2 id="formations">Emergent Formations</h2>
         <p>
             Five types of structures spawn spontaneously, each with a complete lifecycle—emergence, maturation, dissolution—weighted by rarity as described in Lem's novel:
@@ -265,6 +299,7 @@ velocity *= damping;</code></pre>
         </div>
 
         <!-- OBSERVATION SECTION -->
+        <span class="section-marker">05 — Observation</span>
         <h2 id="observation">Observation Response</h2>
         <p>
             The ocean notices when you're watching. Raycasting detects where the camera looks at the surface, and shader uniforms create localized "awareness" that spreads from observation points. Hover over the surface and it responds with rippling patterns and increased luminosity.
@@ -282,6 +317,7 @@ velocity *= damping;</code></pre>
         </div>
 
         <!-- ATMOSPHERE SECTION -->
+        <span class="section-marker">06 — Atmosphere</span>
         <h2 id="atmosphere">Atmospheric Effects</h2>
         <p>
             The simulation includes a multi-layered atmosphere: dynamic exponential fog that responds to sun position, shader-based surface mist with Simplex noise distortion, and periodic plasma eruptions—energy fountains with turbulent curl noise, temperature-based color gradients, and realistic particle physics.
@@ -291,6 +327,7 @@ velocity *= damping;</code></pre>
         </p>
 
         <!-- PERFORMANCE SECTION -->
+        <span class="section-marker">07 — Performance</span>
         <h2 id="performance">Performance</h2>
         <p>
             The C++ viscoelastic simulation runs in ~1-2ms per frame for the full 128×128 grid (16,384 cells). Heightmap and stressmap are uploaded to the GPU as Float32Array views directly into WASM memory—zero-copy texture transfer. The rendering pipeline uses a three-tier LOD system that adjusts ocean surface complexity based on camera distance (128, 64, or 32 segments), instanced geometries for formations and plasma, and shader optimizations including varying caching and precision management.
@@ -300,10 +337,14 @@ velocity *= damping;</code></pre>
         </p>
 
         <!-- PHILOSOPHY SECTION -->
+        <span class="section-marker">08 — Philosophy</span>
         <h2 id="philosophy">Design Philosophy</h2>
         <p>
             Unlike most interactive experiences, Solaris resists easy comprehension. There are no objectives, no progression systems, no explicit tutorials. The ocean operates on its own timeline. Formations emerge and dissolve without player input. This autonomy is crucial—you're not controlling anything, you're observing something that exists beyond your influence.
         </p>
+
+        <p class="pull-quote">Not everything needs to be understood, explained, or mastered.</p>
+
         <p>
             Not everything needs to be understood, explained, or mastered. Sometimes the goal is simply to create a space where wonder can exist—where we can confront our own inability to comprehend the truly alien.
         </p>
@@ -332,5 +373,186 @@ velocity *= damping;</code></pre>
     <footer>
         <p>© 2026 Magda Hamilton</p>
     </footer>
+
+    <style>
+        /* ===== THREE-BODY DIAGRAM ===== */
+        .diagram-wrap {
+            margin: 2.5rem 0 3rem;
+        }
+        .diagram-label {
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #aaa;
+            margin-bottom: 0.75rem;
+        }
+        #three-body-canvas {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-top: 2px solid #2a2a2a;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .legend {
+            display: flex;
+            gap: 2rem;
+            margin-top: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            color: #666;
+            text-transform: uppercase;
+        }
+        .legend-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+    </style>
+
+    <script>
+    (function() {
+        const canvas = document.getElementById('three-body-canvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const W = canvas.width, H = canvas.height;
+        const cx = W / 2, cy = H / 2;
+
+        const RED  = { angle: 0,             speed: 0.0008, radius: W * 0.33, size: 9,   color: '#c0392b', trail: [] };
+        const BLUE = { angle: Math.PI * 0.7, speed: 0.0014, radius: W * 0.29, size: 5.5, color: '#2980b9', trail: [] };
+        const TRAIL = 280;
+        const wobble = { x: 0, y: 0, vx: 0, vy: 0 };
+
+        function drawTrail(trail, r, g, b) {
+            for (let i = 1; i < trail.length; i++) {
+                const a = (i / trail.length) * 0.18;
+                ctx.beginPath();
+                ctx.moveTo(trail[i-1].x, trail[i-1].y);
+                ctx.lineTo(trail[i].x, trail[i].y);
+                ctx.strokeStyle = `rgba(${r},${g},${b},${a})`;
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+        }
+
+        function drawSun(body, pos) {
+            const g = ctx.createRadialGradient(pos.x, pos.y, 0, pos.x, pos.y, body.size * 5);
+            g.addColorStop(0, body.color + '55');
+            g.addColorStop(1, 'transparent');
+            ctx.beginPath(); ctx.arc(pos.x, pos.y, body.size * 5, 0, Math.PI*2);
+            ctx.fillStyle = g; ctx.fill();
+            ctx.beginPath(); ctx.arc(pos.x, pos.y, body.size, 0, Math.PI*2);
+            ctx.fillStyle = body.color; ctx.fill();
+        }
+
+        function arrow(x1, y1, x2, y2, color) {
+            const dx = x2-x1, dy = y2-y1, d = Math.sqrt(dx*dx+dy*dy);
+            const nx = dx/d, ny = dy/d;
+            ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2);
+            ctx.strokeStyle = color; ctx.lineWidth = 1; ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x2, y2);
+            ctx.lineTo(x2 - nx*5 + (-ny)*3, y2 - ny*5 + nx*3);
+            ctx.lineTo(x2 - nx*5 - (-ny)*3, y2 - ny*5 - nx*3);
+            ctx.closePath(); ctx.fillStyle = color; ctx.fill();
+        }
+
+        function frame() {
+            ctx.clearRect(0, 0, W, H);
+
+            // Grid
+            for (let x = 0; x < W; x += 40) {
+                ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H);
+                ctx.strokeStyle='rgba(42,42,42,0.04)'; ctx.lineWidth=1; ctx.stroke();
+            }
+            for (let y = 0; y < H; y += 40) {
+                ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y);
+                ctx.strokeStyle='rgba(42,42,42,0.04)'; ctx.lineWidth=1; ctx.stroke();
+            }
+
+            // Orbit rings
+            ctx.save(); ctx.setLineDash([3,8]);
+            ctx.beginPath(); ctx.arc(cx, cy, RED.radius, 0, Math.PI*2);
+            ctx.strokeStyle='rgba(192,57,43,0.1)'; ctx.lineWidth=0.5; ctx.stroke();
+            ctx.beginPath(); ctx.arc(cx, cy, BLUE.radius, 0, Math.PI*2);
+            ctx.strokeStyle='rgba(41,128,185,0.1)'; ctx.lineWidth=0.5; ctx.stroke();
+            ctx.restore();
+
+            RED.angle  += RED.speed;
+            BLUE.angle += BLUE.speed;
+
+            const rPos = { x: cx + Math.cos(RED.angle)  * RED.radius,  y: cy + Math.sin(RED.angle)  * RED.radius  * 0.38 };
+            const bPos = { x: cx + Math.cos(BLUE.angle) * BLUE.radius, y: cy + Math.sin(BLUE.angle) * BLUE.radius * 0.38 };
+
+            RED.trail.push({...rPos});  if (RED.trail.length  > TRAIL) RED.trail.shift();
+            BLUE.trail.push({...bPos}); if (BLUE.trail.length > TRAIL) BLUE.trail.shift();
+
+            drawTrail(RED.trail,  192, 57,  43);
+            drawTrail(BLUE.trail, 41,  128, 185);
+            drawSun(RED,  rPos);
+            drawSun(BLUE, bPos);
+
+            // Perturbation → planet wobble (ocean damps 95%)
+            const forces = [rPos, bPos].map(p => {
+                const dx = p.x - cx, dy = p.y - cy, d2 = dx*dx + dy*dy;
+                return { fx: (dx/d2)*800, fy: (dy/d2)*800 };
+            });
+            const totalFx = forces[0].fx + forces[1].fx;
+            const totalFy = forces[0].fy + forces[1].fy;
+            wobble.vx = (wobble.vx + totalFx * 0.05 * 0.002) * 0.92;
+            wobble.vy = (wobble.vy + totalFy * 0.05 * 0.002) * 0.92;
+            wobble.x  = (wobble.x + wobble.vx) * 0.97;
+            wobble.y  = (wobble.y + wobble.vy) * 0.97;
+
+            const stress = Math.min(Math.sqrt(totalFx*totalFx + totalFy*totalFy) / 60, 1);
+            const px = cx + wobble.x, py = cy + wobble.y;
+
+            // Stress glow
+            if (stress > 0.01) {
+                const sg = ctx.createRadialGradient(px, py, 0, px, py, 45);
+                sg.addColorStop(0, `rgba(180,120,60,${stress * 0.45})`);
+                sg.addColorStop(1, 'transparent');
+                ctx.beginPath(); ctx.arc(px, py, 45, 0, Math.PI*2);
+                ctx.fillStyle = sg; ctx.fill();
+            }
+
+            // Planet
+            ctx.beginPath(); ctx.arc(px, py, 13, 0, Math.PI*2);
+            ctx.fillStyle = '#2a2a2a'; ctx.fill();
+            ctx.font = '9px Courier New';
+            ctx.fillStyle = 'rgba(42,42,42,0.45)';
+            ctx.fillText('SOLARIS', px + 18, py + 3);
+
+            // Force arrows
+            [
+                { pos: rPos, color: 'rgba(192,57,43,0.28)' },
+                { pos: bPos, color: 'rgba(41,128,185,0.28)' }
+            ].forEach(({ pos, color }) => {
+                const dx = px - pos.x, dy = py - pos.y, d = Math.sqrt(dx*dx+dy*dy);
+                const mid = 0.45;
+                arrow(
+                    pos.x + dx*mid - (dx/d)*14, pos.y + dy*mid - (dy/d)*14,
+                    pos.x + dx*mid + (dx/d)*14, pos.y + dy*mid + (dy/d)*14,
+                    color
+                );
+            });
+
+            // Stress readout
+            ctx.font = '8px Courier New';
+            ctx.fillStyle = 'rgba(42,42,42,0.35)';
+            ctx.fillText(`ocean stress: ${(stress*100).toFixed(0)}%`,  12, H - 24);
+            ctx.fillText(`counteraction: ${(stress*95).toFixed(0)}%`, 12, H - 12);
+
+            requestAnimationFrame(frame);
+        }
+        frame();
+    })();
+    </script>
 </body>
 </html>
