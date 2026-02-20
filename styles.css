@@ -558,6 +558,37 @@ footer {
     color: #666;
 }
 
+/* ===== CODE BLOCKS ===== */
+pre {
+    overflow-x: auto;
+    max-width: 100%;
+    box-sizing: border-box;
+    background: #1a1a1a;
+    border-radius: 6px;
+    padding: 1.5rem;
+    margin: 1.5rem 0 2rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+}
+
+pre code {
+    white-space: pre;
+    word-break: normal;
+    overflow-wrap: normal;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: #d4d4d4;
+}
+
+:not(pre) > code {
+    background: rgba(42,42,42,0.08);
+    border: 1px solid rgba(42,42,42,0.15);
+    border-radius: 3px;
+    padding: 0.1em 0.4em;
+    font-size: 0.9em;
+    font-family: 'Courier New', monospace;
+}
+
 /* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
     h1 {
