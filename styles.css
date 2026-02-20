@@ -493,6 +493,19 @@ footer {
     color: #666;
 }
 
+/* ===== CODE BLOCKS ===== */
+pre {
+    overflow-x: auto;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+pre code {
+    white-space: pre;
+    word-break: normal;
+    overflow-wrap: normal;
+}
+
 /* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
     h1 {
