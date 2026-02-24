@@ -356,12 +356,12 @@
             <h3>Implementing Gravitational Chaos</h3>
             <p>I created two suns with fundamentally unstable orbits. The red giant moves slowly (0.08 rad/s) along a 250-unit radius orbit, while the blue dwarf races faster (0.12 rad/s) at 220 units. Their gravitational interference creates chaotic perturbations.</p>
             <p>But then the Ocean intervenes. Each frame, both sun positions feed into a C++ simulation running in WebAssembly. The solver computes tidal potential per cell across a 128×128 grid using the standard tidal force formula:</p>
-            <div class="code-block">
+            <div class="code-block is-collapsed">
                 <div class="code-block-header" onclick="toggleCode(this)">
                     <span class="code-block-lang">C++ / WASM — tidal force</span>
                     <span class="code-block-toggle">
                         <svg viewBox="0 0 10 6"><path d="M5 6L0 0h10z"/></svg>
-                        collapse
+                        expand
                     </span>
                 </div>
                 <div class="code-block-body">
@@ -383,12 +383,12 @@ cell.stress += counteraction_effort * dt * 0.5f;</code></pre>
         <div class="version-section">
             <h3>Visualizing the Engineering</h3>
             <p>The real challenge was making invisible work visible. In the fragment shader, I created "engineering zones" that appear where the Ocean is working hardest. When both suns align, pulsing patterns appear on the surface—FBM-based noise that simulates the Ocean's calculations made manifest:</p>
-            <div class="code-block">
+            <div class="code-block is-collapsed">
                 <div class="code-block-header" onclick="toggleCode(this)">
                     <span class="code-block-lang">GLSL — engineering zones</span>
                     <span class="code-block-toggle">
                         <svg viewBox="0 0 10 6"><path d="M5 6L0 0h10z"/></svg>
-                        collapse
+                        expand
                     </span>
                 </div>
                 <div class="code-block-body">
@@ -409,12 +409,12 @@ float blueEngineering = calculateEngineeringZone(uBlueSunPos, uBlueSunColor, 1);
         <div class="version-section">
             <h3>Viscoelastic Physics (C++/WASM)</h3>
             <p>The ocean is modeled as a Kelvin-Voigt viscoelastic gel—not water. Water follows the wave equation (∂²h/∂t² = c²∇²h); gel follows a fundamentally different model where stress equals elastic strain plus viscous resistance. This matters because gel <em>resists</em> deformation, <em>stores</em> stress, and releases energy in wobbles rather than clean waves:</p>
-            <div class="code-block">
+            <div class="code-block is-collapsed">
                 <div class="code-block-header" onclick="toggleCode(this)">
                     <span class="code-block-lang">C++ — Kelvin-Voigt viscoelastic solver</span>
                     <span class="code-block-toggle">
                         <svg viewBox="0 0 10 6"><path d="M5 6L0 0h10z"/></svg>
-                        collapse
+                        expand
                     </span>
                 </div>
                 <div class="code-block-body">
@@ -451,12 +451,12 @@ velocity *= damping;</code></pre>
             <p><strong>Mimoids</strong> — Undulating organic forms with fluid motion and membrane-like surfaces.</p>
             <p><strong>Vertebrids</strong> — Skeletal lattice structures with intricate internal geometry.</p>
             <p><strong>Extensors</strong> — The rarest formation. Sprawling horizontal networks with branch-like growth patterns.</p>
-            <div class="code-block">
+            <div class="code-block is-collapsed">
                 <div class="code-block-header" onclick="toggleCode(this)">
                     <span class="code-block-lang">JS — formation spawn weights</span>
                     <span class="code-block-toggle">
                         <svg viewBox="0 0 10 6"><path d="M5 6L0 0h10z"/></svg>
-                        collapse
+                        expand
                     </span>
                 </div>
                 <div class="code-block-body">
