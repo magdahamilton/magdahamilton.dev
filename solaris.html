@@ -46,6 +46,114 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     
     <link rel="stylesheet" href="styles.css">
+    <!-- Prism.js syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <style>
+        /* ===== CODE BLOCK UPGRADES ===== */
+
+        /* Collapsible wrapper */
+        .code-block {
+            margin: 1.5rem 0;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid #2a2a2a;
+        }
+
+        .code-block-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #1a1a1a;
+            padding: 0.55rem 1rem;
+            cursor: pointer;
+            user-select: none;
+            gap: 0.75rem;
+        }
+
+        .code-block-header:hover {
+            background: #222;
+        }
+
+        .code-block-lang {
+            font-family: 'Courier New', monospace;
+            font-size: 0.62rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #666;
+        }
+
+        .code-block-toggle {
+            font-family: 'Courier New', monospace;
+            font-size: 0.62rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #555;
+            white-space: nowrap;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .code-block-header:hover .code-block-toggle {
+            color: #999;
+        }
+
+        .code-block-toggle svg {
+            width: 10px;
+            height: 10px;
+            transition: transform 0.25s ease;
+            fill: currentColor;
+        }
+
+        .code-block.is-collapsed .code-block-toggle svg {
+            transform: rotate(-90deg);
+        }
+
+        .code-block-body {
+            overflow: hidden;
+            max-height: 800px;
+            transition: max-height 0.35s ease, opacity 0.25s ease;
+            opacity: 1;
+        }
+
+        .code-block.is-collapsed .code-block-body {
+            max-height: 0;
+            opacity: 0;
+        }
+
+        /* Override Prism styles to fit the site */
+        .code-block pre[class*="language-"] {
+            margin: 0;
+            border-radius: 0;
+            background: #111 !important;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            font-size: 0.78rem;
+            line-height: 1.65;
+            padding: 1.1rem 1.2rem;
+            scrollbar-width: thin;
+            scrollbar-color: #333 transparent;
+        }
+
+        .code-block pre[class*="language-"]::-webkit-scrollbar {
+            height: 4px;
+        }
+        .code-block pre[class*="language-"]::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .code-block pre[class*="language-"]::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 2px;
+        }
+
+        /* Mobile collapse hint */
+        @media (max-width: 600px) {
+            .code-block-header {
+                padding: 0.5rem 0.85rem;
+            }
+        }
+    </style>
     
     <!-- Enhanced Schema.org markup -->
     <script type="application/ld+json">
@@ -239,7 +347,16 @@
             <h3>Implementing Gravitational Chaos</h3>
             <p>I created two suns with fundamentally unstable orbits. The red giant moves slowly (0.08 rad/s) along a 250-unit radius orbit, while the blue dwarf races faster (0.12 rad/s) at 220 units. Their gravitational interference creates chaotic perturbations.</p>
             <p>But then the Ocean intervenes. Each frame, both sun positions feed into a C++ simulation running in WebAssembly. The solver computes tidal potential per cell across a 128×128 grid using the standard tidal force formula:</p>
-            <pre><code>// C++ WASM — tidal force per cell
+            <div class="code-block">
+                <div class="code-block-header" onclick="toggleCode(this)">
+                    <span class="code-block-lang">C++ / WASM — tidal force</span>
+                    <span class="code-block-toggle">
+                        <svg viewBox="0 0 10 6"><path d="M5 6L0 0h10z"/></svg>
+                        collapse
+                    </span>
+                </div>
+                <div class="code-block-body">
+                    <pre class="language-cpp"><code class="language-cpp">// C++ WASM — tidal force per cell
 float tidal = (3.0f * dot * dot - 1.0f) * 0.5f * sun_tidal;
 
 // The ocean counteracts 95% (gravitational engineering)
@@ -249,14 +366,27 @@ cell.velocity += leaked_force * dt;
 // Counteraction effort generates stress
 float counteraction_effort = fabsf(total_tidal) * 0.95f;
 cell.stress += counteraction_effort * dt * 0.5f;</code></pre>
+                </div>
+            </div>
             <p>The stress is exported as a texture and visualized in the fragment shader—warm glow where the ocean is working hardest. This isn't a visual trick: the glow corresponds to actual computed gravitational counteraction happening in C++ 60 times per second.</p>
         </div>
 
         <div class="version-section">
             <h3>Visualizing the Engineering</h3>
             <p>The real challenge was making invisible work visible. In the fragment shader, I created "engineering zones" that appear where the Ocean is working hardest. When both suns align, pulsing patterns appear on the surface—FBM-based noise that simulates the Ocean's calculations made manifest:</p>
-            <pre><code>float redEngineering = calculateEngineeringZone(uRedSunPos, uRedSunColor, 0);
+            <div class="code-block">
+                <div class="code-block-header" onclick="toggleCode(this)">
+                    <span class="code-block-lang">GLSL — engineering zones</span>
+                    <span class="code-block-toggle">
+                        <svg viewBox="0 0 10 6"><path d="M5 6L0 0h10z"/></svg>
+                        collapse
+                    </span>
+                </div>
+                <div class="code-block-body">
+                    <pre class="language-glsl"><code class="language-glsl">float redEngineering = calculateEngineeringZone(uRedSunPos, uRedSunColor, 0);
 float blueEngineering = calculateEngineeringZone(uBlueSunPos, uBlueSunColor, 1);</code></pre>
+                </div>
+            </div>
             <p>Where engineering zones overlap, they blend into purple—the Ocean simultaneously stabilizing against both gravitational pulls, its work visible in the interference pattern.</p>
         </div>
 
@@ -270,7 +400,16 @@ float blueEngineering = calculateEngineeringZone(uBlueSunPos, uBlueSunColor, 1);
         <div class="version-section">
             <h3>Viscoelastic Physics (C++/WASM)</h3>
             <p>The ocean is modeled as a Kelvin-Voigt viscoelastic gel—not water. Water follows the wave equation (∂²h/∂t² = c²∇²h); gel follows a fundamentally different model where stress equals elastic strain plus viscous resistance. This matters because gel <em>resists</em> deformation, <em>stores</em> stress, and releases energy in wobbles rather than clean waves:</p>
-            <pre><code>// C++ — Kelvin-Voigt viscoelastic solver
+            <div class="code-block">
+                <div class="code-block-header" onclick="toggleCode(this)">
+                    <span class="code-block-lang">C++ — Kelvin-Voigt viscoelastic solver</span>
+                    <span class="code-block-toggle">
+                        <svg viewBox="0 0 10 6"><path d="M5 6L0 0h10z"/></svg>
+                        collapse
+                    </span>
+                </div>
+                <div class="code-block-body">
+                    <pre class="language-cpp"><code class="language-cpp">// C++ — Kelvin-Voigt viscoelastic solver
 float elastic_force = -elasticity * (height - rest_position);
 float viscous_force = -viscosity * velocity;
 float neighbor_pull = (avg_neighbor_height - height) * stress_propagation;
@@ -279,6 +418,8 @@ velocity += (elastic_force + viscous_force + neighbor_pull) * dt;
 velocity += intent * intent_responsiveness;  // The ocean CHOOSES
 height += velocity * dt;
 velocity *= damping;</code></pre>
+                </div>
+            </div>
             <p>The intent field is what makes this alien: each cell can actively push itself in a direction the ocean "wants" to go. The simulation also maintains memory—the rest position drifts based on past deformations, so the ocean never quite returns to the same shape.</p>
         </div>
 
@@ -301,13 +442,24 @@ velocity *= damping;</code></pre>
             <p><strong>Mimoids</strong> — Undulating organic forms with fluid motion and membrane-like surfaces.</p>
             <p><strong>Vertebrids</strong> — Skeletal lattice structures with intricate internal geometry.</p>
             <p><strong>Extensors</strong> — The rarest formation. Sprawling horizontal networks with branch-like growth patterns.</p>
-            <pre><code>const spawnWeights = {
+            <div class="code-block">
+                <div class="code-block-header" onclick="toggleCode(this)">
+                    <span class="code-block-lang">JS — formation spawn weights</span>
+                    <span class="code-block-toggle">
+                        <svg viewBox="0 0 10 6"><path d="M5 6L0 0h10z"/></svg>
+                        collapse
+                    </span>
+                </div>
+                <div class="code-block-body">
+                    <pre class="language-javascript"><code class="language-javascript">const spawnWeights = {
     symmetriad: 0.35,    // Most common
     mimoid: 0.25,
     asymmetriad: 0.20,
     vertebrid: 0.12,
     extensor: 0.08       // Rarest
 };</code></pre>
+                </div>
+            </div>
             <p>Each formation "breathes" through subtle internal motion, rendered with translucent shaders and flowing 3D noise patterns, suggesting processes we can only glimpse.</p>
         </div>
 
@@ -414,6 +566,21 @@ velocity *= damping;</code></pre>
             flex-shrink: 0;
         }
     </style>
+
+    <!-- Prism.js syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-glsl.min.js"></script>
+
+    <script>
+    function toggleCode(header) {
+        const block = header.closest('.code-block');
+        const isCollapsed = block.classList.toggle('is-collapsed');
+        const toggleLabel = header.querySelector('.code-block-toggle');
+        // Update just the text node (after the svg)
+        toggleLabel.lastChild.textContent = isCollapsed ? ' expand' : ' collapse';
+    }
+    </script>
 
     <script>
     (function() {
