@@ -490,8 +490,21 @@ velocity *= damping;</code></pre>
             <p>Move your cursor slowly to see the Ocean "track" your movements with a delay. The longer you hover in one spot, the more intensely it responds.</p>
         </div>
 
+        <!-- RESEARCH STATION UI SECTION -->
+        <span class="section-marker">06 — Interface</span>
+        <h2 id="ui">Research Station UI</h2>
+        <p>
+            The simulation includes a CRT-styled research station terminal — toggled with <strong>H</strong> — that treats the experience as a scientific observation session rather than a game. It's designed to feel like equipment left behind by the researchers in Lem's novel: worn, functional, slightly glitchy.
+        </p>
+        <p>
+            The terminal displays live session telemetry: elapsed observation time, current ocean mood state, active formation count, tidal stress levels, and a surface mapping readout that updates as the simulation runs. Research logs accumulate entries as the ocean's behavior shifts — a record of what you witnessed, written in the language of science that can't quite contain what it's describing.
+        </p>
+        <p>
+            The aesthetic is intentional. A clean, modern UI would imply comprehension. The CRT terminal implies something older, less certain — instruments built by people who expected to understand more than they did.
+        </p>
+
         <!-- ATMOSPHERE SECTION -->
-        <span class="section-marker">06 — Atmosphere</span>
+        <span class="section-marker">07 — Atmosphere</span>
         <h2 id="atmosphere">Atmospheric Effects</h2>
         <p>
             The simulation includes a multi-layered atmosphere: dynamic exponential fog that responds to sun position, shader-based surface mist with Simplex noise distortion, and periodic plasma eruptions—energy fountains with turbulent curl noise, temperature-based color gradients, and realistic particle physics.
@@ -501,7 +514,7 @@ velocity *= damping;</code></pre>
         </p>
 
         <!-- PERFORMANCE SECTION -->
-        <span class="section-marker">07 — Performance</span>
+        <span class="section-marker">08 — Performance</span>
         <h2 id="performance">Performance</h2>
         <p>
             The C++ viscoelastic simulation runs in ~1-2ms per frame for the full 128×128 grid (16,384 cells). Heightmap and stressmap are uploaded to the GPU as Float32Array views directly into WASM memory—zero-copy texture transfer. The rendering pipeline uses a three-tier LOD system that adjusts ocean surface complexity based on camera distance (128, 64, or 32 segments), instanced geometries for formations and plasma, and shader optimizations including varying caching and precision management.
@@ -511,7 +524,7 @@ velocity *= damping;</code></pre>
         </p>
 
         <!-- PHILOSOPHY SECTION -->
-        <span class="section-marker">08 — Philosophy</span>
+        <span class="section-marker">09 — Philosophy</span>
         <h2 id="philosophy">Design Philosophy</h2>
         <p>
             Unlike most interactive experiences, Solaris resists easy comprehension. There are no objectives, no progression systems, no explicit tutorials. The ocean operates on its own timeline. Formations emerge and dissolve without player input. This autonomy is crucial—you're not controlling anything, you're observing something that exists beyond your influence.
