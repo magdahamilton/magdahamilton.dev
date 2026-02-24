@@ -57,6 +57,10 @@
             border-radius: 6px;
             overflow: hidden;
             border: 1px solid #2a2a2a;
+            max-width: 100%;
+            box-sizing: border-box;
+            /* prevent block from escaping parent on mobile */
+            width: 100%;
         }
 
         .code-block-header {
@@ -79,7 +83,7 @@
             font-size: 0.62rem;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: #666;
+            color: #aaa;
         }
 
         .code-block-toggle {
@@ -87,7 +91,7 @@
             font-size: 0.62rem;
             letter-spacing: 1.5px;
             text-transform: uppercase;
-            color: #555;
+            color: #888;
             white-space: nowrap;
             transition: color 0.2s;
             display: flex;
@@ -96,7 +100,7 @@
         }
 
         .code-block-header:hover .code-block-toggle {
-            color: #999;
+            color: #ccc;
         }
 
         .code-block-toggle svg {
@@ -134,6 +138,11 @@
             padding: 1.1rem 1.2rem;
             scrollbar-width: thin;
             scrollbar-color: #333 transparent;
+            /* critical: prevent pre from blowing out the container */
+            max-width: 100%;
+            box-sizing: border-box;
+            word-wrap: normal;
+            white-space: pre;
         }
 
         .code-block pre[class*="language-"]::-webkit-scrollbar {
