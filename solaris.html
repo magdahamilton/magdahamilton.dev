@@ -589,6 +589,230 @@ velocity *= damping;</code></pre>
         }
     </style>
 
+    <!-- FLOATING TABLE OF CONTENTS -->
+    <div class="toc-fab" id="tocFab" onclick="toggleToc()">
+        <span class="toc-fab-label">CONTENTS</span>
+        <svg class="toc-fab-icon" viewBox="0 0 16 16">
+            <rect x="0" y="2" width="16" height="1.5"/>
+            <rect x="0" y="7.25" width="16" height="1.5"/>
+            <rect x="0" y="12.5" width="16" height="1.5"/>
+        </svg>
+    </div>
+
+    <div class="toc-panel" id="tocPanel">
+        <div class="toc-panel-header">
+            <span>Contents</span>
+            <button class="toc-close" onclick="toggleToc()">✕</button>
+        </div>
+        <div class="toc-nav">
+            <a href="#concept"            onclick="toggleToc()"><span class="toc-num">01</span>The Concept</a>
+            <a href="#three-body-problem" onclick="toggleToc()"><span class="toc-num">02</span>Physics</a>
+            <a href="#ocean-surface"      onclick="toggleToc()"><span class="toc-num">03</span>Rendering</a>
+            <a href="#formations"         onclick="toggleToc()"><span class="toc-num">04</span>Formations</a>
+            <a href="#observation"        onclick="toggleToc()"><span class="toc-num">05</span>Observation</a>
+            <a href="#ui"                 onclick="toggleToc()"><span class="toc-num">06</span>Research Station UI</a>
+            <a href="#atmosphere"         onclick="toggleToc()"><span class="toc-num">07</span>Atmosphere</a>
+            <a href="#performance"        onclick="toggleToc()"><span class="toc-num">08</span>Performance</a>
+            <a href="#philosophy"         onclick="toggleToc()"><span class="toc-num">09</span>Philosophy</a>
+        </div>
+    </div>
+
+    <div class="toc-backdrop" id="tocBackdrop" onclick="toggleToc()"></div>
+
+    <style>
+        /* ===== FLOATING TOC ===== */
+        .toc-fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1100;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: #2a2a2a;
+            color: #fafaf8;
+            padding: 0.65rem 1rem 0.65rem 1.1rem;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 0.62rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: background 0.2s, transform 0.2s;
+            user-select: none;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+        }
+
+        .toc-fab:hover {
+            background: #111;
+            transform: translateY(-2px);
+        }
+
+        .toc-fab-icon {
+            width: 14px;
+            height: 14px;
+            fill: #fafaf8;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .toc-fab.is-open .toc-fab-icon {
+            transform: rotate(90deg);
+        }
+
+        .toc-panel {
+            position: fixed;
+            bottom: 4.5rem;
+            right: 2rem;
+            z-index: 1099;
+            background: #fafaf8;
+            border: 1px solid #2a2a2a;
+            min-width: 240px;
+            max-height: calc(100vh - 8rem);
+            overflow-y: auto;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.14);
+            transform: translateY(12px) scale(0.97);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.22s ease, transform 0.22s ease;
+            transform-origin: bottom right;
+        }
+
+        .toc-panel.is-open {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateY(0) scale(1);
+        }
+
+        .toc-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 0.62rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #999;
+        }
+
+        .toc-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.75rem;
+            color: #999;
+            padding: 0;
+            font-family: inherit;
+            transition: color 0.2s;
+            line-height: 1;
+        }
+
+        .toc-close:hover { color: #2a2a2a; }
+
+        .toc-nav {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .toc-nav a,
+        .toc-nav a:visited {
+            display: flex !important;
+            align-items: baseline;
+            gap: 0.75rem;
+            padding: 0.65rem 1rem !important;
+            text-decoration: none !important;
+            color: #2a2a2a !important;
+            font-size: 0.78rem !important;
+            letter-spacing: 0.3px !important;
+            border-bottom: 1px solid rgba(224,224,224,0.5) !important;
+            transition: background 0.15s, padding-left 0.15s !important;
+            opacity: 1 !important;
+            background: transparent;
+        }
+
+        .toc-nav a:last-child { border-bottom: none !important; }
+
+        .toc-nav a:hover {
+            background: rgba(42,42,42,0.04) !important;
+            padding-left: 1.3rem !important;
+            opacity: 1 !important;
+        }
+
+        .toc-nav a.is-active {
+            font-weight: 600 !important;
+        }
+
+        .toc-nav a.is-active .toc-num {
+            color: #2a2a2a !important;
+        }
+
+        .toc-num {
+            font-size: 0.58rem;
+            letter-spacing: 1.5px;
+            color: #bbb;
+            flex-shrink: 0;
+            width: 18px;
+        }
+
+        .toc-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1098;
+        }
+
+        .toc-backdrop.is-open { display: block; }
+
+        @media (max-width: 600px) {
+            .toc-fab {
+                bottom: 1.5rem;
+                right: 1.5rem;
+            }
+            .toc-panel {
+                right: 1.5rem;
+                bottom: 5rem;
+                min-width: 200px;
+            }
+            .toc-fab-label {
+                display: none;
+            }
+            .toc-fab {
+                padding: 0.75rem;
+            }
+        }
+    </style>
+
+    <script>
+    function toggleToc() {
+        const panel = document.getElementById('tocPanel');
+        const fab   = document.getElementById('tocFab');
+        const back  = document.getElementById('tocBackdrop');
+        const open  = panel.classList.toggle('is-open');
+        fab.classList.toggle('is-open', open);
+        back.classList.toggle('is-open', open);
+    }
+
+    // Highlight active section as user scrolls
+    (function() {
+        const links = document.querySelectorAll('.toc-nav a');
+        const ids   = [...links].map(a => a.getAttribute('href').slice(1));
+
+        function onScroll() {
+            let current = ids[0];
+            for (const id of ids) {
+                const el = document.getElementById(id);
+                if (el && el.getBoundingClientRect().top <= 120) current = id;
+            }
+            links.forEach(a => {
+                a.classList.toggle('is-active', a.getAttribute('href') === '#' + current);
+            });
+        }
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+    })();
+    </script>
+
     <!-- Prism.js syntax highlighting -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>

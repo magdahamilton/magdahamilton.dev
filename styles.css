@@ -579,7 +579,8 @@ footer {
 }
 
 /* ===== CODE BLOCKS ===== */
-pre {
+/* Only apply to pre blocks outside of .code-block (which has its own styles) */
+pre:not(.code-block *) {
     overflow-x: auto;
     max-width: 100%;
     box-sizing: border-box;
@@ -591,7 +592,7 @@ pre {
     -webkit-overflow-scrolling: touch;
 }
 
-pre code {
+pre:not(.code-block *) code {
     white-space: pre;
     word-break: normal;
     overflow-wrap: normal;
@@ -699,7 +700,7 @@ pre code {
         height: 200px;
     }
 
-    pre {
+    pre:not(.code-block *) {
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
         max-width: 100%;
@@ -707,7 +708,7 @@ pre code {
         margin-right: 0;
     }
 
-    pre code {
+    pre:not(.code-block *) code {
         display: block;
         min-width: max-content;
     }
