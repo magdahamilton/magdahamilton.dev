@@ -545,6 +545,11 @@ section {
     display: block;
 }
 
+/* Offset anchor jump targets to clear the fixed nav + section-marker above */
+.content h2[id] {
+    scroll-margin-top: 8rem;
+}
+
 .cta {
     text-align: center;
     margin: 4rem 0 2rem;
