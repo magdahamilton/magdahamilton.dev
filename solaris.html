@@ -161,6 +161,20 @@
             .code-block-header {
                 padding: 0.5rem 0.85rem;
             }
+
+            .code-block {
+                /* prevent block from stretching viewport */
+                max-width: calc(100vw - 3rem);
+            }
+
+            .code-block pre[class*="language-"] {
+                font-size: 0.65rem;
+                padding: 0.85rem 0.9rem;
+            }
+
+            .code-block code[class*="language-"] {
+                font-size: 0.65rem;
+            }
         }
     </style>
     
