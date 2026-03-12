@@ -51,7 +51,11 @@
       "jobTitle": ["Graphics & Design Engineer", "Creative Technologist"],
       "description": "Graphics & Design Engineer and Creative Technologist exploring the intersection of interaction design, computation, and systems thinking. Founder of Velvet Disruption.",
       "url": "https://magdahamilton.dev",
-      "image": "https://magdahamilton.dev/images/og-image.jpg",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://magdahamilton.dev/images/magda-hamilton.jpg",
+        "caption": "Headshot of Magda Hamilton, Creative Technologist and Founder at Velvet Disruption"
+      },
       "email": "hi@magdahamilton.dev",
       "birthPlace": {
         "@type": "Place",
@@ -62,15 +66,35 @@
           "addressCountry": "US"
         }
       },
-     "nationality": {
-   "@type": "Country",
-   "name": "United States"
-},
-"image": {
-   "@type": "ImageObject",
-   "url": "https://magdahamilton.dev/images/magda-hamilton.jpg",
-   "caption": "Headshot of Magda Hamilton, Creative Technologist and Founder at Velvet Disruption"
-},
+      "nationality": {
+        "@type": "Country",
+        "name": "United States"
+      },
+      "hasCredential": [
+        {
+          "@type": "EducationalOccupationalCredential",
+          "name": "Delegate, 69th UN Commission on the Status of Women (CSW69)",
+          "credentialCategory": "appointment",
+          "recognizedBy": {
+            "@type": "Organization",
+            "name": "United Nations",
+            "url": "https://www.un.org"
+          },
+          "dateCreated": "2025-01"
+        },
+        {
+          "@type": "EducationalOccupationalCredential",
+          "name": "Delegate, 70th UN Commission on the Status of Women (CSW70)",
+          "credentialCategory": "appointment",
+          "description": "Delegate nominated by UN Women UK. Participated in panels on artificial intelligence, digital governance, and gender justice.",
+          "recognizedBy": {
+            "@type": "Organization",
+            "name": "United Nations",
+            "url": "https://www.un.org"
+          },
+          "dateCreated": "2026-01"
+        }
+      ],
       "sameAs": [
         "https://www.crunchbase.com/person/magda-hamilton",
         "https://github.com/magdahamilton",
@@ -231,7 +255,7 @@
             </a>
         </div>
     </nav>
-
+ 
     <div class="container">
         <section id="about">
             <h1>Magda Hamilton</h1>
@@ -248,7 +272,7 @@
 </div>
             <div class="tech-stack" id="techStack"></div>
         </section>
-
+ 
         <section id="portfolio">
             <h2>Selected Projects</h2>
             <div class="projects-list">
@@ -304,7 +328,7 @@
             </div>
         </section>
     </div>
-
+ 
     <footer>
         <p>© 2026 Magda Hamilton</p>
     </footer>
