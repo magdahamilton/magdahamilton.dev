@@ -15,7 +15,7 @@
     <title>Solaris - Interactive WebGL Ocean Simulation | Magda Hamilton</title>
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="An interactive simulation inspired by Stanisław Lem's Solaris. A sentient ocean driven by C++/WebAssembly viscoelastic physics, with real-time tidal force computation, observation-responsive behavior, and AI-driven mimoid formations. Built with Three.js, custom GLSL shaders, and Emscripten.">
+    <meta name="description" content="An interactive simulation inspired by Stanisław Lem's Solaris. A sentient ocean driven by C++/WebAssembly viscoelastic physics, with real-time tidal force computation, observation-responsive behavior, generative fungoid formations, and AI-driven mimoid formations. Built with Three.js, custom GLSL shaders, and Emscripten.">
     <meta name="keywords" content="Solaris, Stanisław Lem, C++, WebAssembly, viscoelastic simulation, WebGL, Three.js, ocean simulation, interactive art, creative technology, GLSL shaders, Magda Hamilton, three-body problem, Emscripten, real-time physics, creative coding, generative art">
     <meta name="author" content="Magda Hamilton">
     
@@ -50,7 +50,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
     <style>
         /* ===== CODE BLOCK UPGRADES ===== */
-
+ 
         /* Collapsible wrapper */
         .code-block {
             margin: 1.5rem 0;
@@ -62,7 +62,7 @@
             /* prevent block from escaping parent on mobile */
             width: 100%;
         }
-
+ 
         .code-block-header {
             display: flex;
             align-items: center;
@@ -73,11 +73,11 @@
             user-select: none;
             gap: 0.75rem;
         }
-
+ 
         .code-block-header:hover {
             background: #222;
         }
-
+ 
         .code-block-lang {
             font-family: 'Courier New', monospace;
             font-size: 0.62rem;
@@ -85,7 +85,7 @@
             text-transform: uppercase;
             color: #aaa;
         }
-
+ 
         .code-block-toggle {
             font-family: 'Courier New', monospace;
             font-size: 0.62rem;
@@ -98,34 +98,34 @@
             align-items: center;
             gap: 0.4rem;
         }
-
+ 
         .code-block-header:hover .code-block-toggle {
             color: #ccc;
         }
-
+ 
         .code-block-toggle svg {
             width: 10px;
             height: 10px;
             transition: transform 0.25s ease;
             fill: currentColor;
         }
-
+ 
         .code-block.is-collapsed .code-block-toggle svg {
             transform: rotate(-90deg);
         }
-
+ 
         .code-block-body {
             overflow: hidden;
             max-height: 800px;
             transition: max-height 0.35s ease, opacity 0.25s ease;
             opacity: 1;
         }
-
+ 
         .code-block.is-collapsed .code-block-body {
             max-height: 0;
             opacity: 0;
         }
-
+ 
         /* Override Prism styles to fit the site */
         .code-block pre[class*="language-"] {
             margin: 0;
@@ -144,7 +144,7 @@
             word-wrap: normal;
             white-space: pre;
         }
-
+ 
         .code-block pre[class*="language-"]::-webkit-scrollbar {
             height: 4px;
         }
@@ -155,23 +155,23 @@
             background: #333;
             border-radius: 2px;
         }
-
+ 
         /* Mobile collapse hint */
         @media (max-width: 600px) {
             .code-block-header {
                 padding: 0.5rem 0.85rem;
             }
-
+ 
             .code-block {
                 /* prevent block from stretching viewport */
                 max-width: calc(100vw - 3rem);
             }
-
+ 
             .code-block pre[class*="language-"] {
                 font-size: 0.65rem;
                 padding: 0.85rem 0.9rem;
             }
-
+ 
             .code-block code[class*="language-"] {
                 font-size: 0.65rem;
             }
@@ -264,7 +264,7 @@
             </a>
         </div>
     </nav>
-
+ 
     <div class="hero">
         <video class="hero-video" autoplay loop muted playsinline poster="images/solaris1.jpg">
             <source src="https://pub-9f205d406ae74fe29f7a63bd0a1e6df0.r2.dev/solaris_full.mp4" type="video/mp4">
@@ -276,7 +276,7 @@
             </div>
         </div>
     </div>
-
+ 
     <div class="content">
         <div class="project-meta">
             <div class="meta-item">
@@ -296,7 +296,7 @@
                 <div class="meta-value"><a href="https://solaris.observer" target="_blank" rel="noopener noreferrer" style="white-space: nowrap;">solaris.observer ↗</a></div>
             </div>
         </div>
-
+ 
         <div style="margin-bottom: 2rem;">
             <div class="meta-label">Tech Stack</div>
             <div class="tech-list">
@@ -316,7 +316,7 @@
                 <span class="tech-tag">Instanced Rendering</span>
             </div>
         </div>
-
+ 
         <!-- CONCEPT SECTION -->
         <span class="section-marker">01 — Concept</span>
         <h2 id="concept">The Concept</h2>
@@ -326,13 +326,13 @@
         <p>
             This project brings that entity to life: a living simulation driven by C++ physics running in WebAssembly. Beneath the visual surface, a Kelvin-Voigt viscoelastic solver models the ocean as sentient gel—not water—that stores stress, remembers past deformations, and actively shapes its own surface. The ocean responds to observation, but unpredictably. It creates formations that emerge and dissolve on their own timeline. It performs planetary-scale engineering that we can only glimpse through surface shimmer.
         </p>
-
+ 
         <p class="pull-quote">You're studying it. But it's also studying you.</p>
-
+ 
         <p>
             Most "alien" experiences in digital media are just exotic versions of familiar patterns. Solaris explores something harder: consciousness that operates on fundamentally different logic. The ocean doesn't perform for you — it observes you back, with the same detached curiosity you bring to it.
         </p>
-
+ 
         <!-- THREE-BODY PROBLEM SECTION -->
         <span class="section-marker">02 — Physics</span>
         <h2 id="three-body-problem">Solving the Three-Body Problem</h2>
@@ -345,7 +345,7 @@
         <p>
             But Lem imagined something extraordinary: the ocean actively stabilizes its orbit through continuous mass redistribution. It doesn't solve the equations—it rewrites them constantly, treating the three-body problem not as a mathematical puzzle requiring an elegant solution, but as a control problem demanding constant intervention.
         </p>
-
+ 
         <!-- THREE-BODY DIAGRAM -->
         <div class="diagram-wrap">
             <div class="diagram-label">Fig. 01 — Three-Body Gravitational System</div>
@@ -365,7 +365,7 @@
                 </div>
             </div>
         </div>
-
+ 
         <div class="version-section">
             <h3>Implementing Gravitational Chaos</h3>
             <p>I created two suns with fundamentally unstable orbits. The red giant moves slowly (0.08 rad/s) along a 250-unit radius orbit, while the blue dwarf races faster (0.12 rad/s) at 220 units. Their gravitational interference creates chaotic perturbations.</p>
@@ -381,11 +381,11 @@
                 <div class="code-block-body">
                     <pre class="language-cpp"><code class="language-cpp">// C++ WASM — tidal force per cell
 float tidal = (3.0f * dot * dot - 1.0f) * 0.5f * sun_tidal;
-
+ 
 // The ocean counteracts 95% (gravitational engineering)
 float leaked_force = total_tidal * 0.05f;
 cell.velocity += leaked_force * dt;
-
+ 
 // Counteraction effort generates stress
 float counteraction_effort = fabsf(total_tidal) * 0.95f;
 cell.stress += counteraction_effort * dt * 0.5f;</code></pre>
@@ -393,7 +393,7 @@ cell.stress += counteraction_effort * dt * 0.5f;</code></pre>
             </div>
             <p>The stress is exported as a texture and visualized in the fragment shader—warm glow where the ocean is working hardest. This isn't a visual trick: the glow corresponds to actual computed gravitational counteraction happening in C++ 60 times per second.</p>
         </div>
-
+ 
         <div class="version-section">
             <h3>Visualizing the Engineering</h3>
             <p>The real challenge was making invisible work visible. In the fragment shader, I created "engineering zones" that appear where the Ocean is working hardest. When both suns align, pulsing patterns appear on the surface—FBM-based noise that simulates the Ocean's calculations made manifest:</p>
@@ -412,14 +412,14 @@ float blueEngineering = calculateEngineeringZone(uBlueSunPos, uBlueSunColor, 1);
             </div>
             <p>Where engineering zones overlap, they blend into purple—the Ocean simultaneously stabilizing against both gravitational pulls, its work visible in the interference pattern.</p>
         </div>
-
+ 
         <!-- OCEAN RENDERING SECTION -->
         <span class="section-marker">03 — Rendering</span>
         <h2 id="ocean-surface">The Living Surface</h2>
         <p>
             The ocean's visual surface is driven by two systems working together. Custom vertex and fragment shaders handle the rendering—multi-layered wave displacement with Fractal Brownian Motion creates a surface that never repeats. But underneath, a C++/WebAssembly simulation computes the actual physics: a 128×128 grid of cells, each tracking height, velocity, stress, strain, viscosity, elasticity, intent, and memory.
         </p>
-
+ 
         <div class="version-section">
             <h3>Viscoelastic Physics (C++/WASM)</h3>
             <p>The ocean is modeled as a Kelvin-Voigt viscoelastic gel—not water. Water follows the wave equation (∂²h/∂t² = c²∇²h); gel follows a fundamentally different model where stress equals elastic strain plus viscous resistance. This matters because gel <em>resists</em> deformation, <em>stores</em> stress, and releases energy in wobbles rather than clean waves:</p>
@@ -436,7 +436,7 @@ float blueEngineering = calculateEngineeringZone(uBlueSunPos, uBlueSunColor, 1);
 float elastic_force = -elasticity * (height - rest_position);
 float viscous_force = -viscosity * velocity;
 float neighbor_pull = (avg_neighbor_height - height) * stress_propagation;
-
+ 
 velocity += (elastic_force + viscous_force + neighbor_pull) * dt;
 velocity += intent * intent_responsiveness;  // The ocean CHOOSES
 height += velocity * dt;
@@ -445,26 +445,27 @@ velocity *= damping;</code></pre>
             </div>
             <p>The intent field is what makes this alien: each cell can actively push itself in a direction the ocean "wants" to go. The simulation also maintains memory—the rest position drifts based on past deformations, so the ocean never quite returns to the same shape.</p>
         </div>
-
+ 
         <div class="version-section">
             <h3>Mood-Driven Material Properties</h3>
             <p>The ocean's mood directly changes the physics. When agitated, viscosity drops and stress propagation increases—the gel becomes volatile and reactive. When aloof, viscosity rises dramatically—the ocean becomes sluggish, barely responding. When curious, elasticity peaks—the surface becomes springy and reaching. These aren't visual parameters; they're material properties in the C++ solver that change how the physics behaves.</p>
         </div>
-
+ 
         <!-- FORMATIONS SECTION -->
         <span class="section-marker">04 — Formations</span>
         <h2 id="formations">Emergent Formations</h2>
         <p>
-            Five types of structures spawn spontaneously, each with a complete lifecycle—emergence, maturation, dissolution—weighted by rarity as described in Lem's novel:
+            Six types of structures spawn spontaneously, each with a complete lifecycle—emergence, maturation, dissolution—weighted by rarity as described in Lem's novel:
         </p>
-
+ 
         <div class="version-section">
             <h3>Formation Types</h3>
             <p><strong>Symmetriads</strong> — Perfect radial symmetry, 6-12 arms, slow rotation. The most common formation.</p>
             <p><strong>Asymmetriads</strong> — Towering vertical structures, 50-100m height, irregular shapes that defy easy classification.</p>
             <p><strong>Mimoids</strong> — Undulating organic forms with fluid motion and membrane-like surfaces.</p>
-            <p><strong>Vertebrids</strong> — Skeletal lattice structures with intricate internal geometry.</p>
+            <p><strong>Vertebrids</strong> — Skeletal lattice structures with L-system branching, membrane webbing between ribs, and pearlescent bone-like material. They emerge frozen and are abandoned by the ocean.</p>
             <p><strong>Extensors</strong> — The rarest formation. Sprawling horizontal networks with branch-like growth patterns.</p>
+            <p><strong>Fungoids</strong> — Ghostly translucent structures the ocean extrudes and reabsorbs. Four generative variants (Cap, Filament, Bloom, Columnar), each built from a probability-gated decision tree so every instance is architecturally unique. Inspired by Lem's descriptions of organic forms that swell upward, hold shape briefly, then melt back into the surface.</p>
             <div class="code-block is-collapsed">
                 <div class="code-block-header" onclick="toggleCode(this)">
                     <span class="code-block-lang">JS — formation spawn weights</span>
@@ -474,18 +475,22 @@ velocity *= damping;</code></pre>
                     </span>
                 </div>
                 <div class="code-block-body">
-                    <pre class="language-javascript"><code class="language-javascript">const spawnWeights = {
-    symmetriad: 0.35,    // Most common
-    mimoid: 0.25,
-    asymmetriad: 0.20,
-    vertebrid: 0.12,
-    extensor: 0.08       // Rarest
+                    <pre class="language-javascript"><code class="language-javascript">this.typeConfig = {
+    symmetriad:        { weight: 2, lifespan: [30, 40] },
+    asymmetriad:       { weight: 2, lifespan: [20, 30] },
+    mimoid:            { weight: 3, lifespan: [15, 25] },
+    extensor:          { weight: 3, lifespan: [10, 18] },
+    vertebrid:         { weight: 1, lifespan: [12, 20] },
+    'fungoid-cap':     { weight: 2, lifespan: [18, 30] },
+    'fungoid-filament':{ weight: 1, lifespan: [15, 25] },
+    'fungoid-bloom':   { weight: 1, lifespan: [12, 20] },
+    'fungoid-columnar':{ weight: 1, lifespan: [16, 26] },
 };</code></pre>
                 </div>
             </div>
             <p>Each formation "breathes" through subtle internal motion, rendered with translucent shaders and flowing 3D noise patterns, suggesting processes we can only glimpse.</p>
         </div>
-
+ 
         <!-- OBSERVATION SECTION -->
         <span class="section-marker">05 — Observation</span>
         <h2 id="observation">Observation Response</h2>
@@ -495,7 +500,7 @@ velocity *= damping;</code></pre>
         <p>
             But the behavior changes unpredictably every 15-30 seconds: sometimes curious, reaching toward your cursor; sometimes aloof, barely acknowledging you; occasionally recoiling, as if disturbed by observation. This unpredictability reflects Lem's concept—you're studying it, but it's also studying you.
         </p>
-
+ 
         <div class="version-section">
             <h3>How to Interact</h3>
             <p><strong>Movement:</strong> WASD or Arrow Keys. When close (< 8 units), walk on the surface. When far (> 8 units), orbit around the planet.</p>
@@ -503,7 +508,7 @@ velocity *= damping;</code></pre>
             <p><strong>Zoom:</strong> Mouse wheel, or Q/Space to zoom out, E/Shift to zoom in.</p>
             <p>Move your cursor slowly to see the Ocean "track" your movements with a delay. The longer you hover in one spot, the more intensely it responds.</p>
         </div>
-
+ 
         <!-- RESEARCH STATION UI SECTION -->
         <span class="section-marker">06 — Interface</span>
         <h2 id="ui">Research Station UI</h2>
@@ -516,7 +521,7 @@ velocity *= damping;</code></pre>
         <p>
             The aesthetic is intentional. A clean, modern UI would imply comprehension. The CRT terminal implies something older, less certain — instruments built by people who expected to understand more than they did.
         </p>
-
+ 
         <!-- ATMOSPHERE SECTION -->
         <span class="section-marker">07 — Atmosphere</span>
         <h2 id="atmosphere">Atmospheric Effects</h2>
@@ -526,7 +531,7 @@ velocity *= damping;</code></pre>
         <p>
             The starfield uses three depth layers with realistic stellar classification (O, B, A, F, G, K, M spectral types) and subtle parallax as the camera moves. Bioluminescence manifests as internal light orbs with pulsing shaders and electric discharge effects beneath the surface.
         </p>
-
+ 
         <!-- PERFORMANCE SECTION -->
         <span class="section-marker">08 — Performance</span>
         <h2 id="performance">Performance</h2>
@@ -536,23 +541,23 @@ velocity *= damping;</code></pre>
         <p>
             Results: consistent 60fps on high-end desktops at 1440p, 60fps on mid-range hardware at 1080p, and 30-60fps on modern mobile devices with automatic quality adjustment. The WASM simulation gracefully degrades—if it fails to load, the ocean falls back to shader-only rendering.
         </p>
-
+ 
         <!-- PHILOSOPHY SECTION -->
         <span class="section-marker">09 — Philosophy</span>
         <h2 id="philosophy">Design Philosophy</h2>
         <p>
             Unlike most interactive experiences, Solaris resists easy comprehension. There are no objectives, no progression systems, no explicit tutorials. The ocean operates on its own timeline. Formations emerge and dissolve without player input. This autonomy is crucial—you're not controlling anything, you're observing something that exists beyond your influence.
         </p>
-
+ 
         <p class="pull-quote">Not everything needs to be understood, explained, or mastered.</p>
-
+ 
         <p>
             Sometimes the goal is simply to create a space where wonder can exist—where we can confront our own inability to comprehend the truly alien.
         </p>
         <p>
             The result is a simulation that captures what makes Lem's Ocean so unsettling: it doesn't communicate through language or symbols. It communicates through work—through the constant, tireless effort of keeping its world stable. Every glowing pattern on the surface, every pulsing engineering zone, every shimmer of residual chaos is the Ocean saying something we can observe but never fully understand.
         </p>
-
+ 
         <div class="cta">
             <a href="https://solaris.observer" target="_blank" rel="noopener noreferrer" class="btn">Experience Solaris</a>
         </div>
@@ -560,7 +565,7 @@ velocity *= damping;</code></pre>
     <footer>
         <p>© 2026 Magda Hamilton</p>
     </footer>
-
+ 
     <style>
         /* ===== THREE-BODY DIAGRAM ===== */
         .diagram-wrap {
@@ -602,7 +607,7 @@ velocity *= damping;</code></pre>
             flex-shrink: 0;
         }
     </style>
-
+ 
     <!-- FLOATING TABLE OF CONTENTS -->
     <div class="toc-fab" id="tocFab" onclick="toggleToc()">
         <span class="toc-fab-label">CONTENTS</span>
@@ -612,7 +617,7 @@ velocity *= damping;</code></pre>
             <rect x="0" y="12.5" width="16" height="1.5"/>
         </svg>
     </div>
-
+ 
     <div class="toc-panel" id="tocPanel">
         <div class="toc-panel-header">
             <span>Contents</span>
@@ -630,9 +635,9 @@ velocity *= damping;</code></pre>
             <a href="#philosophy"         onclick="toggleToc()"><span class="toc-num">09</span>Philosophy</a>
         </div>
     </div>
-
+ 
     <div class="toc-backdrop" id="tocBackdrop" onclick="toggleToc()"></div>
-
+ 
     <style>
         /* ===== FLOATING TOC ===== */
         .toc-fab {
@@ -655,12 +660,12 @@ velocity *= damping;</code></pre>
             user-select: none;
             box-shadow: 0 4px 20px rgba(0,0,0,0.18);
         }
-
+ 
         .toc-fab:hover {
             background: #111;
             transform: translateY(-2px);
         }
-
+ 
         .toc-fab-icon {
             width: 14px;
             height: 14px;
@@ -668,11 +673,11 @@ velocity *= damping;</code></pre>
             flex-shrink: 0;
             transition: transform 0.3s ease;
         }
-
+ 
         .toc-fab.is-open .toc-fab-icon {
             transform: rotate(90deg);
         }
-
+ 
         .toc-panel {
             position: fixed;
             bottom: 4.5rem;
@@ -690,13 +695,13 @@ velocity *= damping;</code></pre>
             transition: opacity 0.22s ease, transform 0.22s ease;
             transform-origin: bottom right;
         }
-
+ 
         .toc-panel.is-open {
             opacity: 1;
             pointer-events: all;
             transform: translateY(0) scale(1);
         }
-
+ 
         .toc-panel-header {
             display: flex;
             justify-content: space-between;
@@ -708,7 +713,7 @@ velocity *= damping;</code></pre>
             text-transform: uppercase;
             color: #999;
         }
-
+ 
         .toc-close {
             background: none;
             border: none;
@@ -720,14 +725,14 @@ velocity *= damping;</code></pre>
             transition: color 0.2s;
             line-height: 1;
         }
-
+ 
         .toc-close:hover { color: #2a2a2a; }
-
+ 
         .toc-nav {
             display: flex;
             flex-direction: column;
         }
-
+ 
         .toc-nav a,
         .toc-nav a:visited {
             display: flex !important;
@@ -743,23 +748,23 @@ velocity *= damping;</code></pre>
             opacity: 1 !important;
             background: transparent;
         }
-
+ 
         .toc-nav a:last-child { border-bottom: none !important; }
-
+ 
         .toc-nav a:hover {
             background: rgba(42,42,42,0.04) !important;
             padding-left: 1.3rem !important;
             opacity: 1 !important;
         }
-
+ 
         .toc-nav a.is-active {
             font-weight: 600 !important;
         }
-
+ 
         .toc-nav a.is-active .toc-num {
             color: #2a2a2a !important;
         }
-
+ 
         .toc-num {
             font-size: 0.58rem;
             letter-spacing: 1.5px;
@@ -767,16 +772,16 @@ velocity *= damping;</code></pre>
             flex-shrink: 0;
             width: 18px;
         }
-
+ 
         .toc-backdrop {
             display: none;
             position: fixed;
             inset: 0;
             z-index: 1098;
         }
-
+ 
         .toc-backdrop.is-open { display: block; }
-
+ 
         @media (max-width: 600px) {
             .toc-fab {
                 bottom: 1.5rem;
@@ -795,7 +800,7 @@ velocity *= damping;</code></pre>
             }
         }
     </style>
-
+ 
     <script>
     function toggleToc() {
         const panel = document.getElementById('tocPanel');
@@ -805,12 +810,12 @@ velocity *= damping;</code></pre>
         fab.classList.toggle('is-open', open);
         back.classList.toggle('is-open', open);
     }
-
+ 
     // Highlight active section as user scrolls
     (function() {
         const links = document.querySelectorAll('.toc-nav a');
         const ids   = [...links].map(a => a.getAttribute('href').slice(1));
-
+ 
         function onScroll() {
             let current = ids[0];
             const threshold = window.innerHeight * 0.5;
@@ -822,17 +827,17 @@ velocity *= damping;</code></pre>
                 a.classList.toggle('is-active', a.getAttribute('href') === '#' + current);
             });
         }
-
+ 
         window.addEventListener('scroll', onScroll, { passive: true });
         onScroll();
     })();
     </script>
-
+ 
     <!-- Prism.js syntax highlighting -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-glsl.min.js"></script>
-
+ 
     <script>
     function toggleCode(header) {
         const block = header.closest('.code-block');
@@ -842,7 +847,7 @@ velocity *= damping;</code></pre>
         toggleLabel.lastChild.textContent = isCollapsed ? ' expand' : ' collapse';
     }
     </script>
-
+ 
     <script>
     (function() {
         const canvas = document.getElementById('three-body-canvas');
@@ -850,12 +855,12 @@ velocity *= damping;</code></pre>
         const ctx = canvas.getContext('2d');
         const W = canvas.width, H = canvas.height;
         const cx = W / 2, cy = H / 2;
-
+ 
         const RED  = { angle: 0,             speed: 0.0008, radius: W * 0.33, size: 9,   color: '#c0392b', trail: [] };
         const BLUE = { angle: Math.PI * 0.7, speed: 0.0014, radius: W * 0.29, size: 5.5, color: '#2980b9', trail: [] };
         const TRAIL = 280;
         const wobble = { x: 0, y: 0, vx: 0, vy: 0 };
-
+ 
         function drawTrail(trail, r, g, b) {
             for (let i = 1; i < trail.length; i++) {
                 const a = (i / trail.length) * 0.18;
@@ -867,7 +872,7 @@ velocity *= damping;</code></pre>
                 ctx.stroke();
             }
         }
-
+ 
         function drawSun(body, pos) {
             const g = ctx.createRadialGradient(pos.x, pos.y, 0, pos.x, pos.y, body.size * 5);
             g.addColorStop(0, body.color + '55');
@@ -877,7 +882,7 @@ velocity *= damping;</code></pre>
             ctx.beginPath(); ctx.arc(pos.x, pos.y, body.size, 0, Math.PI*2);
             ctx.fillStyle = body.color; ctx.fill();
         }
-
+ 
         function arrow(x1, y1, x2, y2, color) {
             const dx = x2-x1, dy = y2-y1, d = Math.sqrt(dx*dx+dy*dy);
             const nx = dx/d, ny = dy/d;
@@ -889,10 +894,10 @@ velocity *= damping;</code></pre>
             ctx.lineTo(x2 - nx*5 - (-ny)*3, y2 - ny*5 - nx*3);
             ctx.closePath(); ctx.fillStyle = color; ctx.fill();
         }
-
+ 
         function frame() {
             ctx.clearRect(0, 0, W, H);
-
+ 
             // Grid
             for (let x = 0; x < W; x += 40) {
                 ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H);
@@ -902,7 +907,7 @@ velocity *= damping;</code></pre>
                 ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y);
                 ctx.strokeStyle='rgba(42,42,42,0.04)'; ctx.lineWidth=1; ctx.stroke();
             }
-
+ 
             // Orbit rings
             ctx.save(); ctx.setLineDash([3,8]);
             ctx.beginPath(); ctx.arc(cx, cy, RED.radius, 0, Math.PI*2);
@@ -910,21 +915,21 @@ velocity *= damping;</code></pre>
             ctx.beginPath(); ctx.arc(cx, cy, BLUE.radius, 0, Math.PI*2);
             ctx.strokeStyle='rgba(41,128,185,0.1)'; ctx.lineWidth=0.5; ctx.stroke();
             ctx.restore();
-
+ 
             RED.angle  += RED.speed;
             BLUE.angle += BLUE.speed;
-
+ 
             const rPos = { x: cx + Math.cos(RED.angle)  * RED.radius,  y: cy + Math.sin(RED.angle)  * RED.radius  * 0.38 };
             const bPos = { x: cx + Math.cos(BLUE.angle) * BLUE.radius, y: cy + Math.sin(BLUE.angle) * BLUE.radius * 0.38 };
-
+ 
             RED.trail.push({...rPos});  if (RED.trail.length  > TRAIL) RED.trail.shift();
             BLUE.trail.push({...bPos}); if (BLUE.trail.length > TRAIL) BLUE.trail.shift();
-
+ 
             drawTrail(RED.trail,  192, 57,  43);
             drawTrail(BLUE.trail, 41,  128, 185);
             drawSun(RED,  rPos);
             drawSun(BLUE, bPos);
-
+ 
             // Perturbation → planet wobble (ocean damps 95%)
             const forces = [rPos, bPos].map(p => {
                 const dx = p.x - cx, dy = p.y - cy, d2 = dx*dx + dy*dy;
@@ -936,10 +941,10 @@ velocity *= damping;</code></pre>
             wobble.vy = (wobble.vy + totalFy * 0.05 * 0.002) * 0.92;
             wobble.x  = (wobble.x + wobble.vx) * 0.97;
             wobble.y  = (wobble.y + wobble.vy) * 0.97;
-
+ 
             const stress = Math.min(Math.sqrt(totalFx*totalFx + totalFy*totalFy) / 60, 1);
             const px = cx + wobble.x, py = cy + wobble.y;
-
+ 
             // Stress glow
             if (stress > 0.01) {
                 const sg = ctx.createRadialGradient(px, py, 0, px, py, 45);
@@ -948,14 +953,14 @@ velocity *= damping;</code></pre>
                 ctx.beginPath(); ctx.arc(px, py, 45, 0, Math.PI*2);
                 ctx.fillStyle = sg; ctx.fill();
             }
-
+ 
             // Planet
             ctx.beginPath(); ctx.arc(px, py, 13, 0, Math.PI*2);
             ctx.fillStyle = '#2a2a2a'; ctx.fill();
             ctx.font = '9px Courier New';
             ctx.fillStyle = 'rgba(42,42,42,0.45)';
             ctx.fillText('SOLARIS', px + 18, py + 3);
-
+ 
             // Force arrows
             [
                 { pos: rPos, color: 'rgba(192,57,43,0.28)' },
@@ -969,13 +974,13 @@ velocity *= damping;</code></pre>
                     color
                 );
             });
-
+ 
             // Stress readout
             ctx.font = '8px Courier New';
             ctx.fillStyle = 'rgba(42,42,42,0.35)';
             ctx.fillText(`ocean stress: ${(stress*100).toFixed(0)}%`,  12, H - 24);
             ctx.fillText(`counteraction: ${(stress*95).toFixed(0)}%`, 12, H - 12);
-
+ 
             requestAnimationFrame(frame);
         }
         frame();
