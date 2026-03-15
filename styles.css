@@ -4,11 +4,11 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+ 
 html {
     overflow-x: hidden;
 }
-
+ 
 body {
     font-family: 'Courier New', monospace;
     background: #fafaf8;
@@ -16,7 +16,7 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
 }
-
+ 
 /* ===== NAVIGATION ===== */
 nav {
     position: fixed;
@@ -31,13 +31,13 @@ nav {
     align-items: center;
     border-bottom: 1px solid rgba(224, 224, 224, 0.3);
 }
-
+ 
 nav ul {
     list-style: none;
     display: flex;
     gap: 2rem;
 }
-
+ 
 nav a,
 .back-link {
     text-decoration: none;
@@ -46,39 +46,39 @@ nav a,
     letter-spacing: 1px;
     transition: opacity 0.3s;
 }
-
+ 
 nav a:hover,
 .back-link:hover {
     opacity: 0.6;
 }
-
+ 
 .nav-links {
     display: flex;
     gap: 2rem;
 }
-
+ 
 .contact-icons {
     display: flex;
     gap: 1.5rem;
     align-items: center;
 }
-
+ 
 .contact-icons a {
     display: flex;
     align-items: center;
 }
-
+ 
 .contact-icons svg {
     width: 16px;
     height: 16px;
     fill: #2a2a2a;
     transition: opacity 0.3s;
 }
-
+ 
 .contact-icons a:hover svg {
     opacity: 0.6;
 }
-
+ 
 /* ===== TYPOGRAPHY ===== */
 h1 {
     font-size: 3rem;
@@ -86,7 +86,7 @@ h1 {
     margin-bottom: 1rem;
     letter-spacing: -1px;
 }
-
+ 
 h2 {
     font-size: 1.8rem;
     font-weight: 300;
@@ -94,7 +94,7 @@ h2 {
     letter-spacing: 2px;
     text-transform: uppercase;
 }
-
+ 
 .content h2 {
     font-size: clamp(1.4rem, 3vw, 2rem);
     font-weight: 400;
@@ -103,7 +103,7 @@ h2 {
     text-transform: none;
     line-height: 1.2;
 }
-
+ 
 .subtitle {
     font-size: 1.5rem;
     color: #555;
@@ -116,21 +116,21 @@ h2 {
     align-items: center;
     gap: 2.5rem;
 }
-
+ 
 .subtitle-left {
     text-align: right;
 }
-
+ 
 .subtitle-right {
     text-align: left;
 }
-
+ 
 .animated-plus {
     display: inline-block;
     animation: rotateToPlus 3s ease-in-out forwards;
     transform: rotate(45deg);
 }
-
+ 
 @keyframes rotateToPlus {
     0% {
         transform: rotate(45deg);
@@ -139,24 +139,24 @@ h2 {
         transform: rotate(0deg);
     }
 }
-
+ 
 p {
     font-size: 1.05rem;
     line-height: 1.8;
     margin-bottom: 1.5rem;
 }
-
+ 
 /* ===== LAYOUT CONTAINERS ===== */
 .container {
     max-width: 900px;
     margin: 0 auto;
     padding: 6rem 2rem 4rem;
 }
-
+ 
 section {
     padding: 4rem 0;
 }
-
+ 
 /* ===== ABOUT SECTION ===== */
 .bio {
     font-size: 1rem;
@@ -164,18 +164,18 @@ section {
     max-width: 600px;
     margin-bottom: 3rem;
 }
-
+ 
 .bio a {
     color: inherit;
     text-decoration: none;
     border-bottom: 1px dotted rgba(42, 42, 42, 0.4);
     transition: all 0.3s ease;
 }
-
+ 
 .bio a:hover {
     border-bottom: 1px solid rgba(42, 42, 42, 1);
 }
-
+ 
 .tech-stack {
     margin-top: 3rem;
     position: relative;
@@ -183,24 +183,24 @@ section {
     max-width: 600px;
     cursor: crosshair;
 }
-
+ 
 .tech-icon {
     position: absolute;
     cursor: pointer;
     transition: filter 0.3s ease;
     user-select: none;
 }
-
+ 
 .tech-icon:hover {
     filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2)) grayscale(80%) brightness(0.4) !important;
 }
-
+ 
 .tech-icon svg {
     width: 100%;
     height: 100%;
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)) grayscale(100%) brightness(0.3);
 }
-
+ 
 /* ===== PORTFOLIO STYLES ===== */
 #portfolio {
     padding: 6rem 0 2rem 0;
@@ -210,16 +210,16 @@ section {
     padding-left: 2rem;
     padding-right: 2rem;
 }
-
+ 
 #portfolio h2 {
     padding-left: 0;
     text-align: left;
 }
-
+ 
 .projects-list {
     margin-top: 3rem;
 }
-
+ 
 .project-item {
     display: block;
     margin-bottom: 5rem;
@@ -227,11 +227,11 @@ section {
     color: inherit;
     transition: opacity 0.3s ease;
 }
-
+ 
 .project-item:hover {
     opacity: 0.85;
 }
-
+ 
 /* ===== PROJECT HEADER ROW ===== */
 .project-header-row {
     max-width: 100%;
@@ -242,7 +242,7 @@ section {
     gap: 1rem;
     margin-bottom: 1.5rem;
 }
-
+ 
 .project-label {
     font-size: 2.5rem;
     font-weight: 300;
@@ -250,7 +250,7 @@ section {
     min-width: 50px;
     flex-shrink: 0;
 }
-
+ 
 .project-title {
     font-size: 2.5rem;
     font-weight: 300;
@@ -258,7 +258,7 @@ section {
     margin: 0;
     flex-shrink: 0;
 }
-
+ 
 .project-arrow {
     font-size: 2.5rem;
     font-weight: 300;
@@ -266,7 +266,7 @@ section {
     flex-shrink: 0;
     margin-left: auto;
 }
-
+ 
 /* ===== PROJECT DETAILS RIBBON ===== */
 .project-details-ribbon {
     position: relative;
@@ -277,7 +277,7 @@ section {
     padding: 0.75rem 0;
     display: flex;
 }
-
+ 
 .details-track {
     display: flex;
     gap: 2rem;
@@ -285,37 +285,38 @@ section {
     flex-shrink: 0;
     padding-left: 2rem;
     padding-right: 2rem;
+    will-change: transform;
 }
-
+ 
 .project-item:hover .details-track {
     animation-play-state: paused;
 }
-
+ 
 @keyframes scroll-details {
     0% {
         transform: translateX(0);
     }
     100% {
-        transform: translateX(-100%);
+        transform: translateX(-50%);
     }
 }
-
+ 
 .detail-item {
     font-size: 0.85rem;
     color: #666;
     line-height: 1.6;
     white-space: nowrap;
 }
-
+ 
 .detail-item strong {
     color: #2a2a2a;
 }
-
+ 
 .detail-separator {
     font-size: 0.85rem;
     color: #666;
 }
-
+ 
 /* ===== SCROLLING RIBBON ===== */
 .project-media-ribbon {
     position: relative;
@@ -325,28 +326,29 @@ section {
     height: 250px;
     display: flex;
 }
-
+ 
 .ribbon-track {
     display: flex;
     gap: 1rem;
     animation: scroll-left 30s linear infinite;
     flex-shrink: 0;
     padding-right: 1rem;
+    will-change: transform;
 }
-
+ 
 .project-item:hover .ribbon-track {
     animation-play-state: paused;
 }
-
+ 
 @keyframes scroll-left {
     0% {
         transform: translateX(0);
     }
     100% {
-        transform: translateX(-100%);
+        transform: translateX(-50%);
     }
 }
-
+ 
 .ribbon-track video,
 .ribbon-track img {
     width: 400px;
@@ -356,12 +358,12 @@ section {
     transition: filter 0.3s ease;
     flex-shrink: 0;
 }
-
+ 
 .project-item:hover .ribbon-track video,
 .project-item:hover .ribbon-track img {
     filter: grayscale(0%);
 }
-
+ 
 /* ===== PROJECT PAGE STYLES ===== */
 .hero {
     height: 70vh;
@@ -369,13 +371,13 @@ section {
     overflow: hidden;
     margin-top: 80px;
 }
-
+ 
 .hero-video {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-
+ 
 .hero-overlay {
     position: absolute;
     top: 0;
@@ -387,12 +389,12 @@ section {
     align-items: center;
     justify-content: center;
 }
-
+ 
 .hero-title {
     text-align: center;
     color: #ffffff;
 }
-
+ 
 .hero-title h1 {
     font-size: 4rem;
     font-weight: 300;
@@ -400,7 +402,7 @@ section {
     letter-spacing: -1px;
     text-shadow: 0 2px 20px rgba(0,0,0,0.5);
 }
-
+ 
 .hero-title .tagline {
     font-size: 1.5rem;
     font-style: italic;
@@ -408,13 +410,13 @@ section {
     font-weight: 300;
     text-shadow: 0 1px 10px rgba(0,0,0,0.5);
 }
-
+ 
 .content {
     max-width: 720px;
     margin: 0 auto;
     padding: 4rem 2rem;
 }
-
+ 
 .project-meta {
     display: flex;
     gap: 4rem;
@@ -423,11 +425,11 @@ section {
     border-bottom: 1px solid #e0e0e0;
     justify-content: flex-start;
 }
-
+ 
 .meta-item {
     flex: 1;
 }
-
+ 
 .meta-label {
     font-size: 0.8rem;
     text-transform: uppercase;
@@ -436,31 +438,31 @@ section {
     margin-bottom: 0.4rem;
     margin-top: 0;
 }
-
+ 
 .meta-value {
     font-size: 1rem;
     color: #2a2a2a;
 }
-
+ 
 .meta-value a {
     color: inherit;
     text-decoration: none;
     border-bottom: 1px dotted rgba(42,42,42,0.4);
     transition: border-color 0.2s ease;
 }
-
+ 
 .meta-value a:hover {
     border-bottom-color: #2a2a2a;
     border-bottom-style: solid;
 }
-
+ 
 .tech-list {
     display: flex;
     flex-wrap: wrap;
     gap: 0.6rem;
     margin: 0.5rem 0 1.25rem;
 }
-
+ 
 .tech-tag {
     padding: 0.5rem 1rem;
     background: rgba(42, 42, 42, 0.05);
@@ -468,20 +470,20 @@ section {
     font-size: 0.9rem;
     letter-spacing: 0.5px;
 }
-
+ 
 .version-section {
     padding: 1.75rem 0;
     margin: 2rem 0;
     border-top: 1px solid #e0e0e0;
     position: relative;
 }
-
+ 
 .version-section:nth-child(odd) {
     padding-left: 1.5rem;
     border-left: 2px solid rgba(42,42,42,0.15);
     border-top: none;
 }
-
+ 
 .version-section h3 {
     font-size: 0.8rem;
     font-weight: 600;
@@ -490,7 +492,7 @@ section {
     text-transform: uppercase;
     color: #2a2a2a;
 }
-
+ 
 /* ===== EDITORIAL MEDIA BREAKS ===== */
 .media-break {
     width: 100vw;
@@ -500,7 +502,7 @@ section {
     position: relative;
     overflow: hidden;
 }
-
+ 
 .media-break img,
 .media-break video {
     width: 100%;
@@ -509,7 +511,7 @@ section {
     display: block;
     filter: grayscale(20%);
 }
-
+ 
 .media-break .media-caption {
     position: absolute;
     bottom: 1.5rem;
@@ -519,7 +521,7 @@ section {
     color: rgba(255,255,255,0.7);
     text-transform: uppercase;
 }
-
+ 
 /* ===== PULL QUOTE ===== */
 .pull-quote {
     font-size: clamp(1.1rem, 2.5vw, 1.4rem);
@@ -533,7 +535,7 @@ section {
     margin: 2.5rem 0;
     font-style: italic;
 }
-
+ 
 /* ===== SECTION MARKER ===== */
 .section-marker {
     font-size: 0.65rem;
@@ -544,19 +546,19 @@ section {
     margin-top: 4rem;
     display: block;
 }
-
+ 
 /* Offset anchor jump targets to clear the fixed nav + section-marker above */
 .content h2[id] {
     scroll-margin-top: 8rem;
 }
-
+ 
 .cta {
     text-align: center;
     margin: 4rem 0 2rem;
     padding: 3rem 0 2rem;
     border-top: 1px solid #e0e0e0;
 }
-
+ 
 .btn {
     display: inline-block;
     padding: 1rem 2.5rem;
@@ -568,13 +570,13 @@ section {
     text-transform: uppercase;
     transition: all 0.3s ease;
 }
-
+ 
 .btn:hover {
     background: transparent;
     color: #2a2a2a;
     border: 2px solid #2a2a2a;
 }
-
+ 
 /* ===== FOOTER ===== */
 footer {
     text-align: center;
@@ -582,7 +584,7 @@ footer {
     font-size: 0.9rem;
     color: #666;
 }
-
+ 
 /* ===== CODE BLOCKS ===== */
 /* Only apply to pre blocks outside of .code-block (which has its own styles) */
 pre:not(.code-block *) {
@@ -596,7 +598,7 @@ pre:not(.code-block *) {
     box-shadow: 0 2px 12px rgba(0,0,0,0.12);
     -webkit-overflow-scrolling: touch;
 }
-
+ 
 pre:not(.code-block *) code {
     white-space: pre;
     word-break: normal;
@@ -606,7 +608,7 @@ pre:not(.code-block *) code {
     line-height: 1.7;
     color: #d4d4d4;
 }
-
+ 
 :not(pre) > code {
     background: rgba(42,42,42,0.08);
     border: 1px solid rgba(42,42,42,0.15);
@@ -615,96 +617,96 @@ pre:not(.code-block *) code {
     font-size: 0.9em;
     font-family: 'Courier New', monospace;
 }
-
+ 
 /* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
     h1 {
         font-size: 2rem;
     }
-
+ 
     h2 {
         font-size: 1.4rem;
     }
-
+ 
     .subtitle {
         font-size: 1.2rem;
     }
-
+ 
     .tech-stack {
         height: 350px;
     }
-
+ 
     nav {
         flex-direction: column;
         gap: 1rem;
         padding: 1rem;
     }
-
+ 
     .nav-links {
         margin-bottom: 0.5rem;
     }
-
+ 
     .contact-icons {
         gap: 1rem;
     }
-
+ 
     .hero-title h1 {
         font-size: 2.5rem;
     }
-
+ 
     .hero-title .tagline {
         font-size: 1.1rem;
     }
-
+ 
     .project-meta {
         flex-direction: column;
         gap: 1.5rem;
     }
-
+ 
     .content {
         padding: 3rem 1.5rem;
     }
-
+ 
     .project-header-row {
         flex-direction: row;
         gap: 1rem;
         margin-bottom: 1rem;
         padding: 0;
     }
-
+ 
     .project-label {
         font-size: 1.8rem;
         min-width: 40px;
     }
-
+ 
     .project-title {
         font-size: 1.5rem;
     }
-
+ 
     .project-arrow {
         font-size: 1.8rem;
     }
-
+ 
     .project-details-ribbon {
         padding: 0.5rem 0;
         margin-bottom: 1.5rem;
     }
-
+ 
     .details-track {
         padding-left: 1.5rem;
         padding-right: 1.5rem;
     }
-
+ 
     .project-media-ribbon {
         height: 200px;
     }
-
+ 
     .ribbon-track video,
     .ribbon-track img {
         width: 300px;
         height: 200px;
     }
-
+ 
     pre:not(.code-block *) {
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
@@ -712,7 +714,7 @@ pre:not(.code-block *) code {
         margin-left: 0;
         margin-right: 0;
     }
-
+ 
     pre:not(.code-block *) code {
         display: block;
         min-width: max-content;
