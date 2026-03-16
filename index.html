@@ -305,10 +305,10 @@
                     </div>
                     <div class="project-media-ribbon">
                         <div class="ribbon-track">
-                            <video autoplay loop muted playsinline preload="auto" aria-label="Solaris interactive experience demonstration">
+                            <video autoplay loop muted playsinline aria-label="Solaris interactive experience demonstration">
                                 <source src="https://pub-9f205d406ae74fe29f7a63bd0a1e6df0.r2.dev/solaris_thumb.mp4" type="video/mp4">
                             </video>
-                            <video autoplay loop muted playsinline preload="auto" aria-label="Solaris interactive experience demonstration">
+                            <video autoplay loop muted playsinline aria-label="Solaris interactive experience demonstration">
                                 <source src="https://pub-9f205d406ae74fe29f7a63bd0a1e6df0.r2.dev/solaris1.mp4" type="video/mp4">
                             </video>
                             <img src="images/solaris1.jpg" alt="Solaris - scene 1">
@@ -316,10 +316,10 @@
                             <img src="images/solaris3.jpg" alt="Solaris - scene 3">
                         </div>
                         <div class="ribbon-track" aria-hidden="true">
-                            <video autoplay loop muted playsinline preload="auto" aria-label="Solaris interactive experience demonstration">
+                            <video autoplay loop muted playsinline aria-label="Solaris interactive experience demonstration">
                                 <source src="https://pub-9f205d406ae74fe29f7a63bd0a1e6df0.r2.dev/solaris_thumb.mp4" type="video/mp4">
                             </video>
-                            <video autoplay loop muted playsinline preload="auto" aria-label="Solaris interactive experience demonstration">
+                            <video autoplay loop muted playsinline aria-label="Solaris interactive experience demonstration">
                                 <source src="https://pub-9f205d406ae74fe29f7a63bd0a1e6df0.r2.dev/solaris1.mp4" type="video/mp4">
                             </video>
                             <img src="images/solaris1.jpg" alt="Solaris - scene 1">
@@ -336,5 +336,107 @@
         <p>© 2026 Magda Hamilton</p>
     </footer>
     <script src="physics.js"></script>
+    <script>
+    (function () {
+        const ribbon = document.querySelector('.project-media-ribbon');
+        if (!ribbon) return;
+ 
+        const tracks = ribbon.querySelectorAll('.ribbon-track');
+ 
+        // Kill CSS animation — JS takes over
+        tracks.forEach(t => {
+            t.style.animation = 'none';
+            t.style.willChange = 'transform';
+        });
+ 
+        // Cached width — measured after assets load, not at parse time
+        let cachedW = 0;
+ 
+        function measureWidth() {
+            const w = tracks[0].scrollWidth;
+            if (w > 0) cachedW = w;
+        }
+ 
+        function trackWidth() {
+            return cachedW || tracks[0].scrollWidth;
+        }
+ 
+        window.addEventListener('load', measureWidth);
+        window.addEventListener('resize', measureWidth);
+        setTimeout(measureWidth, 500);
+        setTimeout(measureWidth, 1500);
+ 
+        const BASE_SPEED = 0.6;
+        let pos        = 0;
+        let velocity   = BASE_SPEED;
+        let isDragging = false;
+        let dragStartX = 0;
+        let dragStartPos = 0;
+        let lastDragX  = 0;
+        let lastDragT  = 0;
+        let flickVel   = 0;
+ 
+        function applyPos() {
+            const w = trackWidth();
+            if (w === 0) return;
+            pos = ((pos % w) + w) % w;
+            tracks.forEach(t => {
+                t.style.transform = `translateX(${-pos}px)`;
+            });
+        }
+ 
+        function tick() {
+            if (!isDragging) {
+                velocity += (BASE_SPEED - velocity) * 0.04;
+                pos += velocity;
+            }
+            applyPos();
+            requestAnimationFrame(tick);
+        }
+ 
+        function getX(e) {
+            return e.touches ? e.touches[0].clientX : e.clientX;
+        }
+ 
+        function onStart(e) {
+            isDragging   = true;
+            dragStartX   = getX(e);
+            dragStartPos = pos;
+            lastDragX    = dragStartX;
+            lastDragT    = performance.now();
+            flickVel     = 0;
+            ribbon.style.cursor = 'grabbing';
+        }
+ 
+        function onMove(e) {
+            if (!isDragging) return;
+            if (e.cancelable) e.preventDefault();
+            const x   = getX(e);
+            const now = performance.now();
+            const dt  = now - lastDragT;
+            if (dt > 0) flickVel = ((lastDragX - x) / dt) * 16.67;
+            lastDragX = x;
+            lastDragT = now;
+            pos = dragStartPos - (x - dragStartX);
+        }
+ 
+        function onEnd() {
+            if (!isDragging) return;
+            isDragging = false;
+            ribbon.style.cursor = 'grab';
+            velocity = Math.max(flickVel, 0.1);
+        }
+ 
+        ribbon.addEventListener('mousedown',  onStart);
+        window.addEventListener('mousemove',  onMove);
+        window.addEventListener('mouseup',    onEnd);
+        ribbon.addEventListener('touchstart', onStart, { passive: true });
+        ribbon.addEventListener('touchmove',  onMove,  { passive: false });
+        ribbon.addEventListener('touchend',   onEnd);
+ 
+        ribbon.style.cursor = 'grab';
+        tick();
+    })();
+    </script>
 </body>
 </html>
