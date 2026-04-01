@@ -16,7 +16,8 @@
       "@id": "https://magdahamilton.dev/#person",
       "name": "Magda Hamilton",
       "alternateName": "Magdalena Hamilton",
-      "jobTitle": ["Graphics & Design Engineer", "Creative Technologist", "Founder"],
+      "familyName": "Hamilton",
+      "jobTitle": ["Creative Technologist", "Graphics & Design Engineer", "Founder"],
       "description": "American Creative Technologist and Graphics & Design Engineer based in New York. Founder of Velvet Disruption.",
       "nationality": {
         "@type": "Country",
@@ -32,15 +33,22 @@
         }
       },
       "url": "https://magdahamilton.dev",
-      "image": "https://magdahamilton.dev/images/magda-hamilton.jpg",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://magdahamilton.dev/images/magda-hamilton.jpg",
+        "caption": "Magda Hamilton, Creative Technologist and Graphics & Design Engineer, Founder of Velvet Disruption"
+      },
       "email": "hi@magdahamilton.dev",
       "sameAs": [
         "https://www.linkedin.com/in/magdahamilton",
         "https://github.com/magdahamilton",
         "https://www.crunchbase.com/person/magda-hamilton",
         "https://www.are.na/magda-hamilton",
-        "https://dev.to/mhmltn",
-        "https://www.instagram.com/mkhmltn"
+        "https://www.instagram.com/mkhmltn/",
+        "https://www.producthunt.com/@magdahamilton",
+        "https://contra.com/magda_hamilton_lfd8fj21",
+        "https://bio.site/magdahamilton",
+        "https://www.behance.net/magdahamilton"
       ],
       "alumniOf": [
         {
@@ -53,11 +61,42 @@
           "name": "Université Paris-Sorbonne"
         }
       ],
+      "hasCredential": [
+        {
+          "@type": "EducationalOccupationalCredential",
+          "name": "Delegate, 69th UN Commission on the Status of Women (CSW69)",
+          "credentialCategory": "appointment",
+          "recognizedBy": {
+            "@type": "Organization",
+            "name": "United Nations",
+            "url": "https://www.un.org"
+          },
+          "dateCreated": "2025-01"
+        },
+        {
+          "@type": "EducationalOccupationalCredential",
+          "name": "Delegate, 70th UN Commission on the Status of Women (CSW70)",
+          "credentialCategory": "appointment",
+          "description": "Delegate nominated by UN Women UK. Participated in panels on artificial intelligence, digital governance, and gender justice.",
+          "recognizedBy": {
+            "@type": "Organization",
+            "name": "United Nations",
+            "url": "https://www.un.org"
+          },
+          "dateCreated": "2026-01"
+        }
+      ],
+      "knowsAbout": [
+        "C++", "WebAssembly", "Emscripten", "WebGL", "Three.js", "GLSL",
+        "Swift", "SwiftUI", "Metal", "iOS Development",
+        "Creative Coding", "Interaction Design", "Computational Design", "Graphics Programming"
+      ],
       "worksFor": {
-        "@type": "Organization",
-        "@id": "https://velvetdisruption.com/#organization",
-        "name": "Velvet Disruption",
-        "url": "https://velvetdisruption.com"
+        "@id": "https://velvetdisruption.com/#organization"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://magdahamilton.dev/bio.html"
       }
     }
     </script>
