@@ -1,11 +1,11 @@
 // Intersection Observer for fade-in effect
 const cards = document.querySelectorAll('.card');
-
+ 
 const observerOptions = {
     threshold: 0.3,
     rootMargin: '0px'
 };
-
+ 
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -13,16 +13,16 @@ const observer = new IntersectionObserver((entries) => {
         }
     });
 }, observerOptions);
-
+ 
 cards.forEach(card => {
     observer.observe(card);
 });
-
+ 
 // Physics system
 const container = document.getElementById('techStack');
 const width = container.offsetWidth;
 const height = container.offsetHeight;
-
+ 
 const techs = [
     { name: 'Swift', color: '#F05138', lines: 1 },
     { name: 'SwiftUI', color: '#0066FF', lines: 2 },
@@ -31,11 +31,12 @@ const techs = [
     { name: 'GLSL', color: '#5586A4', lines: 1 },
     { name: 'WebGL', color: '#990000', lines: 1 },
     { name: 'C++', color: '#00599C', lines: 1 },
+    { name: 'Wasm', color: '#654FF0', lines: 1 },
     { name: 'JavaScript', color: '#F7DF1E', lines: 2 },
     { name: 'Combine', color: '#FF6B35', lines: 1 },
     { name: 'ARKit', color: '#FF9500', lines: 1 }
 ];
-
+ 
 class Particle {
     constructor(tech, index) {
         this.tech = tech;
@@ -121,7 +122,7 @@ class Particle {
             this.vy += Math.sin(angle) * force;
         });
     }
-
+ 
     update(particles, mouseX, mouseY, mouseDown) {
         if (mouseX !== null && mouseY !== null) {
             const dx = mouseX - (this.x + this.size / 2);
@@ -136,7 +137,7 @@ class Particle {
                 this.vy += Math.sin(angle) * strength;
             }
         }
-
+ 
         particles.forEach(other => {
             if (other === this) return;
             
@@ -158,13 +159,13 @@ class Particle {
                 this.vy += Math.sin(angle) * force;
             }
         });
-
+ 
         this.vx *= 0.98;
         this.vy *= 0.98;
-
+ 
         this.x += this.vx;
         this.y += this.vy;
-
+ 
         if (this.x < 0) {
             this.x = 0;
             this.vx *= -0.7;
@@ -181,41 +182,41 @@ class Particle {
             this.y = height - this.size;
             this.vy *= -0.7;
         }
-
+ 
         this.rotation += this.rotationSpeed;
-
+ 
         this.element.style.left = this.x + 'px';
         this.element.style.top = this.y + 'px';
         this.element.style.transform = `rotate(${this.rotation}deg)`;
     }
 }
-
+ 
 const particles = techs.map((tech, i) => new Particle(tech, i));
-
+ 
 let mouseX = null;
 let mouseY = null;
 let mouseDown = false;
-
+ 
 // Mouse events
 container.addEventListener('mousemove', (e) => {
     const rect = container.getBoundingClientRect();
     mouseX = e.clientX - rect.left;
     mouseY = e.clientY - rect.top;
 });
-
+ 
 container.addEventListener('mouseleave', () => {
     mouseX = null;
     mouseY = null;
 });
-
+ 
 container.addEventListener('mousedown', () => {
     mouseDown = true;
 });
-
+ 
 container.addEventListener('mouseup', () => {
     mouseDown = false;
 });
-
+ 
 // Touch events
 container.addEventListener('touchmove', (e) => {
     e.preventDefault();
@@ -224,7 +225,7 @@ container.addEventListener('touchmove', (e) => {
     mouseX = touch.clientX - rect.left;
     mouseY = touch.clientY - rect.top;
 });
-
+ 
 container.addEventListener('touchstart', (e) => {
     const rect = container.getBoundingClientRect();
     const touch = e.touches[0];
@@ -232,18 +233,18 @@ container.addEventListener('touchstart', (e) => {
     mouseY = touch.clientY - rect.top;
     mouseDown = true;
 });
-
+ 
 container.addEventListener('touchend', () => {
     mouseX = null;
     mouseY = null;
     mouseDown = false;
 });
-
+ 
 function animate() {
     particles.forEach(p => p.update(particles, mouseX, mouseY, mouseDown));
     requestAnimationFrame(animate);
 }
-
+ 
 animate();
-
+ 
 // Subtitle alignment is now handled by CSS flexbox
