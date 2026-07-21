@@ -12,7 +12,7 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solaris - Interactive WebGL Ocean Simulation | Technical Writeup | Magda Hamilton</title>
+    <title>Solaris: A WebAssembly/WebGL Architecture for Real-Time Viscoelastic Continuum Simulation and Tidal-Force Visualization in the Browser | Magda Hamilton</title>
     
     <!-- SEO Meta Tags -->
     <meta name="description" content="An interactive simulation inspired by Stanisław Lem's Solaris. A sentient ocean driven by C++/WebAssembly viscoelastic physics, with real-time tidal force computation, observation-responsive behavior, generative fungoid formations, and generative mimoid formations. Built with Three.js, custom GLSL shaders, and Emscripten.">
@@ -43,7 +43,7 @@
     <meta property="og:site_name" content="Magda Hamilton">
     <meta property="article:author" content="Magda Hamilton">
     <meta property="article:published_time" content="2026-01-22">
-    <meta property="article:modified_time" content="2026-01-27">
+    <meta property="article:modified_time" content="2026-07-21">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
@@ -81,6 +81,128 @@
         }
         .doc-links a:hover {
             opacity: 0.55;
+            border-color: #2a2a2a;
+        }
+ 
+        /* ===== CITATION BAR (PDF | BibTeX) ===== */
+        .cite-bar {
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+            text-align: right;
+            margin-top: 2rem;
+            color: #bbb;
+        }
+        .cite-bar a,
+        .cite-bar button {
+            color: #2a2a2a;
+            text-decoration: none;
+            background: none;
+            border: none;
+            font-family: inherit;
+            font-size: inherit;
+            letter-spacing: inherit;
+            cursor: pointer;
+            padding: 0 0 1px 0;
+            border-bottom: 1px solid #bbb;
+            transition: opacity 0.2s ease, border-color 0.2s ease;
+        }
+        .cite-bar a:hover,
+        .cite-bar button:hover {
+            opacity: 0.55;
+            border-color: #2a2a2a;
+        }
+        .cite-bar .sep {
+            margin: 0 0.7rem;
+            color: #ccc;
+        }
+ 
+        /* ===== BIBTEX POPUP ===== */
+        .bib-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(20,20,18,0.32);
+            z-index: 1198;
+        }
+        .bib-backdrop.is-open { display: block; }
+ 
+        .bib-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -48%) scale(0.98);
+            z-index: 1199;
+            width: min(92vw, 640px);
+            background: #fafaf8;
+            border: 1px solid #2a2a2a;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        .bib-modal.is-open {
+            opacity: 1;
+            pointer-events: all;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        .bib-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #e0e0e0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.62rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #999;
+        }
+        .bib-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.8rem;
+            color: #999;
+            padding: 0;
+            font-family: inherit;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+        .bib-close:hover { color: #2a2a2a; }
+        .bib-modal pre {
+            margin: 0;
+            padding: 1.1rem 1.2rem;
+            background: #f4f4f1;
+            font-family: 'Courier New', monospace;
+            font-size: 0.76rem;
+            line-height: 1.6;
+            color: #1a1a1a;
+            white-space: pre-wrap;
+            word-break: break-word;
+            max-height: 55vh;
+            overflow-y: auto;
+        }
+        .bib-modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            padding: 0.7rem 1rem;
+            border-top: 1px solid #e0e0e0;
+        }
+        .bib-copy {
+            font-family: 'Courier New', monospace;
+            font-size: 0.68rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #2a2a2a;
+            background: none;
+            border: 1px solid #bbb;
+            padding: 0.4rem 0.8rem;
+            cursor: pointer;
+            transition: background 0.15s, border-color 0.15s;
+        }
+        .bib-copy:hover {
+            background: rgba(42,42,42,0.05);
             border-color: #2a2a2a;
         }
  
@@ -221,11 +343,11 @@
     {
       "@type": "TechArticle",
       "@id": "https://magdahamilton.dev/solaris.html#article",
-      "headline": "Solaris: Building an Interactive Simulation of Alien Consciousness",
+      "headline": "Solaris: A WebAssembly/WebGL Architecture for Real-Time Viscoelastic Continuum Simulation and Tidal-Force Visualization in the Browser",
       "description": "A technical deep-dive into building an interactive WebGL simulation inspired by Stanisław Lem's Solaris, featuring emergent formations, gravitational engineering, and observation-responsive behavior.",
       "image": "https://magdahamilton.dev/images/solaris-og.jpg",
       "datePublished": "2026-01-22",
-      "dateModified": "2026-01-27",
+      "dateModified": "2026-07-21",
       "author": {
         "@id": "https://magdahamilton.dev/#person"
       },
@@ -302,7 +424,7 @@
  
     <div class="hero">
         <video class="hero-video" autoplay loop muted playsinline poster="images/solaris1.jpg">
-            <source src="https://pub-9f205d406ae74fe29f7a63bd0a1e6df0.r2.dev/solaris_full.mp4" type="video/mp4">
+            <source src="https://pub-9f205d406ae74fe29f7a63bd0a1e6df0.r2.dev/solaris_full_v2.mp4" type="video/mp4">
         </video>
         <div class="hero-overlay">
             <div class="hero-title">
@@ -362,16 +484,16 @@
         <span class="section-marker">01 — Concept</span>
         <h2 id="concept">The Concept</h2>
         <p>
-            In Stanisław Lem's 1961 novel <em>Solaris</em>, scientists discover a planet-sized ocean that thinks—but operates on logic so alien that despite decades of research, humans cannot communicate with it or understand its purpose. It generates elaborate structures, materializes visitors' deepest memories, and maintains a stable orbit around two suns through incomprehensible means.
+            In Stanisław Lem's 1961 novel <em>Solaris</em>, scientists discover a planet-sized Ocean that thinks—but operates on logic so alien that despite decades of research, humans cannot communicate with it or understand its purpose. It generates elaborate structures, materializes visitors' deepest memories, and maintains a stable orbit around two suns through incomprehensible means.
         </p>
         <p>
-            This project brings that entity to life: a living simulation driven by C++ physics running in WebAssembly. Beneath the visual surface, a Kelvin-Voigt viscoelastic solver models the ocean as sentient gel—not water—that stores stress, remembers past deformations, and actively shapes its own surface. The ocean responds to observation, but unpredictably. It creates formations that emerge and dissolve on their own timeline. It performs planetary-scale engineering that we can only glimpse through surface shimmer.
+            This project brings that entity to life: a living simulation driven by C++ physics running in WebAssembly. Beneath the visual surface, a Kelvin-Voigt viscoelastic solver models the Ocean as sentient gel—not water—that stores stress, remembers past deformations, and actively shapes its own surface. The Ocean responds to observation, but unpredictably. It creates formations that emerge and dissolve on their own timeline. It appears to perform planetary-scale work we can only glimpse through surface shimmer.
         </p>
  
         <p class="pull-quote">You're studying it. But it's also studying you.</p>
  
         <p>
-            Most "alien" experiences in digital media are just exotic versions of familiar patterns. Solaris explores something harder: consciousness that operates on fundamentally different logic. The ocean doesn't perform for you — it observes you back, with the same detached curiosity you bring to it.
+            The usual "alien" in games and digital media is a familiar system in a strange skin. Solaris is after something harder: a mind that runs on genuinely different logic. The Ocean doesn't perform for you — it observes you back, with the same detached curiosity you bring to it.
         </p>
  
         <!-- THREE-BODY PROBLEM SECTION -->
@@ -381,10 +503,10 @@
             One of the most fascinating aspects of Lem's novel: the planet orbits two suns—a configuration that should be gravitationally chaotic. In 1687, Newton formulated universal gravitation and could predict the motion of two celestial bodies perfectly. Then he tried to add a third body. The math disintegrated.
         </p>
         <p>
-            For two centuries, mathematicians sought a general solution. Euler found specific stable configurations. Lagrange discovered five equilibrium points. Then in the 1880s, Henri Poincaré shattered the hope of a complete solution: he discovered that infinitesimally small changes in starting positions produced wildly different outcomes. The trajectories tangled into what he called "homoclinic tangles"—so complex they could never be captured by simple equations. Poincaré had discovered chaos itself.
+            For two centuries, mathematicians sought a general solution. Euler found specific stable configurations. Lagrange discovered five equilibrium points. Then in the 1880s, Henri Poincaré ended the search for a closed-form answer. He showed that the tiniest change in the starting positions could send the trajectories off in completely different directions, folding into structures — the "homoclinic tangles" — too intricate for any tidy formula to reach. It was the first mathematical encounter with what we now call chaos.
         </p>
         <p>
-            But Lem imagined something extraordinary: the ocean actively stabilizes its orbit through continuous mass redistribution. It doesn't solve the equations—it rewrites them constantly, treating the three-body problem not as a mathematical puzzle requiring an elegant solution, but as a control problem demanding constant intervention.
+            But Lem imagined something extraordinary: in the novel, the Ocean holds its own orbit through continuous mass redistribution — not solving the equations but rewriting them, treating the three-body problem not as a mathematical puzzle requiring an elegant solution, but as a control problem demanding constant intervention. The simulation doesn't reproduce that feat — the orbit here is on rails — but it stages what the effort would look like, as the next section describes.
         </p>
  
         <!-- THREE-BODY DIAGRAM -->
@@ -402,15 +524,15 @@
                 </div>
                 <div class="legend-item">
                     <div class="legend-dot" style="background:#2a2a2a;"></div>
-                    Solaris (ocean stabilised)
+                    Solaris (orbit on rails)
                 </div>
             </div>
         </div>
  
         <div class="version-section">
-            <h3>Implementing Gravitational Chaos</h3>
-            <p>I created two suns with fundamentally unstable orbits. The red giant moves slowly (0.08 rad/s) along a 250-unit radius orbit, while the blue dwarf races faster (0.12 rad/s) at 220 units. Their gravitational interference creates chaotic perturbations.</p>
-            <p>But then the Ocean intervenes. Each frame, both sun positions feed into a C++ simulation running in WebAssembly. The solver computes tidal potential per cell across a 128×128 grid using the standard tidal force formula:</p>
+            <h3>Computing the Tidal Field</h3>
+            <p>The two suns move on fixed, scripted paths — the red giant slowly (0.08 rad/s) along a 250-unit radius, the blue dwarf faster (0.12 rad/s) at 220 units. Their orbits are on rails: scripted motion, not a gravity simulation.</p>
+            <p>What the simulation computes each frame is not the orbit but its <em>consequence</em>: the tidal field the two suns impose on the surface. Both sun positions feed the C++/WebAssembly solver, which evaluates the tidal potential per cell across the 128×128 grid using the standard formula:</p>
             <div class="code-block is-collapsed">
                 <div class="code-block-header" onclick="toggleCode(this)">
                     <span class="code-block-lang">C++ / WASM — tidal force</span>
@@ -420,24 +542,26 @@
                     </span>
                 </div>
                 <div class="code-block-body">
-                    <pre class="language-cpp"><code class="language-cpp">// C++ WASM — tidal force per cell
+                    <pre class="language-cpp"><code class="language-cpp">// C++ WASM — tidal potential per cell
 float tidal = (3.0f * dot * dot - 1.0f) * 0.5f * sun_tidal;
  
-// The ocean counteracts 95% (gravitational engineering)
+// Only 5% of the tidal term reaches the surface as visible displacement
 float leaked_force = total_tidal * 0.05f;
 cell.velocity += leaked_force * dt;
  
-// Counteraction effort generates stress
+// The other 95% never touches the orbit. It's a fiction: a stand-in for
+// the labor such an Ocean would spend resisting that pull, accumulated
+// only as a stress value that drives the glow.
 float counteraction_effort = fabsf(total_tidal) * 0.95f;
 cell.stress += counteraction_effort * dt * 0.5f;</code></pre>
                 </div>
             </div>
-            <p>The stress is exported as a texture and visualized in the fragment shader—warm glow where the ocean is working hardest. This isn't a visual trick: the glow corresponds to actual computed gravitational counteraction happening in C++ 60 times per second.</p>
+            <p>That value is written into a texture the fragment shader reads back as a warm glow beneath the surface, brightest where the load runs heaviest. It isn't decorative — the solver recomputes it sixty times a second — and it reads exactly as intended: the Ocean straining to hold itself against two suns, its effort surfacing as light.</p>
         </div>
  
         <div class="version-section">
-            <h3>Visualizing the Engineering</h3>
-            <p>The real challenge was making invisible work visible. In the fragment shader, I created "engineering zones" that appear where the Ocean is working hardest. When both suns align, pulsing patterns appear on the surface—FBM-based noise that simulates the Ocean's calculations made manifest:</p>
+            <h3>Visualizing the Effort</h3>
+            <p>The real challenge was making that invisible effort legible. In the fragment shader I mark "engineering zones" — regions that brighten where the tidal load runs highest. When the two suns align, pulsing FBM patterns rise across the surface:</p>
             <div class="code-block is-collapsed">
                 <div class="code-block-header" onclick="toggleCode(this)">
                     <span class="code-block-lang">GLSL — engineering zones</span>
@@ -451,19 +575,19 @@ cell.stress += counteraction_effort * dt * 0.5f;</code></pre>
 float blueEngineering = calculateEngineeringZone(uBlueSunPos, uBlueSunColor, 1);</code></pre>
                 </div>
             </div>
-            <p>Where engineering zones overlap, they blend into purple—the Ocean simultaneously stabilizing against both gravitational pulls, its work visible in the interference pattern.</p>
+            <p>Where the two zones overlap they blend toward purple — the signature of both tidal fields loading the same patch of surface at once, their interference rendered as color rather than resolved into any actual counter-force.</p>
         </div>
  
         <!-- OCEAN RENDERING SECTION -->
         <span class="section-marker">03 — Rendering</span>
         <h2 id="ocean-surface">The Living Surface</h2>
         <p>
-            The ocean's visual surface is driven by two systems working together. Custom vertex and fragment shaders handle the rendering—multi-layered wave displacement with Fractal Brownian Motion creates a surface that never repeats. But underneath, a C++/WebAssembly simulation computes the actual physics: a 128×128 grid of cells, each tracking height, velocity, stress, strain, viscosity, elasticity, intent, and memory.
+            The Ocean's visual surface is driven by two systems working together. Custom vertex and fragment shaders handle the rendering—multi-layered wave displacement with Fractal Brownian Motion creates a surface that never repeats. But underneath, a C++/WebAssembly simulation computes the actual physics: a 128×128 grid of cells, each tracking height, velocity, stress, strain, viscosity, elasticity, intent, and memory.
         </p>
  
         <div class="version-section">
             <h3>Viscoelastic Physics (C++/WASM)</h3>
-            <p>The ocean is modeled as a Kelvin-Voigt viscoelastic gel—not water. Water follows the wave equation (∂²h/∂t² = c²∇²h); gel follows a fundamentally different model where stress equals elastic strain plus viscous resistance. This matters because gel <em>resists</em> deformation, <em>stores</em> stress, and releases energy in wobbles rather than clean waves:</p>
+            <p>The material under the Ocean's surface isn't water — it's a Kelvin-Voigt viscoelastic gel. Water in real-time graphics follows the wave equation (∂²h/∂t² = c²∇²h); the gel obeys a different constitutive law, in which each cell's stress is the sum of an elastic term set by how far it is displaced and a viscous term set by how fast it is moving. In practice the surface pushes back against being deformed, holds the load for a beat, and lets go in a damped wobble instead of a clean travelling wave:</p>
             <div class="code-block is-collapsed">
                 <div class="code-block-header" onclick="toggleCode(this)">
                     <span class="code-block-lang">C++ — Kelvin-Voigt viscoelastic solver</span>
@@ -478,11 +602,11 @@ float elastic_force = -elasticity * (height - rest_position);
 float viscous_force = -viscosity * velocity;
 float neighbor_pull = (avg_neighbor_height - height) * stress_propagation;
  
-// Intent — the ocean reaches toward a target height it sets for itself
+// Intent — the Ocean reaches toward a target height it sets for itself
 float intent_force = 0.0f;
 if (intent_strength > 0.01f) {
     intent_force = (intent - height) * intent_strength * intent_responsiveness;
-    intent_strength *= (1.0f - dt * 0.5f);   // the reach decays — the ocean changes its mind
+    intent_strength *= (1.0f - dt * 0.5f);   // the reach decays — the Ocean changes its mind
 }
  
 float total_force = elastic_force + viscous_force + neighbor_pull + intent_force;
@@ -491,12 +615,12 @@ velocity *= damping;
 height += velocity * dt;</code></pre>
                 </div>
             </div>
-            <p>The intent field is what makes this alien: each cell can actively push itself in a direction the ocean "wants" to go. The simulation also maintains memory—the rest position drifts based on past deformations, so the ocean never quite returns to the same shape.</p>
+            <p>The intent field is what tips the material from merely odd into alien. Each cell reaches toward a height target it sets for itself, and because that reach decays frame by frame, the Ocean commits to a direction and then abandons it — the surface moves with no external cause and no fixed goal. Memory runs the other way: the equilibrium each cell settles toward is a slow average of how it has recently been pushed around, so the surface never quite comes back to the shape it started from.</p>
         </div>
  
         <div class="version-section">
             <h3>Mood-Driven Material Properties</h3>
-            <p>The ocean's mood directly changes the physics. When agitated, viscosity drops and stress propagation increases—the gel becomes volatile and reactive. When aloof, viscosity rises dramatically—the ocean becomes sluggish, barely responding. When curious, elasticity peaks—the surface becomes springy and reaching. These aren't visual parameters; they're material properties in the C++ solver that change how the physics behaves.</p>
+            <p>The Ocean's mood directly changes the physics. When recoiling, viscosity drops and stress propagation increases—the gel becomes volatile and reactive. When aloof, viscosity rises dramatically—the Ocean becomes sluggish, barely responding. When curious, elasticity peaks—the surface becomes springy and reaching. These aren't visual parameters; they're material properties in the C++ solver that change how the physics behaves.</p>
         </div>
  
         <!-- FORMATIONS SECTION -->
@@ -510,10 +634,10 @@ height += velocity * dt;</code></pre>
             <h3>Formation Types</h3>
             <p><strong>Symmetriads</strong> — Perfect radial symmetry, 6-12 arms, slow rotation. The most common formation.</p>
             <p><strong>Asymmetriads</strong> — Towering vertical structures, 50-100m height, irregular shapes that defy easy classification.</p>
-            <p><strong>Mimoids</strong> — Undulating organic forms with fluid motion and membrane-like surfaces.</p>
-            <p><strong>Vertebrids</strong> — Skeletal lattice structures with L-system branching, membrane webbing between ribs, and pearlescent bone-like material. They emerge frozen and are abandoned by the ocean.</p>
+            <p><strong>Mimoids</strong> — Structures the Ocean extrudes to imitate whatever is nearby — a neighboring formation, the suns overhead, the watcher's own outline — always imperfectly, so the copy never quite becomes the thing it echoes.</p>
+            <p><strong>Vertebrids</strong> — Skeletal lattice structures with L-system branching, membrane webbing between ribs, and pearlescent bone-like material. They emerge frozen and are abandoned by the Ocean.</p>
             <p><strong>Extensors</strong> — The rarest formation. Sprawling horizontal networks with branch-like growth patterns.</p>
-            <p><strong>Fungoids</strong> — Ghostly translucent structures the ocean extrudes and reabsorbs. Four generative variants (Cap, Filament, Bloom, Columnar), each built from a probability-gated decision tree so every instance is architecturally unique.</p>
+            <p><strong>Fungoids</strong> — Ghostly translucent structures the Ocean extrudes and reabsorbs. Four generative variants (Cap, Filament, Bloom, Columnar), each built from a probability-gated decision tree so every instance is architecturally unique.</p>
             <div class="code-block is-collapsed">
                 <div class="code-block-header" onclick="toggleCode(this)">
                     <span class="code-block-lang">JS — formation spawn weights</span>
@@ -543,10 +667,10 @@ height += velocity * dt;</code></pre>
         <span class="section-marker">05 — Observation</span>
         <h2 id="observation">Observation Response</h2>
         <p>
-            The ocean notices when you're watching. Raycasting detects where the camera looks at the surface, and shader uniforms create localized "awareness" that spreads from observation points. Hover over the surface and it responds with rippling patterns and increased luminosity.
+            The Ocean notices when you're watching. Raycasting detects where the camera looks at the surface, and shader uniforms create localized "awareness" that spreads from observation points. Hover over the surface and it responds with rippling patterns and increased luminosity.
         </p>
         <p>
-            But the behavior changes unpredictably every 15-30 seconds: sometimes curious, reaching toward your cursor; sometimes aloof, barely acknowledging you; occasionally recoiling, as if disturbed by observation. This unpredictability reflects Lem's concept—you're studying it, but it's also studying you.
+            But the response drifts unpredictably every 15-30 seconds. Sometimes it's curious and the surface leans in under your cursor; sometimes it's aloof and barely registers you; sometimes it's recoiling, pulling back as if the attention itself were unwelcome. You never get told which is coming. This is the sensation the piece is chasing — you're studying it, but it's also studying you.
         </p>
  
         <div class="version-section">
@@ -560,15 +684,28 @@ height += velocity * dt;</code></pre>
         <!-- RESEARCH STATION UI SECTION -->
         <span class="section-marker">06 — Interface</span>
         <h2 id="ui">Research Station UI</h2>
-        <p>
-            The simulation includes a CRT-styled research station terminal — toggled with <strong>H</strong> — that treats the experience as a scientific observation session rather than a game. It's designed to feel like equipment left behind by the researchers in Lem's novel: worn, functional, slightly glitchy.
-        </p>
-        <p>
-            The terminal displays live session telemetry: elapsed observation time, current ocean mood state, active formation count, tidal stress levels, and a surface mapping readout that updates as the simulation runs. Research logs accumulate entries as the ocean's behavior shifts — a record of what you witnessed, written in the language of science that can't quite contain what it's describing.
-        </p>
-        <p>
-            The aesthetic is intentional. A clean, modern UI would imply comprehension. The CRT terminal implies something older, less certain — instruments built by people who expected to understand more than they did.
-        </p>
+     <p>
+The simulation includes a CRT-styled research station terminal, toggled with H, that treats the experience as a scientific observation session rather than a game. It's designed to feel like equipment left behind by the researchers in Lem's novel: worn, functional, and slightly glitchy.
+ 
+</p>
+ 
+<p>
+ 
+A mission brief and logs from earlier observation sessions meet the viewer at the outset, casting them as the latest in a line of researchers — picking up the work rather than starting it. 
+ 
+</p>
+ 
+<p>
+ 
+The terminal's panels reveal incrementally: the globe readout appears after the first formation, the mood indicator after the first state transition, the psi-contamination index once it crosses a threshold of 0.3. As the Ocean's behavior shifts, the log writes its own entries — a record the viewer never wrote. The psi index itself never resets; prolonged observation leaves a permanent trace. 
+ 
+</p>
+ 
+<p>
+ 
+The aesthetic is intentional. A clean, modern UI would imply comprehension. The CRT terminal implies something older, less certain — instruments built by people who expected to understand more than they did.
+ 
+</p>
  
         <!-- ATMOSPHERE SECTION -->
         <span class="section-marker">07 — Atmosphere</span>
@@ -584,36 +721,24 @@ height += velocity * dt;</code></pre>
         <span class="section-marker">08 — Performance</span>
         <h2 id="performance">Performance</h2>
         <p>
-            The C++ viscoelastic simulation runs in ~1-2ms per frame for the full 128×128 grid (16,384 cells). Heightmap and stressmap are uploaded to the GPU as Float32Array views directly into WASM memory—zero-copy texture transfer. The rendering pipeline uses a three-tier LOD system that adjusts ocean surface complexity based on camera distance (128, 64, or 32 segments), instanced geometries for formations and plasma, and shader optimizations including varying caching and precision management.
+            The C++ viscoelastic simulation runs in ~1-2ms per frame for the full 128×128 grid (16,384 cells). Each frame, the heightmap and stressmap are read from WASM memory through Float32Array views and bulk-copied into the GPU textures—avoiding any per-element serialization. The rendering pipeline uses a three-tier LOD system that adjusts Ocean surface complexity based on camera distance (128, 64, or 32 segments), instanced geometries for formations and plasma, and shader optimizations including varying caching and precision management.
         </p>
         <p>
-            Results: consistent 60fps on high-end desktops at 1440p, 60fps on mid-range hardware at 1080p, and 30-60fps on modern mobile devices with automatic quality adjustment. The WASM simulation gracefully degrades—if it fails to load, the ocean falls back to shader-only rendering.
+            Results: consistent 60fps on high-end desktops at 1440p, 60fps on mid-range hardware at 1080p, and 30-60fps on modern mobile devices with automatic quality adjustment. The WASM simulation gracefully degrades—if it fails to load, the Ocean falls back to shader-only rendering.
         </p>
  
         <!-- PHILOSOPHY SECTION -->
         <span class="section-marker">09 — Philosophy</span>
         <h2 id="philosophy">Design Philosophy</h2>
         <p>
-            Unlike most interactive experiences, Solaris resists easy comprehension. There are no objectives, no progression systems, no explicit tutorials. The ocean operates on its own timeline. Formations emerge and dissolve without player input. This autonomy is crucial—you're not controlling anything, you're observing something that exists beyond your influence.
+            Solaris resists easy comprehension by design. There are no objectives, no progression systems, no tutorials. The Ocean operates on its own timeline — formations emerge and dissolve without viewer input, mood states shift without announcement, responses vary without explanation. The goal is not mastery but sustained attention: a space where observation is possible but understanding is not.
         </p>
  
-        <p class="pull-quote">Not everything needs to be understood, explained, or mastered.</p>
- 
-        <p>
-            Sometimes the goal is simply to create a space where wonder can exist—where we can confront our own inability to comprehend the truly alien.
-        </p>
-        <p>
-            The result is a simulation that captures what makes Lem's Ocean so unsettling: it doesn't communicate through language or symbols. It communicates through work—through the constant, tireless effort of keeping its world stable. Every glowing pattern on the surface, every pulsing engineering zone, every shimmer of residual chaos is the Ocean saying something we can observe but never fully understand.
-        </p>
- 
-        <!-- RESEARCH SECTION -->
-        <span class="section-marker">10 — Research</span>
-        <h2 id="research">Research</h2>
+        <!-- PUBLICATIONS SECTION -->
+        <span class="section-marker">10 — Publications</span>
+        <h2 id="research">Related Publications</h2>
         <ul style="line-height: 1.8; padding-left: 1.4rem;">
-            <li>Hamilton, M. (2026). <em>Solaris: Designing for Unknowability in Interactive Systems</em>. In Expanded '26: Proceedings of the Conference on Animation and Interactive Art (Linz, Austria, September 9–11, 2026). ACM, New York, NY, USA. Forthcoming.</li>
-            <!-- PREPRINT: replace REPLACE_WITH_ARXIV_URL with the real arXiv abstract URL once the preprint is live, then deploy. Do NOT publish with the placeholder. -->
-            <!-- <li><em>Toward Autonomous Material Simulation: Four Novel Mechanisms for Real-Time Continuum Physics in the Browser</em>. Preprint, arXiv (2026). <a href="REPLACE_WITH_ARXIV_URL" target="_blank" rel="noopener noreferrer">arXiv ↗</a></li> -->
-            <!-- Add the SIGGRAPH paper only when it exists. -->
+            <li>Hamilton, Magda. 2026. Solaris: Designing for Unknowability in Interactive Systems. In <em>Proceedings of Expanded Ars Electronica</em> (Ars Electronica 2026). Association for Computing Machinery, New York, NY, USA. Forthcoming.<br><span style="font-size:0.85em; color:#888;">Develops the design argument behind this work — why it's built to resist interpretation, and where that approach succeeds and fails.</span></li>
         </ul>
  
         <!-- REFERENCES SECTION -->
@@ -626,7 +751,14 @@ height += velocity * dt;</code></pre>
             <li>Barrow-Green, J. (1997). <em>Poincaré and the Three Body Problem</em>. Providence, RI: American Mathematical Society.</li>
         </ol>
  
-        <p style="font-size: 0.7rem; color: #aaa; margin-top: 2rem; line-height: 1.8;">First published: January 22, 2026<br>Last updated: June 2026</p>
+        <p style="font-size: 0.7rem; color: #aaa; margin-top: 2rem; line-height: 1.8;">First published: January 22, 2026<br>Last updated: July 21, 2026</p>
+ 
+        <!-- CITATION LINKS (PDF | BibTeX) -->
+        <!-- PDF href is a placeholder until solaris.pdf is live; repoint to the
+             Zenodo file URL (or a self-hosted /solaris.pdf) once published. -->
+        <div class="cite-bar">
+            <a href="/solaris.pdf" target="_blank" rel="noopener">PDF</a><span class="sep">|</span><button type="button" onclick="toggleBib()">BibTeX</button>
+        </div>
  
         <div class="cta">
             <a href="https://solaris.observer" target="_blank" rel="noopener noreferrer" class="btn">Experience Solaris</a>
@@ -703,12 +835,34 @@ height += velocity * dt;</code></pre>
             <a href="#atmosphere"         onclick="toggleToc()"><span class="toc-num">07</span>Atmosphere</a>
             <a href="#performance"        onclick="toggleToc()"><span class="toc-num">08</span>Performance</a>
             <a href="#philosophy"         onclick="toggleToc()"><span class="toc-num">09</span>Philosophy</a>
-            <a href="#research"           onclick="toggleToc()"><span class="toc-num">10</span>Research</a>
+            <a href="#research"           onclick="toggleToc()"><span class="toc-num">10</span>Related Publications</a>
             <a href="#references"         onclick="toggleToc()"><span class="toc-num">11</span>Bibliography</a>
         </div>
     </div>
  
     <div class="toc-backdrop" id="tocBackdrop" onclick="toggleToc()"></div>
+ 
+    <!-- BIBTEX POPUP -->
+    <div class="bib-backdrop" id="bibBackdrop" onclick="toggleBib()"></div>
+    <div class="bib-modal" id="bibModal" role="dialog" aria-modal="true" aria-label="BibTeX citation">
+        <div class="bib-modal-header">
+            <span>BibTeX</span>
+            <button class="bib-close" onclick="toggleBib()" aria-label="Close">✕</button>
+        </div>
+        <pre id="bibText"><code>@techreport{hamilton2026solaris,
+  author      = {Hamilton, Magda},
+  title       = {Solaris: A {WebAssembly}/{WebGL} Architecture for Real-Time Viscoelastic Continuum Simulation and Tidal-Force Visualization in the Browser},
+  institution = {Velvet Disruption},
+  year        = {2026},
+  month       = jan,
+  day         = {22},
+  url         = {https://magdahamilton.dev/solaris.html},
+  note        = {Technical writeup}
+}</code></pre>
+        <div class="bib-modal-footer">
+            <button class="bib-copy" type="button" onclick="copyBib(this)">Copy</button>
+        </div>
+    </div>
  
     <style>
         /* ===== FLOATING TOC ===== */
@@ -883,6 +1037,29 @@ height += velocity * dt;</code></pre>
         back.classList.toggle('is-open', open);
     }
  
+    function toggleBib() {
+        const modal = document.getElementById('bibModal');
+        const back  = document.getElementById('bibBackdrop');
+        const open  = modal.classList.toggle('is-open');
+        back.classList.toggle('is-open', open);
+    }
+ 
+    function copyBib(btn) {
+        const txt = document.getElementById('bibText').textContent;
+        navigator.clipboard.writeText(txt).then(function () {
+            const prev = btn.textContent;
+            btn.textContent = 'Copied';
+            setTimeout(function () { btn.textContent = prev; }, 1600);
+        }).catch(function () {});
+    }
+ 
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+            const modal = document.getElementById('bibModal');
+            if (modal && modal.classList.contains('is-open')) toggleBib();
+        }
+    });
+ 
     // Highlight active section as user scrolls
     (function() {
         const links = document.querySelectorAll('.toc-nav a');
@@ -928,10 +1105,13 @@ height += velocity * dt;</code></pre>
         const W = canvas.width, H = canvas.height;
         const cx = W / 2, cy = H / 2;
  
-        const RED  = { angle: 0,             speed: 0.0008, radius: W * 0.33, size: 9,   color: '#c0392b', trail: [] };
-        const BLUE = { angle: Math.PI * 0.7, speed: 0.0014, radius: W * 0.29, size: 5.5, color: '#2980b9', trail: [] };
+        // Angular speeds are in rad/s, integrated against real elapsed time
+        // in the loop below, so the labelled rates hold at any refresh rate.
+        const RED  = { angle: 0,             speed: 0.08, radius: 250, size: 9,   color: '#c0392b', trail: [] };
+        const BLUE = { angle: Math.PI * 0.7, speed: 0.12, radius: 220, size: 5.5, color: '#2980b9', trail: [] };
         const TRAIL = 280;
         const wobble = { x: 0, y: 0, vx: 0, vy: 0 };
+        let lastT = null;
  
         function drawTrail(trail, r, g, b) {
             for (let i = 1; i < trail.length; i++) {
@@ -967,7 +1147,13 @@ height += velocity * dt;</code></pre>
             ctx.closePath(); ctx.fillStyle = color; ctx.fill();
         }
  
-        function frame() {
+        function frame(now) {
+            // Delta-time: advance by real elapsed seconds, not frame count.
+            if (lastT === null) lastT = now;
+            const dt  = Math.min((now - lastT) / 1000, 0.05); // clamp tab-refocus jumps
+            lastT = now;
+            const dtf = dt * 60; // 60fps-equivalent step for the tuned decay terms
+ 
             ctx.clearRect(0, 0, W, H);
  
             // Grid
@@ -988,8 +1174,8 @@ height += velocity * dt;</code></pre>
             ctx.strokeStyle='rgba(41,128,185,0.1)'; ctx.lineWidth=0.5; ctx.stroke();
             ctx.restore();
  
-            RED.angle  += RED.speed;
-            BLUE.angle += BLUE.speed;
+            RED.angle  += RED.speed  * dt;
+            BLUE.angle += BLUE.speed * dt;
  
             const rPos = { x: cx + Math.cos(RED.angle)  * RED.radius,  y: cy + Math.sin(RED.angle)  * RED.radius  * 0.38 };
             const bPos = { x: cx + Math.cos(BLUE.angle) * BLUE.radius, y: cy + Math.sin(BLUE.angle) * BLUE.radius * 0.38 };
@@ -1002,17 +1188,18 @@ height += velocity * dt;</code></pre>
             drawSun(RED,  rPos);
             drawSun(BLUE, bPos);
  
-            // Perturbation → planet wobble (ocean damps 95%)
+            // Perturbation → planet wobble (Ocean damps 95%)
             const forces = [rPos, bPos].map(p => {
                 const dx = p.x - cx, dy = p.y - cy, d2 = dx*dx + dy*dy;
                 return { fx: (dx/d2)*800, fy: (dy/d2)*800 };
             });
             const totalFx = forces[0].fx + forces[1].fx;
             const totalFy = forces[0].fy + forces[1].fy;
-            wobble.vx = (wobble.vx + totalFx * 0.05 * 0.002) * 0.92;
-            wobble.vy = (wobble.vy + totalFy * 0.05 * 0.002) * 0.92;
-            wobble.x  = (wobble.x + wobble.vx) * 0.97;
-            wobble.y  = (wobble.y + wobble.vy) * 0.97;
+            const accel = 0.05 * 0.002 * dtf;
+            wobble.vx = (wobble.vx + totalFx * accel) * Math.pow(0.92, dtf);
+            wobble.vy = (wobble.vy + totalFy * accel) * Math.pow(0.92, dtf);
+            wobble.x  = (wobble.x + wobble.vx * dtf) * Math.pow(0.97, dtf);
+            wobble.y  = (wobble.y + wobble.vy * dtf) * Math.pow(0.97, dtf);
  
             const stress = Math.min(Math.sqrt(totalFx*totalFx + totalFy*totalFy) / 60, 1);
             const px = cx + wobble.x, py = cy + wobble.y;
@@ -1050,12 +1237,12 @@ height += velocity * dt;</code></pre>
             // Stress readout
             ctx.font = '8px Courier New';
             ctx.fillStyle = 'rgba(42,42,42,0.35)';
-            ctx.fillText(`ocean stress: ${(stress*100).toFixed(0)}%`,  12, H - 24);
+            ctx.fillText(`Ocean stress: ${(stress*100).toFixed(0)}%`,  12, H - 24);
             ctx.fillText(`counteraction: ${(stress*95).toFixed(0)}%`, 12, H - 12);
  
             requestAnimationFrame(frame);
         }
-        frame();
+        requestAnimationFrame(frame);
     })();
     </script>
 </body>
