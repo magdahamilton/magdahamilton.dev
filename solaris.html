@@ -28,8 +28,8 @@
     <meta name="citation_publisher" content="Velvet Disruption">
     <meta name="citation_public_url" content="https://magdahamilton.dev/solaris.html">
     <meta name="citation_technical_report_institution" content="Velvet Disruption">
-    <meta name="citation_doi" content="10.5281/zenodo.21519571">
-    <meta name="citation_pdf_url" content="https://zenodo.org/records/21519571/files/solaris_v2.pdf">
+    <meta name="citation_doi" content="10.5281/zenodo.21540788">
+    <meta name="citation_pdf_url" content="https://zenodo.org/records/21540788/files/solaris_v3.pdf">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
@@ -42,7 +42,7 @@
     <meta property="og:site_name" content="Magda Hamilton">
     <meta property="article:author" content="Magda Hamilton">
     <meta property="article:published_time" content="2026-01-22">
-    <meta property="article:modified_time" content="2026-07-23">
+    <meta property="article:modified_time" content="2026-07-24">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
@@ -346,13 +346,13 @@
       "description": "A technical deep-dive into building an interactive WebGL simulation inspired by Stanisław Lem's Solaris, featuring emergent formations, gravitational engineering, and observation-responsive behavior.",
       "image": "https://magdahamilton.dev/images/solaris-og.jpg",
       "datePublished": "2026-01-22",
-      "dateModified": "2026-07-23",
+      "dateModified": "2026-07-24",
       "identifier": {
         "@type": "PropertyValue",
         "propertyID": "DOI",
-        "value": "10.5281/zenodo.21519571"
+        "value": "10.5281/zenodo.21540788"
       },
-      "sameAs": "https://doi.org/10.5281/zenodo.21519571",
+      "sameAs": "https://doi.org/10.5281/zenodo.21540788",
       "author": {
         "@id": "https://magdahamilton.dev/#person"
       },
@@ -503,7 +503,7 @@
             One of the most fascinating aspects of Lem's novel: the planet orbits two suns—a configuration that should be gravitationally chaotic. In 1687, Newton formulated universal gravitation and could predict the motion of two celestial bodies perfectly. Then he tried to add a third body. The math disintegrated.
         </p>
         <p>
-            For two centuries, mathematicians sought a general solution. Euler found specific stable configurations. Lagrange discovered five equilibrium points. Then in the 1880s, Henri Poincaré ended the search for a closed-form answer. He showed that the tiniest change in the starting positions could send the trajectories off in completely different directions, folding into structures — the "homoclinic tangles" — too intricate for any tidy formula to reach. It was the first mathematical encounter with what we now call chaos.
+            For two centuries, mathematicians sought a general solution. Euler found three collinear equilibrium points; Lagrange added two more, at the vertices of equilateral triangles, and only that second pair is stable — and then only under a mass-ratio condition. Then, by 1890, Henri Poincaré ended the search for a closed-form answer. He showed that the tiniest change in the starting positions could send the trajectories off in completely different directions, folding into structures — the "homoclinic tangles" — too intricate for any tidy formula to reach. It was the first mathematical encounter with what we now call chaos.
         </p>
         <p>
             But Lem imagined something extraordinary: in the novel, the Ocean holds its own orbit through continuous mass redistribution — not solving the equations but rewriting them, treating the three-body problem not as a mathematical puzzle requiring an elegant solution, but as a control problem demanding constant intervention. The simulation doesn't reproduce that feat — the orbit here is on rails — but it stages what the effort would look like, as the next section describes.
@@ -520,7 +520,7 @@
                 </div>
                 <div class="legend-item">
                     <div class="legend-dot" style="background:#2980b9;"></div>
-                    Blue Dwarf (0.12 rad/s, r=220)
+                    Blue Sun (0.12 rad/s, r=220)
                 </div>
                 <div class="legend-item">
                     <div class="legend-dot" style="background:#2a2a2a;"></div>
@@ -531,7 +531,7 @@
  
         <div class="version-section">
             <h3>Computing the Tidal Field</h3>
-            <p>The two suns move on fixed, scripted paths — the red giant slowly (0.08 rad/s) along a 250-unit radius, the blue dwarf faster (0.12 rad/s) at 220 units. Their orbits are on rails: scripted motion, not a gravity simulation.</p>
+            <p>The two suns move on fixed, scripted paths — the red giant slowly (0.08 rad/s) along a 250-unit radius, the blue sun (a hot main-sequence star, not the hypothetical object the term "blue dwarf" names) faster at 0.12 rad/s and 220 units. Their orbits are on rails: scripted motion, not a gravity simulation.</p>
             <p>What the simulation computes each frame is not the orbit but its <em>consequence</em>: the tidal field the two suns impose on the surface. Both sun positions feed the C++/WebAssembly solver, which evaluates the tidal potential per cell across the 128×128 grid using the standard formula:</p>
             <div class="code-block is-collapsed">
                 <div class="code-block-header" onclick="toggleCode(this)">
@@ -556,7 +556,7 @@ float counteraction_effort = fabsf(total_tidal) * 0.95f;
 cell.stress += counteraction_effort * dt * 0.5f;</code></pre>
                 </div>
             </div>
-            <p>That value is written into a texture the fragment shader reads back as a warm glow beneath the surface, brightest where the load runs heaviest. It isn't decorative — the solver recomputes it sixty times a second — and it reads exactly as intended: the Ocean straining to hold itself against two suns, its effort surfacing as light.</p>
+            <p>The trailing <code>0.5f</code> is an accumulation rate, not part of the split: it slows how fast stress builds so the glow rises over seconds rather than snapping on. That value is written into a texture the fragment shader reads back as a warm glow beneath the surface, brightest where the load runs heaviest. It isn't decorative — the solver recomputes it sixty times a second. What it is designed to produce is the impression of the Ocean straining to hold itself against two suns, its effort surfacing as light.</p>
         </div>
  
         <div class="version-section">
@@ -587,7 +587,7 @@ float blueEngineering = calculateEngineeringZone(uBlueSunPos, uBlueSunColor, 1);
  
         <div class="version-section">
             <h3>Viscoelastic Physics (C++/WASM)</h3>
-            <p>The material under the Ocean's surface isn't water — it's a Kelvin-Voigt viscoelastic gel. Water in real-time graphics follows the wave equation (∂²h/∂t² = c²∇²h); the gel obeys a different constitutive law, in which each cell's stress is the sum of an elastic term set by how far it is displaced and a viscous term set by how fast it is moving. In practice the surface pushes back against being deformed, holds the load for a beat, and lets go in a damped wobble instead of a clean travelling wave:</p>
+            <p>The material under the Ocean's surface isn't water — it's a Kelvin-Voigt viscoelastic gel. Water in real-time graphics follows the wave equation (∂²h/∂t² = c²∇²h); the gel obeys a different constitutive law, in which each cell's stress is the sum of an elastic term set by how far it is displaced and a viscous term set by how fast it is moving. In practice the surface pushes back against being deformed, holds the load for a beat, and lets go in a damped wobble instead of a clean travelling wave. The scheme is lumped rather than continuum: each cell is a damped spring integrated explicitly, with a nearest-neighbour coupling term standing in for spatial stress transport. It approximates the Kelvin–Voigt response on a grid; it does not solve the continuum equations.</p>
             <div class="code-block is-collapsed">
                 <div class="code-block-header" onclick="toggleCode(this)">
                     <span class="code-block-lang">C++ — Kelvin-Voigt viscoelastic solver</span>
@@ -606,7 +606,7 @@ float neighbor_pull = (avg_neighbor_height - height) * stress_propagation;
 float intent_force = 0.0f;
 if (intent_strength > 0.01f) {
     intent_force = (intent - height) * intent_strength * intent_responsiveness;
-    intent_strength *= (1.0f - dt * 0.5f);   // the reach decays — the Ocean changes its mind
+    intent_strength *= (1.0f - dt * 0.5f);   // the reach decays — it changes its mind
 }
  
 float total_force = elastic_force + viscous_force + neighbor_pull + intent_force;
@@ -615,29 +615,34 @@ velocity *= damping;
 height += velocity * dt;</code></pre>
                 </div>
             </div>
-            <p>The intent field is what tips the material from merely odd into alien. Each cell reaches toward a height target it sets for itself, and because that reach decays frame by frame, the Ocean commits to a direction and then abandons it — the surface moves with no external cause and no fixed goal. Memory runs the other way: the equilibrium each cell settles toward is a slow average of how it has recently been pushed around, so the surface never quite comes back to the shape it started from.</p>
+            <p>The intent field is what tips the material from merely odd into alien. Each cell reaches toward a height target it sets for itself, and because that reach decays frame by frame, the Ocean commits to a direction and then abandons it — the surface moves with no external cause and no fixed goal. Memory runs the other way: the equilibrium each cell settles toward is a slow average of how it has recently been pushed around — a leaky integrator over its deformation history with a time constant of roughly thirty seconds — so the surface never quite comes back to the shape it started from.</p>
+        </div>
+ 
+        <div class="version-section">
+            <h3>The Ambient Field</h3>
+            <p>Intent has a second, quieter source. Independently of the cursor and of the tidal field, an ambient driver injects velocity across the grid at three superposed timescales: a slow large-scale undulation, a set of wandering pressure zones on an intermediate period, and sparse stress injections drawn from a seeded generator. Amplitudes on all three scale with the current mood. The field runs continuously whether or not anyone is watching, which is the point — the surface has to move on its own before any of its responses to observation can read as choices rather than reflexes. Because the generator is seeded, a given session is reproducible from seed and input history alone; nothing here is frame-to-frame random.</p>
         </div>
  
         <div class="version-section">
             <h3>Mood-Driven Material Properties</h3>
-            <p>The Ocean's mood directly changes the physics. When recoiling, viscosity drops and stress propagation increases—the gel becomes volatile and reactive. When aloof, viscosity rises dramatically—the Ocean becomes sluggish, barely responding. When curious, elasticity peaks—the surface becomes springy and reaching. These aren't visual parameters; they're material properties in the C++ solver that change how the physics behaves.</p>
+            <p>The Ocean's mood directly changes the physics. When curious, elasticity peaks: restoring forces overshoot the intent target and the surface lifts toward the cursor. When aloof, viscosity rises dramatically, damping both the intent term and the disturbance until the surface flattens and barely registers the contact. When recoiling, viscosity drops and stress propagation rises, so the local disturbance is thrown outward through the neighbour coupling faster than it can build under the cursor — the volatility reads, from above, as withdrawal. These aren't visual parameters; they're material properties in the C++ solver that change how the physics behaves.</p>
         </div>
  
         <!-- FORMATIONS SECTION -->
         <span class="section-marker">04 — Formations</span>
         <h2 id="formations">Emergent Formations</h2>
         <p>
-            Six types of structures spawn spontaneously, each with a complete lifecycle—emergence, maturation, dissolution—weighted by rarity as described in Lem's novel:
+            Six types of structure spawn spontaneously, each with a complete lifecycle — emergence, maturation, dissolution — and each carrying its own spawn weight and lifespan range. The weights are tuned for pacing rather than drawn from the novel, which is inconsistent about how often any of these appear:
         </p>
  
         <div class="version-section">
             <h3>Formation Types</h3>
-            <p><strong>Symmetriads</strong> — Perfect radial symmetry, 6-12 arms, slow rotation. The most common formation.</p>
+            <p><strong>Symmetriads</strong> — Perfect radial symmetry, 6-12 arms, slow rotation. The longest-lived formation, holding for 30–40 seconds.</p>
             <p><strong>Asymmetriads</strong> — Towering vertical structures, 50-100m height, irregular shapes that defy easy classification.</p>
-            <p><strong>Mimoids</strong> — Structures the Ocean extrudes to imitate whatever is nearby — a neighboring formation, the suns overhead, the watcher's own outline — always imperfectly, so the copy never quite becomes the thing it echoes.</p>
-            <p><strong>Vertebrids</strong> — Skeletal lattice structures with L-system branching, membrane webbing between ribs, and pearlescent bone-like material. They emerge frozen and are abandoned by the Ocean.</p>
-            <p><strong>Extensors</strong> — The rarest formation. Sprawling horizontal networks with branch-like growth patterns.</p>
-            <p><strong>Fungoids</strong> — Ghostly translucent structures the Ocean extrudes and reabsorbs. Four generative variants (Cap, Filament, Bloom, Columnar), each built from a probability-gated decision tree so every instance is architecturally unique.</p>
+            <p><strong>Mimoids</strong> — Structures the Ocean extrudes to imitate whatever is nearby — a neighboring formation, the suns overhead, the watcher's own outline, or one of a small set of abstract geometric solids — always imperfectly, so the copy never quite becomes the thing it echoes. Tied with extensors for the highest spawn weight.</p>
+            <p><strong>Vertebrids</strong> — Skeletal lattice structures with L-system branching, membrane webbing between ribs, and pearlescent bone-like material. They emerge frozen and are abandoned by the Ocean. The rarest single formation, at the lowest spawn weight in the table.</p>
+            <p><strong>Extensors</strong> — Sprawling horizontal networks with branch-like growth patterns. Frequent but short-lived, dissolving within 10–18 seconds.</p>
+            <p><strong>Fungoids</strong> — Ghostly translucent structures the Ocean extrudes and reabsorbs. Four generative variants (Cap, Filament, Bloom, Columnar), each built from a probability-gated decision tree so every instance is architecturally unique. The variants carry separate weights that sum to the largest share of the table, making fungoids collectively the most frequent thing on the surface even though no single variant is.</p>
             <div class="code-block is-collapsed">
                 <div class="code-block-header" onclick="toggleCode(this)">
                     <span class="code-block-lang">JS — formation spawn weights</span>
@@ -661,13 +666,14 @@ height += velocity * dt;</code></pre>
                 </div>
             </div>
             <p>Each formation "breathes" through subtle internal motion, rendered with translucent shaders and flowing 3D noise patterns, suggesting processes we can only glimpse.</p>
+            <p>Nine lifespan ranges run concurrently, none of them commensurate, and each instance draws from its range independently. Together with the 15–30 second mood interval, the thirty-second memory constant, and the three ambient periods, the result is a set of clocks that never returns to the same configuration twice within a session. No two minutes of the simulation present the same combination of states.</p>
         </div>
  
         <!-- OBSERVATION SECTION -->
         <span class="section-marker">05 — Observation</span>
         <h2 id="observation">Observation Response</h2>
         <p>
-            The Ocean notices when you're watching. Raycasting detects where the camera looks at the surface, and shader uniforms create localized "awareness" that spreads from observation points. Hover over the surface and it responds with rippling patterns and increased luminosity.
+            The Ocean notices when you're watching. Raycasting detects where the cursor meets the surface, and shader uniforms create localized "awareness" that spreads from that contact point. Hover over the surface and it responds with rippling patterns and increased luminosity.
         </p>
         <p>
             But the response drifts unpredictably every 15-30 seconds. Sometimes it's curious and the surface leans in under your cursor; sometimes it's aloof and barely registers you; sometimes it's recoiling, pulling back as if the attention itself were unwelcome. You never get told which is coming. This is the sensation the piece is chasing — you're studying it, but it's also studying you.
@@ -738,7 +744,7 @@ The aesthetic is intentional. A clean, modern UI would imply comprehension. The 
         <span class="section-marker">10 — Publications</span>
         <h2 id="research">Related Publications</h2>
         <ul style="line-height: 1.8; padding-left: 1.4rem;">
-            <li>Hamilton, Magda. 2026. Solaris: Designing for Unknowability in Interactive Systems. In <em>Proceedings of Expanded Ars Electronica</em> (Ars Electronica 2026). Association for Computing Machinery, New York, NY, USA. Forthcoming.<br><span style="font-size:0.85em; color:#888;">Develops the design argument behind this work — why it's built to resist interpretation, and where that approach succeeds and fails.</span></li>
+            <li>Hamilton, Magda. 2026. Solaris: Designing for Unknowability in Interactive Systems. In <em>Proceedings of the Conference on Animation and Interactive Art</em> (Expanded '26). Association for Computing Machinery, New York, NY, USA. Forthcoming.<br><span style="font-size:0.85em; color:#888;">Develops the design argument behind this work — why it's built to resist interpretation, and where that approach succeeds and fails.</span></li>
         </ul>
  
         <!-- REFERENCES SECTION -->
@@ -751,11 +757,11 @@ The aesthetic is intentional. A clean, modern UI would imply comprehension. The 
             <li>Barrow-Green, J. (1997). <em>Poincaré and the Three Body Problem</em>. Providence, RI: American Mathematical Society.</li>
         </ol>
  
-        <p style="font-size: 0.7rem; color: #aaa; margin-top: 2rem; line-height: 1.8;">First published: January 22, 2026<br>Last updated: July 23, 2026</p>
+        <p style="font-size: 0.7rem; color: #aaa; margin-top: 2rem; line-height: 1.8;">First published: January 22, 2026<br>Last updated: July 24, 2026</p>
  
         <!-- CITATION LINKS (PDF | BibTeX) -->
         <div class="cite-bar">
-            <a href="https://zenodo.org/records/21519571/files/solaris_v2.pdf" target="_blank" rel="noopener">PDF</a><span class="sep">|</span><button type="button" onclick="toggleBib()">BibTeX</button>
+            <a href="https://zenodo.org/records/21540788/files/solaris_v3.pdf" target="_blank" rel="noopener">PDF</a><span class="sep">|</span><button type="button" onclick="toggleBib()">BibTeX</button>
         </div>
  
         <div class="cta">
@@ -854,8 +860,8 @@ The aesthetic is intentional. A clean, modern UI would imply comprehension. The 
   year        = {2026},
   month       = feb,
   day         = {16},
-  doi         = {10.5281/zenodo.21519571},
-  url         = {https://doi.org/10.5281/zenodo.21519571},
+  doi         = {10.5281/zenodo.21540788},
+  url         = {https://doi.org/10.5281/zenodo.21540788},
   note        = {Technical report}
 }</code></pre>
         <div class="bib-modal-footer">
