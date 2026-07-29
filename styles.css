@@ -127,17 +127,6 @@ h2 {
  
 .animated-plus {
     display: inline-block;
-    animation: rotateToPlus 3s ease-in-out forwards;
-    transform: rotate(45deg);
-}
- 
-@keyframes rotateToPlus {
-    0% {
-        transform: rotate(45deg);
-    }
-    100% {
-        transform: rotate(0deg);
-    }
 }
  
 p {
