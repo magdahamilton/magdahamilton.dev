@@ -303,11 +303,18 @@
       },
       "organizer": {
         "@type": "Organization",
+        "@id": "https://expanded-conf.org/#organization",
         "name": "Expanded Conference",
         "url": "https://expanded-conf.org"
       },
       "performer": {
         "@id": "https://magdahamilton.dev/#person"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": 0,
+        "priceCurrency": "EUR",
+        "url": "https://ars.electronica.art/negotiatinghumanity/en/view/academic-session-art-track-3-control-3a538ddb450c80318373ca7ff0564cbd/"
       },
       "workFeatured": {
         "@id": "https://magdahamilton.dev/#solaris-paper"
@@ -323,6 +330,19 @@
       "@type": "Event",
       "@id": "https://ars.electronica.art/negotiatinghumanity/en/view/academic-session-art-track-3-control-3a538ddb450c80318373ca7ff0564cbd/#event",
       "name": "Academic Session: Art Track #3 Control",
+      "description": "Academic session of the Expanded 2026 conference presenting five art papers from the Expanded Conference open call.",
+      "organizer": {
+        "@id": "https://expanded-conf.org/#organization"
+      },
+      "performer": {
+        "@id": "https://magdahamilton.dev/#person"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": 0,
+        "priceCurrency": "EUR",
+        "url": "https://ars.electronica.art/negotiatinghumanity/en/view/academic-session-art-track-3-control-3a538ddb450c80318373ca7ff0564cbd/"
+      },
       "url": "https://ars.electronica.art/negotiatinghumanity/en/view/academic-session-art-track-3-control-3a538ddb450c80318373ca7ff0564cbd/",
       "startDate": "2026-09-10T10:00:00+02:00",
       "endDate": "2026-09-10T11:30:00+02:00",
@@ -345,6 +365,10 @@
       "@id": "https://expanded-conf.org/#expanded-2026",
       "name": "Expanded 2026",
       "alternateName": "Expanded – Conference on Animation and Interactive Art",
+      "description": "Conference on animation and interactive art, held as part of the Ars Electronica Festival 2026 in Linz.",
+      "organizer": {
+        "@id": "https://expanded-conf.org/#organization"
+      },
       "url": "https://expanded-conf.org",
       "startDate": "2026-09-09",
       "endDate": "2026-09-11",
@@ -368,7 +392,12 @@
       "@type": "Festival",
       "@id": "https://ars.electronica.art/negotiatinghumanity/#festival",
       "name": "Ars Electronica Festival 2026: Negotiating Humanity",
+      "description": "Festival for art, technology and society, held across Linz city centre.",
       "url": "https://ars.electronica.art/negotiatinghumanity/en/",
+      "startDate": "2026-09-09",
+      "endDate": "2026-09-13",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
       "organizer": {
         "@type": "Organization",
         "name": "Ars Electronica Linz GmbH & Co KG",
@@ -376,9 +405,11 @@
       },
       "location": {
         "@type": "Place",
+        "name": "Linz city centre",
         "address": {
           "@type": "PostalAddress",
           "addressLocality": "Linz",
+          "postalCode": "4020",
           "addressCountry": "AT"
         }
       },
