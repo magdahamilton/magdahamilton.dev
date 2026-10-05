@@ -25,14 +25,6 @@
     <priority>0.8</priority>
   </url>
  
-  <!-- Bio / About -->
-  <url>
-    <loc>https://magdahamilton.dev/bio.html</loc>
-    <lastmod>2026-04-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
- 
   <!-- Solaris Accepted Author Manuscript -->
   <url>
     <loc>https://magdahamilton.dev/publications/solaris-aam.pdf</loc>
