@@ -1,5 +1,3 @@
-
-Privacy · HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,22 +10,75 @@ Privacy · HTML
  
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#000000">
-    <title>Privacy - Magda Hamilton</title>
-    <meta name="description" content="How magdahamilton.dev handles visitor data: no cookies, no ad tracking, cookieless analytics.">
-    <meta name="author" content="Magda Hamilton">
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <title>Privacy | Magda Hamilton</title>
+    <meta name="description" content="Privacy information for magdahamilton.dev: no cookies, cookieless Plausible analytics, hosting on GitHub Pages via Cloudflare.">
     <link rel="canonical" href="https://magdahamilton.dev/privacy.html">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="styles.css">
- 
     <style>
-        /* Scoped to this page so it can't affect the rest of the site */
-        .privacy { max-width: 42rem; }
-        .privacy h2 { margin-top: 2.5rem; }
-        .privacy p, .privacy li { line-height: 1.65; }
-        .privacy ul { padding-left: 1.25rem; }
-        .privacy li + li { margin-top: 0.75rem; }
-        .privacy .updated { opacity: 0.6; }
+        .privacy {
+            max-width: 42rem;
+            margin: 0 auto;
+            padding: 4rem 2rem 3rem;
+            line-height: 1.7;
+        }
+        .privacy h1 {
+            font-size: 2rem;
+            font-weight: 400;
+            margin: 0 0 0.5rem;
+        }
+        .privacy .updated {
+            font-size: 0.8rem;
+            opacity: 0.55;
+            margin: 0 0 3rem;
+        }
+        .privacy h2 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin: 2.5rem 0 0.75rem;
+        }
+        .privacy p {
+            margin: 0 0 1rem;
+        }
+        .privacy a {
+            color: inherit;
+            text-underline-offset: 3px;
+        }
+    </style>
+    <style>
+        /* Footer: pinned to the bottom, small and quiet */
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        footer {
+            margin-top: auto;
+            padding: 1.25rem 2rem;
+            font-size: 0.7rem;
+            letter-spacing: 0.05em;
+            opacity: 0.55;
+            text-align: center;
+        }
+        footer p {
+            margin: 0;
+        }
+        .footer-sep {
+            margin: 0 0.5em;
+        }
+        .footer-link,
+        .footer-link:visited {
+            color: inherit;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+        .footer-link:hover,
+        .footer-link:focus-visible {
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
     </style>
 </head>
 <body>
@@ -39,39 +90,56 @@ Privacy · HTML
                 <li><a href="publications.html">PUBLICATIONS</a></li>
             </ul>
         </div>
+        <div class="contact-icons">
+            <a href="/cdn-cgi/l/email-protection#432b2a032e222427222b222e2a2f372c2d6d272635" aria-label="Email">
+                <svg viewBox="0 0 24 24">
+                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+            </a>
+            <a href="https://linkedin.com/in/magdahamilton" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                </svg>
+            </a>
+            <a href="https://github.com/magdahamilton" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+            </a>
+            <a href="https://orcid.org/0009-0004-8170-7493" target="_blank" rel="noopener noreferrer" aria-label="ORCID">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zM7.369 4.378c.525 0 .947.431.947.947s-.422.947-.947.947a.95.95 0 0 1-.947-.947c0-.525.422-.947.947-.947zm-.722 3.038h1.444v10.041H6.647V7.416zm3.562 0h3.9c3.712 0 5.344 2.653 5.344 5.025 0 2.578-2.016 5.025-5.325 5.025h-3.919V7.416zm1.444 1.303v7.444h2.297c3.272 0 4.022-2.484 4.022-3.722 0-2.016-1.284-3.722-4.097-3.722h-2.222z"/>
+                </svg>
+            </a>
+        </div>
     </nav>
  
-    <div class="container">
-        <section class="privacy">
-            <h1>Privacy</h1>
-            <p class="updated">Last updated October 6, 2026</p>
+    <main class="privacy">
+        <h1>Privacy</h1>
+        <p class="updated">Last updated: October 6, 2026</p>
  
-            <p>This is a personal portfolio site. It doesn't use cookies, doesn't track you across other websites, and doesn't sell or share data for advertising. The short version of everything below: I only see anonymous, aggregate visitor counts.</p>
+        <p>This is a personal portfolio. It has no accounts, no forms and no advertising, and it sets no cookies. I don't collect or store personal information about you. The few services that keep the site running are described below.</p>
  
-            <h2>Analytics</h2>
-            <p>I use <a href="https://plausible.io" target="_blank" rel="noopener noreferrer">Plausible Analytics</a> to see how many people visit and which pages they view. Plausible doesn't use cookies and doesn't collect personal data. It counts visits in aggregate (page views, referring sites, country, device type) without identifying individual visitors. You can read <a href="https://plausible.io/data-policy" target="_blank" rel="noopener noreferrer">Plausible's data policy</a> for details.</p>
+        <h2>Analytics</h2>
+        <p>I use <a href="https://plausible.io/data-policy" target="_blank" rel="noopener noreferrer">Plausible Analytics</a> to see how many people visit and which pages they read. Plausible doesn't use cookies, doesn't follow you across other websites and doesn't store IP addresses. It records only aggregate information: the page visited, the referring site, the country, and the device and browser type. The data is stored in the EU.</p>
  
-            <h2>Services that handle your connection</h2>
-            <p>Like any website, this one relies on a few providers to deliver it, and they process your IP address as part of normal operation:</p>
-            <ul>
-                <li><strong>GitHub Pages</strong> hosts the site. GitHub logs visitors' IP addresses for security purposes. See the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub Privacy Statement</a>.</li>
-                <li><strong>Cloudflare</strong> delivers the video files on this site and may handle network traffic to it. See the <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer">Cloudflare Privacy Policy</a>.</li>
-            </ul>
-            <p>I don't have access to these providers' logs and don't use them to identify anyone.</p>
+        <h2>Hosting</h2>
+        <p>The site is hosted on <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub Pages</a>. Like any web server, GitHub may log visitors' IP addresses to keep its service secure.</p>
+        <p>The domain and traffic run through <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer">Cloudflare</a>, which also serves some images and scripts. Cloudflare processes IP addresses to deliver the site and protect it from abuse.</p>
+        <p>I don't have access to these providers' logs, and their own privacy policies (linked above) cover how they handle that data.</p>
  
-            <h2>If you email me</h2>
-            <p>If you contact me at <a href="mailto:hi@magdahamilton.dev">hi@magdahamilton.dev</a>, I'll use your name, address, and message only to reply. I don't add anyone to a mailing list. You can ask me to delete our correspondence at any time.</p>
+        <h2>Links to other sites</h2>
+        <p>The site links to external pages such as GitHub, LinkedIn, ORCID and project sites. Once you follow a link, that site's own privacy policy applies.</p>
  
-            <h2>Your rights</h2>
-            <p>Depending on where you live, including in the EU and UK, you may have the right to ask what personal data I hold about you, and to have it corrected or deleted. In practice, the only personal data I'd hold is email correspondence. To make a request, email <a href="mailto:hi@magdahamilton.dev">hi@magdahamilton.dev</a>.</p>
+        <h2>Email</h2>
+        <p>If you email me, I'll use your address and message only to reply to you.</p>
  
-            <h2>Changes</h2>
-            <p>If anything here changes, I'll update this page and the date at the top.</p>
-        </section>
-    </div>
+        <h2>Your rights</h2>
+        <p>If you're in the EU or UK, the GDPR gives you the right to ask what data is held about you and to have it corrected or deleted. Since this site doesn't store personal data, there's usually nothing to hand over, but you're welcome to ask at <a href="mailto:hi@magdahamilton.dev">hi@magdahamilton.dev</a>.</p>
+    </main>
  
     <footer>
-        <p>© 2026 Magda Hamilton · <a href="privacy.html" aria-current="page">Privacy</a></p>
+        <p>© 2026 Magda Hamilton <span class="footer-sep" aria-hidden="true">·</span> <a href="privacy.html" class="footer-link" aria-current="page">Privacy</a></p>
     </footer>
 </body>
 </html>
