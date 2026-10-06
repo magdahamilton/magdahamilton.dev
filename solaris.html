@@ -397,6 +397,39 @@
   ]
 }
     </script>
+    <style>
+        /* Footer: pinned to the bottom, small and quiet */
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        footer {
+            margin-top: auto;
+            padding: 1.25rem 2rem;
+            font-size: 0.7rem;
+            letter-spacing: 0.05em;
+            opacity: 0.55;
+            text-align: center;
+        }
+        footer p {
+            margin: 0;
+        }
+        .footer-sep {
+            margin: 0 0.5em;
+        }
+        .footer-link,
+        .footer-link:visited {
+            color: inherit;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+        .footer-link:hover,
+        .footer-link:focus-visible {
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+    </style>
 </head>
 <body>
     <nav>
@@ -767,7 +800,7 @@ The aesthetic is intentional. A clean, modern UI would imply comprehension. The 
         </div>
     </div>
     <footer>
-        <p>© 2026 Magda Hamilton</p>
+        <p>© 2026 Magda Hamilton <span class="footer-sep" aria-hidden="true">·</span> <a href="privacy.html" class="footer-link">Privacy</a></p>
     </footer>
  
     <style>
