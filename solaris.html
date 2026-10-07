@@ -21,12 +21,12 @@
     <!-- Academic Citation Meta Tags -->
     <meta name="citation_title" content="Solaris: A WebAssembly/WebGL Architecture for Real-Time Viscoelastic Continuum Simulation and Tidal-Force Visualization in the Browser">
     <meta name="citation_author" content="Hamilton, Magda">
-    <meta name="citation_publication_date" content="2026/01/22">
+    <meta name="citation_publication_date" content="2026/07/24">
     <meta name="citation_online_date" content="2026/01/22">
     <meta name="citation_publisher" content="Velvet Disruption">
     <meta name="citation_public_url" content="https://magdahamilton.dev/solaris.html">
     <meta name="citation_technical_report_institution" content="Velvet Disruption">
-    <meta name="citation_doi" content="10.5281/zenodo.21540788">
+    <meta name="citation_doi" content="10.5281/zenodo.21480675">
     <meta name="citation_pdf_url" content="https://zenodo.org/records/21540788/files/solaris_v3.pdf">
     
     <!-- Open Graph / Facebook -->
@@ -348,14 +348,17 @@
       "identifier": {
         "@type": "PropertyValue",
         "propertyID": "DOI",
-        "value": "10.5281/zenodo.21540788"
+        "value": "10.5281/zenodo.21480675"
       },
-      "sameAs": "https://doi.org/10.5281/zenodo.21540788",
+      "sameAs": "https://doi.org/10.5281/zenodo.21480675",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
       "author": {
         "@id": "https://magdahamilton.dev/#person"
       },
       "publisher": {
-        "@id": "https://magdahamilton.dev/#person"
+        "@type": "Organization",
+        "name": "Velvet Disruption",
+        "url": "https://velvetdisruption.com"
       },
       "mainEntityOfPage": {
         "@type": "WebPage",
@@ -471,7 +474,8 @@
     </div>
  
     <div class="content">
-        <!-- Document links live in the citation bar near the foot of the article. -->
+        <div class="doc-links">Web edition of the technical report · <a href="https://doi.org/10.5281/zenodo.21480675" target="_blank" rel="noopener">DOI 10.5281/zenodo.21480675</a> · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></div>
+ 
         <div class="project-meta">
             <div class="meta-item">
                 <div class="meta-label">Role</div>
@@ -558,6 +562,7 @@
                     Solaris (orbit on rails)
                 </div>
             </div>
+            <div class="diagram-note">Schematic — radii not to scale. The glow stands for the stress the solver accumulates; no counter-force is computed.</div>
         </div>
  
         <div class="version-section">
@@ -775,7 +780,7 @@ The aesthetic is intentional. A clean, modern UI would imply comprehension. The 
         <span class="section-marker">10 — Publications</span>
         <h2 id="research">Related Publications</h2>
         <ul style="line-height: 1.8; padding-left: 1.4rem;">
-            <li>Hamilton, Magda. 2026. Solaris: Designing for Unknowability in Interactive Systems. In <em>Proceedings of the Conference on Animation and Interactive Art</em> (Expanded '26). Association for Computing Machinery, New York, NY, USA. Forthcoming.<br><span style="font-size:0.85em; color:#888;">Develops the design argument behind this work — why it's built to resist interpretation, and where that approach succeeds and fails.</span></li>
+            <li>Hamilton, Magda. 2026. Solaris: Designing for Unknowability in Interactive Systems. In <em>Expanded 2026: Conference on Animation and Interactive Art</em> (Expanded 2026), September 09–11, 2026, Linz, Austria. ACM, New York, NY, USA. Forthcoming. DOI 10.1145/3840416.3840469 (live on publication).<br><span style="font-size:0.85em; color:#888;">Develops the design argument behind this work — why it's built to resist interpretation, and where that approach succeeds and fails.</span></li>
         </ul>
  
         <!-- REFERENCES SECTION -->
@@ -792,7 +797,7 @@ The aesthetic is intentional. A clean, modern UI would imply comprehension. The 
  
         <!-- CITATION LINKS (PDF | BibTeX) -->
         <div class="cite-bar">
-            <a href="https://magdahamilton.dev/publications/solaris-technical-report.pdf" target="_blank" rel="noopener">PDF</a><span class="sep">|</span><button type="button" onclick="toggleBib()">BibTeX</button>
+            <a href="https://doi.org/10.5281/zenodo.21480675" target="_blank" rel="noopener">PDF (Zenodo)</a><span class="sep">|</span><button type="button" onclick="toggleBib()">BibTeX</button>
         </div>
  
         <div class="cta">
@@ -843,6 +848,12 @@ The aesthetic is intentional. A clean, modern UI would imply comprehension. The 
             border-radius: 50%;
             flex-shrink: 0;
         }
+        .diagram-note {
+            margin-top: 0.6rem;
+            font-size: 0.7rem;
+            line-height: 1.6;
+            color: #888;
+        }
     </style>
  
     <!-- FLOATING TABLE OF CONTENTS -->
@@ -889,11 +900,11 @@ The aesthetic is intentional. A clean, modern UI would imply comprehension. The 
   title       = {Solaris: A {WebAssembly}/{WebGL} Architecture for Real-Time Viscoelastic Continuum Simulation and Tidal-Force Visualization in the Browser},
   institution = {Velvet Disruption},
   year        = {2026},
-  month       = feb,
-  day         = {16},
-  doi         = {10.5281/zenodo.21540788},
-  url         = {https://doi.org/10.5281/zenodo.21540788},
-  note        = {Technical report}
+  month       = jul,
+  day         = {24},
+  doi         = {10.5281/zenodo.21480675},
+  url         = {https://doi.org/10.5281/zenodo.21480675},
+  note        = {Technical report, third edition}
 }</code></pre>
         <div class="bib-modal-footer">
             <button class="bib-copy" type="button" onclick="copyBib(this)">Copy</button>
@@ -1146,7 +1157,6 @@ The aesthetic is intentional. A clean, modern UI would imply comprehension. The 
         const RED  = { angle: 0,             speed: 0.08, radius: 250, size: 9,   color: '#c0392b', trail: [] };
         const BLUE = { angle: Math.PI * 0.7, speed: 0.12, radius: 220, size: 5.5, color: '#2980b9', trail: [] };
         const TRAIL = 280;
-        const wobble = { x: 0, y: 0, vx: 0, vy: 0 };
         let lastT = null;
  
         function drawTrail(trail, r, g, b) {
@@ -1188,7 +1198,6 @@ The aesthetic is intentional. A clean, modern UI would imply comprehension. The 
             if (lastT === null) lastT = now;
             const dt  = Math.min((now - lastT) / 1000, 0.05); // clamp tab-refocus jumps
             lastT = now;
-            const dtf = dt * 60; // 60fps-equivalent step for the tuned decay terms
  
             ctx.clearRect(0, 0, W, H);
  
@@ -1224,21 +1233,18 @@ The aesthetic is intentional. A clean, modern UI would imply comprehension. The 
             drawSun(RED,  rPos);
             drawSun(BLUE, bPos);
  
-            // Perturbation → planet wobble (Ocean damps 95%)
+            // The orbit is on rails: Solaris holds its position. The suns'
+            // combined pull only drives the glow, standing in (schematically)
+            // for the stress the solver accumulates.
             const forces = [rPos, bPos].map(p => {
                 const dx = p.x - cx, dy = p.y - cy, d2 = dx*dx + dy*dy;
                 return { fx: (dx/d2)*800, fy: (dy/d2)*800 };
             });
             const totalFx = forces[0].fx + forces[1].fx;
             const totalFy = forces[0].fy + forces[1].fy;
-            const accel = 0.05 * 0.002 * dtf;
-            wobble.vx = (wobble.vx + totalFx * accel) * Math.pow(0.92, dtf);
-            wobble.vy = (wobble.vy + totalFy * accel) * Math.pow(0.92, dtf);
-            wobble.x  = (wobble.x + wobble.vx * dtf) * Math.pow(0.97, dtf);
-            wobble.y  = (wobble.y + wobble.vy * dtf) * Math.pow(0.97, dtf);
  
             const stress = Math.min(Math.sqrt(totalFx*totalFx + totalFy*totalFy) / 60, 1);
-            const px = cx + wobble.x, py = cy + wobble.y;
+            const px = cx, py = cy;
  
             // Stress glow
             if (stress > 0.01) {
@@ -1270,11 +1276,6 @@ The aesthetic is intentional. A clean, modern UI would imply comprehension. The 
                 );
             });
  
-            // Stress readout
-            ctx.font = '8px Courier New';
-            ctx.fillStyle = 'rgba(42,42,42,0.35)';
-            ctx.fillText(`Ocean stress: ${(stress*100).toFixed(0)}%`,  12, H - 24);
-            ctx.fillText(`counteraction: ${(stress*95).toFixed(0)}%`, 12, H - 12);
  
             requestAnimationFrame(frame);
         }
