@@ -1,3 +1,5 @@
+
+Magdahamilton index · HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,7 +48,11 @@
       "@id": "https://magdahamilton.dev/#person",
       "name": "Magda Hamilton",
       "familyName": "Hamilton",
-      "jobTitle": ["Creative Technologist", "Graphics & Design Engineer"],
+      "jobTitle": [
+        "Graphics & Design Engineer",
+        "Creative Technologist",
+        "Founder"
+      ],
       "description": "Graphics & Design Engineer and Creative Technologist exploring the intersection of interaction design, computation, and systems thinking. Founder of Velvet Disruption.",
       "url": "https://magdahamilton.dev",
       "image": {
@@ -106,9 +112,20 @@
         "https://expanded-conf.org/speaker/magda-hamilton/"
       ],
       "knowsAbout": [
-        "C++", "WebAssembly", "Emscripten", "WebGL", "Three.js", "GLSL",
-        "Swift", "SwiftUI", "Metal", "iOS Development", "Creative Coding",
-        "Interaction Design", "Computational Design", "Graphics Programming"
+        "C++",
+        "WebAssembly",
+        "Emscripten",
+        "WebGL",
+        "Three.js",
+        "GLSL",
+        "Swift",
+        "SwiftUI",
+        "Metal",
+        "iOS Development",
+        "Creative Coding",
+        "Interaction Design",
+        "Computational Design",
+        "Graphics Programming"
       ],
       "worksFor": {
         "@id": "https://velvetdisruption.com/#organization"
@@ -116,58 +133,30 @@
       "performerIn": {
         "@id": "https://expanded-conf.org/schedule/magda-hamilton-solaris-designing-for-unknowability-in-interactive-systems/#event"
       },
-      "mainEntityOfPage": {
-        "@id": "https://magdahamilton.dev/#website"
+      "mainEntityOfPage": "https://magdahamilton.dev/",
+      "subjectOf": {
+        "@type": "AboutPage",
+        "url": "https://velvetdisruption.com/about.html",
+        "name": "About — Velvet Disruption"
       }
     },
     {
       "@type": "Organization",
       "@id": "https://velvetdisruption.com/#organization",
       "name": "Velvet Disruption",
-      "url": "https://velvetdisruption.com",
-      "description": "A creative technology studio exploring the edges of interaction design and computation.",
+      "url": "https://velvetdisruption.com/",
+      "description": "Creative technology studio building interactive systems where behaviour is part of the design: browser-based systems, native applications and physical interactive work.",
       "foundingDate": "2025-05",
       "founder": {
         "@id": "https://magdahamilton.dev/#person"
-      },
-      "sameAs": [
-        "https://www.crunchbase.com/organization/velvet-disruption-0966",
-        "https://isni.org/isni/0000000530780156",
-        "https://www.wikidata.org/wiki/Q138758246",
-        "https://www.google.com/search?kgmid=/g/11z2mjrbbw",
-        "https://github.com/velvet-disruption",
-        "https://www.linkedin.com/company/velvetdisruption",
-        "https://www.instagram.com/velvetdisruption",
-        "https://x.com/velvetdisrupt",
-        "https://www.facebook.com/velvetdisruption",
-        "https://share.google/8yiMzwtGfp2mCPDTX",
-        "https://www.creativeapplications.net/author/velvetdisruption/",
-        "https://vimeo.com/velvetdisruption",
-        "https://www.awwwards.com/velvetdisruption/",
-        "https://contra.com/company/velvet-disruption_01604f",
-        "https://www.youtube.com/@VelvetDisruption",
-        "https://www.goodfirms.co/company/velvet-disruption",
-        "https://www.glassdoor.com/Overview/Working-at-Velvet-Disruption-EI_IE11090076.11,28.htm"
-      ]
+      }
     },
     {
-      "@type": ["WebApplication", "SoftwareApplication"],
+      "@type": "CreativeWork",
       "@id": "https://solaris.observer/#creativework",
       "name": "Solaris",
       "url": "https://solaris.observer",
       "description": "An interactive WebGL meditation on consciousness and the unknowable, inspired by Stanisław Lem's novel.",
-      "applicationCategory": "MultimediaApplication",
-      "operatingSystem": "Web Browser",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "5",
-        "ratingCount": "1"
-      },
       "creator": {
         "@id": "https://magdahamilton.dev/#person"
       },
@@ -175,11 +164,27 @@
         "@id": "https://velvetdisruption.com/#organization"
       },
       "datePublished": "2026-01-22",
-      "keywords": ["C++", "WebAssembly", "WebGL", "Three.js", "GLSL", "interactive art", "creative technology"],
+      "keywords": [
+        "C++",
+        "WebAssembly",
+        "WebGL",
+        "Three.js",
+        "GLSL",
+        "interactive art",
+        "creative technology"
+      ],
       "subjectOf": [
-        { "@id": "https://expanded-conf.org/schedule/magda-hamilton-solaris-designing-for-unknowability-in-interactive-systems/#event" },
-        { "@id": "https://magdahamilton.dev/#solaris-paper" }
-      ]
+        {
+          "@id": "https://expanded-conf.org/schedule/magda-hamilton-solaris-designing-for-unknowability-in-interactive-systems/#event"
+        },
+        {
+          "@id": "https://doi.org/10.1145/3840416.3840469"
+        },
+        {
+          "@id": "https://doi.org/10.5281/zenodo.21480675"
+        }
+      ],
+      "isAccessibleForFree": true
     },
     {
       "@type": "SoftwareApplication",
@@ -188,17 +193,13 @@
       "url": "https://tensilk.app",
       "operatingSystem": "iOS",
       "applicationCategory": "Productivity",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
       "creator": {
         "@id": "https://magdahamilton.dev/#person"
       },
       "publisher": {
         "@id": "https://velvetdisruption.com/#organization"
-      }
+      },
+      "creativeWorkStatus": "In development"
     },
     {
       "@type": "SoftwareApplication",
@@ -208,18 +209,13 @@
       "description": "Exploring the spaces between. An iOS experience from Velvet Disruption.",
       "applicationCategory": "Lifestyle",
       "operatingSystem": "iOS",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
       "creator": {
         "@id": "https://magdahamilton.dev/#person"
       },
       "publisher": {
         "@id": "https://velvetdisruption.com/#organization"
       },
-      "datePublished": "2027-Q1"
+      "creativeWorkStatus": "In development"
     },
     {
       "@type": "WebSite",
@@ -235,7 +231,7 @@
     },
     {
       "@type": "ScholarlyArticle",
-      "@id": "https://magdahamilton.dev/#solaris-paper",
+      "@id": "https://doi.org/10.1145/3840416.3840469",
       "name": "Solaris: Designing for Unknowability in Interactive Systems",
       "headline": "Solaris: Designing for Unknowability in Interactive Systems",
       "genre": "Art Paper",
@@ -269,7 +265,8 @@
       },
       "subjectOf": {
         "@id": "https://expanded-conf.org/schedule/magda-hamilton-solaris-designing-for-unknowability-in-interactive-systems/#event"
-      }
+      },
+      "url": "https://doi.org/10.1145/3840416.3840469"
     },
     {
       "@type": "Book",
@@ -280,7 +277,7 @@
         "@id": "https://www.acm.org/#organization"
       },
       "hasPart": {
-        "@id": "https://magdahamilton.dev/#solaris-paper"
+        "@id": "https://doi.org/10.1145/3840416.3840469"
       },
       "about": {
         "@id": "https://expanded-conf.org/#expanded-2026"
@@ -314,7 +311,7 @@
         "url": "https://ars.electronica.art/negotiatinghumanity/en/view/academic-session-art-track-3-control-3a538ddb450c80318373ca7ff0564cbd/"
       },
       "workFeatured": {
-        "@id": "https://magdahamilton.dev/#solaris-paper"
+        "@id": "https://doi.org/10.1145/3840416.3840469"
       },
       "about": {
         "@id": "https://solaris.observer/#creativework"
