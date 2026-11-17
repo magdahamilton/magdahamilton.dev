@@ -513,23 +513,16 @@
  
         <!-- THREE-BODY DIAGRAM -->
         <div class="diagram-wrap">
-            <div class="diagram-label">Fig. 01 — Three-Body Gravitational System</div>
-            <canvas id="three-body-canvas" width="720" height="420"></canvas>
+            <div class="diagram-label">Fig. 01 — The Three-Body Setting</div>
+            <canvas id="three-body-canvas" width="720" height="420" role="img" aria-label="Schematic of Solaris between two suns on prescribed orbits, with the tidal potential they impose drawn around the planet"></canvas>
             <div class="legend">
-                <div class="legend-item">
-                    <div class="legend-dot" style="background:#c0392b;"></div>
-                    Red Giant (0.08 rad/s, r=250)
-                </div>
-                <div class="legend-item">
-                    <div class="legend-dot" style="background:#2980b9;"></div>
-                    Blue Sun (0.12 rad/s, r=220)
-                </div>
-                <div class="legend-item">
-                    <div class="legend-dot" style="background:#2a2a2a;"></div>
-                    Solaris (orbit on rails)
-                </div>
+                <div class="legend-item"><span class="legend-dot" style="background:#963e2e;"></span>Red giant · 0.08 rad/s · r = 250</div>
+                <div class="legend-item"><span class="legend-dot" style="background:#2c486c;"></span>Blue sun · 0.12 rad/s · r = 220</div>
+                <div class="legend-item"><span class="legend-swatch legend-tick"></span>One second of travel</div>
+                <div class="legend-item"><span class="legend-swatch legend-curve"></span>Tidal potential</div>
+                <div class="legend-item"><span class="legend-swatch legend-stipple"></span>Stipulated load, shown as glow</div>
             </div>
-            <div class="diagram-note">Schematic — radii not to scale. The glow stands for the stress the solver accumulates; no counter-force is computed.</div>
+            <div class="diagram-note">Schematic; radii not to scale. The suns keep a timetable: their orbits are prescribed, not simulated. The curve around the planet plots the summed tidal potential, (3cos²θ − 1)/2 for each sun, exaggerated; the lines inside it are equipotentials. The stipple marks where the stipulated counter-effort is highest, which the piece renders as glow. No counter-force is computed.</div>
         </div>
  
         <div class="version-section">
@@ -791,8 +784,6 @@ The aesthetic is intentional. A clean, modern UI would imply comprehension. The 
             width: 100%;
             height: auto;
             display: block;
-            border-top: 2px solid #2a2a2a;
-            border-bottom: 1px solid #e0e0e0;
         }
         .legend {
             display: flex;
@@ -814,6 +805,34 @@ The aesthetic is intentional. A clean, modern UI would imply comprehension. The 
             height: 7px;
             border-radius: 50%;
             flex-shrink: 0;
+        }
+        .legend-swatch {
+            width: 14px;
+            height: 9px;
+            flex-shrink: 0;
+            position: relative;
+        }
+        .legend-tick::before {
+            content: "";
+            position: absolute;
+            left: 0; right: 0; top: 4px;
+            border-top: 1px dotted #999;
+        }
+        .legend-tick::after {
+            content: "";
+            position: absolute;
+            left: 6px; top: 1px; height: 7px;
+            border-left: 1px solid #999;
+        }
+        .legend-curve {
+            border: 1px solid #666;
+            border-radius: 50%;
+        }
+        .legend-stipple {
+            background-image: radial-gradient(#2a2a2a 0.7px, transparent 0.9px);
+            background-size: 3px 3px;
+            border-radius: 50%;
+            opacity: 0.7;
         }
         .diagram-note {
             margin-top: 0.6rem;
@@ -1123,135 +1142,224 @@ The aesthetic is intentional. A clean, modern UI would imply comprehension. The 
         const canvas = document.getElementById('three-body-canvas');
         if (!canvas) return;
         const ctx = canvas.getContext('2d');
-        const W = canvas.width, H = canvas.height;
+
+        // Logical size stays 720×420; the backing store follows the screen's
+        // pixel density so hairlines stay crisp.
+        const W = 720, H = 420;
+        const dpr = Math.min(window.devicePixelRatio || 1, 3);
+        canvas.width = W * dpr; canvas.height = H * dpr;
+        ctx.scale(dpr, dpr);
+
         const cx = W / 2, cy = H / 2;
- 
-        // Angular speeds are in rad/s, integrated against real elapsed time
-        // in the loop below, so the labelled rates hold at any refresh rate.
-        const RED  = { angle: 0,             speed: 0.08, radius: 250, size: 9,   color: '#c0392b', trail: [] };
-        const BLUE = { angle: Math.PI * 0.7, speed: 0.12, radius: 220, size: 5.5, color: '#2980b9', trail: [] };
-        const TRAIL = 280;
-        let lastT = null;
- 
-        function drawTrail(trail, r, g, b) {
-            for (let i = 1; i < trail.length; i++) {
-                const a = (i / trail.length) * 0.18;
+        const TILT = 0.5;                        // orbits seen obliquely
+        const INK   = '42,42,42';                // graphite
+        const OXIDE = '150,62,46';               // red giant ink
+        const PRUSS = '44,72,108';               // blue sun ink
+        const SERIF = 'Georgia, "Times New Roman", serif';
+        const R_PLANET = 44;
+
+        // Angular speeds in rad/s, integrated against real elapsed time.
+        const RED  = { angle: 0,             speed: 0.08, radius: 250, size: 8.5, ink: OXIDE, w: 1.0, name: 'red giant' };
+        const BLUE = { angle: Math.PI * 0.7, speed: 0.12, radius: 220, size: 5,   ink: PRUSS, w: 0.8, name: 'blue sun'  };
+
+        // Fixed stipple field inside the planet (seeded, so it never flickers).
+        let seed = 7;
+        const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+        const STIPPLE = [];
+        while (STIPPLE.length < 1400) {
+            const x = rnd() * 2 - 1, y = rnd() * 2 - 1;
+            if (x * x + y * y < 0.94) STIPPLE.push({ x, y, t: rnd() });
+        }
+
+        const pos = b => ({ x: cx + Math.cos(b.angle) * b.radius,
+                            y: cy + Math.sin(b.angle) * b.radius * TILT });
+
+        // Angular part of the tidal potential, summed over both suns:
+        // A(φ) = Σ w · (3cos²(φ − α) − 1) / 2
+        function tidalA(phi, suns) {
+            let a = 0;
+            for (const s of suns) { const c = Math.cos(phi - s.alpha); a += s.w * (3 * c * c - 1) / 2; }
+            return a;
+        }
+
+        function hairline(alpha, width) { ctx.lineWidth = width || 0.6; ctx.strokeStyle = `rgba(${INK},${alpha})`; }
+
+        function drawPlate() {
+            // Inset rule with corner marks, like a printed plate
+            hairline(0.35, 0.6);
+            ctx.strokeRect(14.5, 14.5, W - 29, H - 29);
+            hairline(0.5, 0.8);
+            const m = 8, L = 10;
+            [[14.5, 14.5, 1, 1], [W - 14.5, 14.5, -1, 1], [14.5, H - 14.5, 1, -1], [W - 14.5, H - 14.5, -1, -1]]
+              .forEach(([x, y, sx, sy]) => {
                 ctx.beginPath();
-                ctx.moveTo(trail[i-1].x, trail[i-1].y);
-                ctx.lineTo(trail[i].x, trail[i].y);
-                ctx.strokeStyle = `rgba(${r},${g},${b},${a})`;
-                ctx.lineWidth = 1;
+                ctx.moveTo(x - sx * m, y); ctx.lineTo(x - sx * (m + L), y);
+                ctx.moveTo(x, y - sy * m); ctx.lineTo(x, y - sy * (m + L));
+                ctx.stroke();
+              });
+            ctx.font = `italic 12px ${SERIF}`;
+            ctx.textAlign = 'right';
+            ctx.fillStyle = `rgba(${INK},0.45)`;
+            ctx.fillText('orbits prescribed · tides computed', W - 28, H - 26);
+        }
+
+        function drawOrbit(b) {
+            // Dotted path plus an ephemeris: a tick for every second of travel
+            ctx.fillStyle = `rgba(${b.ink},0.28)`;
+            const n = 170;
+            for (let i = 0; i < n; i++) {
+                const t = (i / n) * Math.PI * 2;
+                ctx.beginPath();
+                ctx.arc(cx + Math.cos(t) * b.radius, cy + Math.sin(t) * b.radius * TILT, 0.55, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            ctx.strokeStyle = `rgba(${b.ink},0.3)`; ctx.lineWidth = 0.5;
+            const step = b.speed;                                  // one second of motion
+            const ticks = Math.floor(Math.PI * 2 / step);
+            for (let i = 0; i < ticks; i++) {
+                const t = i * step;
+                const x = cx + Math.cos(t) * b.radius, y = cy + Math.sin(t) * b.radius * TILT;
+                const nx = Math.cos(t) * TILT, ny = Math.sin(t);  // normal of the projected ellipse
+                const d = Math.hypot(nx, ny), len = (i % 10 === 0) ? 5 : 2;
+                ctx.beginPath();
+                ctx.moveTo(x - nx / d * len, y - ny / d * len);
+                ctx.lineTo(x + nx / d * len, y + ny / d * len);
                 ctx.stroke();
             }
         }
- 
-        function drawSun(body, pos) {
-            const g = ctx.createRadialGradient(pos.x, pos.y, 0, pos.x, pos.y, body.size * 5);
-            g.addColorStop(0, body.color + '55');
-            g.addColorStop(1, 'transparent');
-            ctx.beginPath(); ctx.arc(pos.x, pos.y, body.size * 5, 0, Math.PI*2);
-            ctx.fillStyle = g; ctx.fill();
-            ctx.beginPath(); ctx.arc(pos.x, pos.y, body.size, 0, Math.PI*2);
-            ctx.fillStyle = body.color; ctx.fill();
+
+        function drawSun(b, p) {
+            // Past positions, one per second: the timetable the sun keeps
+            for (let k = 1; k <= 5; k++) {
+                const t = b.angle - k * b.speed * 1.5;
+                ctx.beginPath();
+                ctx.arc(cx + Math.cos(t) * b.radius, cy + Math.sin(t) * b.radius * TILT, b.size * 0.42, 0, Math.PI * 2);
+                ctx.strokeStyle = `rgba(${b.ink},${0.32 - k * 0.05})`; ctx.lineWidth = 0.6; ctx.stroke();
+            }
+            // Radiating hatch
+            ctx.strokeStyle = `rgba(${b.ink},0.55)`; ctx.lineWidth = 0.6;
+            const rays = 24;
+            for (let i = 0; i < rays; i++) {
+                const t = (i / rays) * Math.PI * 2 + b.angle * 0.5;
+                const r0 = b.size + 3, r1 = b.size + (i % 2 ? 6 : 10);
+                ctx.beginPath();
+                ctx.moveTo(p.x + Math.cos(t) * r0, p.y + Math.sin(t) * r0);
+                ctx.lineTo(p.x + Math.cos(t) * r1, p.y + Math.sin(t) * r1);
+                ctx.stroke();
+            }
+            ctx.beginPath(); ctx.arc(p.x, p.y, b.size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(${b.ink},0.92)`; ctx.fill();
+
+            ctx.font = `italic 12px ${SERIF}`;
+            ctx.fillStyle = `rgba(${b.ink},0.8)`;
+            ctx.textAlign = p.x > cx ? 'left' : 'right';
+            const off = p.x > cx ? b.size + 14 : -(b.size + 14);
+            ctx.fillText(b.name, p.x + off, p.y + 4);
         }
- 
-        function arrow(x1, y1, x2, y2, color) {
-            const dx = x2-x1, dy = y2-y1, d = Math.sqrt(dx*dx+dy*dy);
-            const nx = dx/d, ny = dy/d;
-            ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2);
-            ctx.strokeStyle = color; ctx.lineWidth = 1; ctx.stroke();
+
+        function drawPlanet(suns) {
+            // Lines of sight to each sun, stopping at the limb
+            suns.forEach(s => {
+                const dx = s.p.x - cx, dy = s.p.y - cy, d = Math.hypot(dx, dy);
+                ctx.save(); ctx.setLineDash([1, 4]);
+                ctx.beginPath();
+                ctx.moveTo(cx + dx / d * (R_PLANET + 16), cy + dy / d * (R_PLANET + 16));
+                ctx.lineTo(s.p.x - dx / d * (s.b.size + 14), s.p.y - dy / d * (s.b.size + 14));
+                ctx.strokeStyle = `rgba(${s.b.ink},0.3)`; ctx.lineWidth = 0.6; ctx.stroke();
+                ctx.restore();
+            });
+
+            // Stipple: the stipulated load, which the piece renders as glow
+            const amax = suns.reduce((a, s) => a + s.w, 0);
+            ctx.fillStyle = `rgba(${INK},0.75)`;
+            for (const s of STIPPLE) {
+                const phi = Math.atan2(s.y, s.x);
+                const load = Math.abs(tidalA(phi, suns)) / amax * (s.x * s.x + s.y * s.y);
+                if (load > s.t * 0.9) {
+                    ctx.beginPath();
+                    ctx.arc(cx + s.x * R_PLANET, cy + s.y * R_PLANET, 0.6, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            // Limb
+            ctx.beginPath(); ctx.arc(cx, cy, R_PLANET, 0, Math.PI * 2);
+            hairline(0.85, 1); ctx.stroke();
+
+            // Equipotentials inside the disc: r² · A(φ) = c
+            hairline(0.32, 0.55);
+            const levels = [0.15, 0.3, 0.5, 0.75, -0.15, -0.3, -0.5];
+            for (const c of levels) {
+                ctx.beginPath();
+                let pen = false;
+                for (let i = 0; i <= 360; i++) {
+                    const phi = (i / 360) * Math.PI * 2;
+                    const a = tidalA(phi, suns) / amax;
+                    const rr = c / a;
+                    if (rr > 0 && rr < 1) {
+                        const r = Math.sqrt(rr) * R_PLANET;
+                        const x = cx + Math.cos(phi) * r, y = cy + Math.sin(phi) * r;
+                        pen ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+                        pen = true;
+                    } else pen = false;
+                }
+                ctx.stroke();
+            }
+
+            // Polar plot of the potential around the limb, exaggerated
             ctx.beginPath();
-            ctx.moveTo(x2, y2);
-            ctx.lineTo(x2 - nx*5 + (-ny)*3, y2 - ny*5 + nx*3);
-            ctx.lineTo(x2 - nx*5 - (-ny)*3, y2 - ny*5 - nx*3);
-            ctx.closePath(); ctx.fillStyle = color; ctx.fill();
+            for (let i = 0; i <= 360; i++) {
+                const phi = (i / 360) * Math.PI * 2;
+                const r = R_PLANET + 13 + 8 * tidalA(phi, suns) / amax;
+                const x = cx + Math.cos(phi) * r, y = cy + Math.sin(phi) * r;
+                i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+            }
+            ctx.closePath();
+            hairline(0.6, 0.7); ctx.stroke();
+
+            ctx.font = `italic 13px ${SERIF}`;
+            ctx.fillStyle = `rgba(${INK},0.8)`;
+            ctx.textAlign = 'center';
+            ctx.fillText('Solaris', cx, cy + R_PLANET + 40);
         }
- 
-        function frame(now) {
-            // Delta-time: advance by real elapsed seconds, not frame count.
-            if (lastT === null) lastT = now;
-            const dt  = Math.min((now - lastT) / 1000, 0.05); // clamp tab-refocus jumps
-            lastT = now;
- 
+
+        let lastT = null, visible = true;
+        const still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        function draw() {
             ctx.clearRect(0, 0, W, H);
- 
-            // Grid
-            for (let x = 0; x < W; x += 40) {
-                ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H);
-                ctx.strokeStyle='rgba(42,42,42,0.04)'; ctx.lineWidth=1; ctx.stroke();
-            }
-            for (let y = 0; y < H; y += 40) {
-                ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y);
-                ctx.strokeStyle='rgba(42,42,42,0.04)'; ctx.lineWidth=1; ctx.stroke();
-            }
- 
-            // Orbit rings
-            ctx.save(); ctx.setLineDash([3,8]);
-            ctx.beginPath(); ctx.arc(cx, cy, RED.radius, 0, Math.PI*2);
-            ctx.strokeStyle='rgba(192,57,43,0.1)'; ctx.lineWidth=0.5; ctx.stroke();
-            ctx.beginPath(); ctx.arc(cx, cy, BLUE.radius, 0, Math.PI*2);
-            ctx.strokeStyle='rgba(41,128,185,0.1)'; ctx.lineWidth=0.5; ctx.stroke();
-            ctx.restore();
- 
+            drawPlate();
+            drawOrbit(RED); drawOrbit(BLUE);
+            const rp = pos(RED), bp = pos(BLUE);
+            const suns = [
+                { b: RED,  p: rp, w: RED.w,  alpha: Math.atan2(rp.y - cy, rp.x - cx) },
+                { b: BLUE, p: bp, w: BLUE.w, alpha: Math.atan2(bp.y - cy, bp.x - cx) }
+            ];
+            // Draw the far sun first so the near one overlaps it
+            const order = [RED, BLUE].sort((a, b) => Math.sin(a.angle) - Math.sin(b.angle));
+            const behind = order.filter(b => Math.sin(b.angle) < 0);
+            const front  = order.filter(b => Math.sin(b.angle) >= 0);
+            behind.forEach(b => drawSun(b, pos(b)));
+            drawPlanet(suns);
+            front.forEach(b => drawSun(b, pos(b)));
+        }
+
+        function frame(now) {
+            if (lastT === null) lastT = now;
+            const dt = Math.min((now - lastT) / 1000, 0.05);
+            lastT = now;
             RED.angle  += RED.speed  * dt;
             BLUE.angle += BLUE.speed * dt;
- 
-            const rPos = { x: cx + Math.cos(RED.angle)  * RED.radius,  y: cy + Math.sin(RED.angle)  * RED.radius  * 0.38 };
-            const bPos = { x: cx + Math.cos(BLUE.angle) * BLUE.radius, y: cy + Math.sin(BLUE.angle) * BLUE.radius * 0.38 };
- 
-            RED.trail.push({...rPos});  if (RED.trail.length  > TRAIL) RED.trail.shift();
-            BLUE.trail.push({...bPos}); if (BLUE.trail.length > TRAIL) BLUE.trail.shift();
- 
-            drawTrail(RED.trail,  192, 57,  43);
-            drawTrail(BLUE.trail, 41,  128, 185);
-            drawSun(RED,  rPos);
-            drawSun(BLUE, bPos);
- 
-            // The orbit is on rails: Solaris holds its position. The suns'
-            // combined pull only drives the glow, standing in (schematically)
-            // for the stress the solver accumulates.
-            const forces = [rPos, bPos].map(p => {
-                const dx = p.x - cx, dy = p.y - cy, d2 = dx*dx + dy*dy;
-                return { fx: (dx/d2)*800, fy: (dy/d2)*800 };
-            });
-            const totalFx = forces[0].fx + forces[1].fx;
-            const totalFy = forces[0].fy + forces[1].fy;
- 
-            const stress = Math.min(Math.sqrt(totalFx*totalFx + totalFy*totalFy) / 60, 1);
-            const px = cx, py = cy;
- 
-            // Stress glow
-            if (stress > 0.01) {
-                const sg = ctx.createRadialGradient(px, py, 0, px, py, 45);
-                sg.addColorStop(0, `rgba(180,120,60,${stress * 0.45})`);
-                sg.addColorStop(1, 'transparent');
-                ctx.beginPath(); ctx.arc(px, py, 45, 0, Math.PI*2);
-                ctx.fillStyle = sg; ctx.fill();
-            }
- 
-            // Planet
-            ctx.beginPath(); ctx.arc(px, py, 13, 0, Math.PI*2);
-            ctx.fillStyle = '#2a2a2a'; ctx.fill();
-            ctx.font = '9px Courier New';
-            ctx.fillStyle = 'rgba(42,42,42,0.45)';
-            ctx.fillText('SOLARIS', px + 18, py + 3);
- 
-            // Force arrows
-            [
-                { pos: rPos, color: 'rgba(192,57,43,0.28)' },
-                { pos: bPos, color: 'rgba(41,128,185,0.28)' }
-            ].forEach(({ pos, color }) => {
-                const dx = px - pos.x, dy = py - pos.y, d = Math.sqrt(dx*dx+dy*dy);
-                const mid = 0.45;
-                arrow(
-                    pos.x + dx*mid - (dx/d)*14, pos.y + dy*mid - (dy/d)*14,
-                    pos.x + dx*mid + (dx/d)*14, pos.y + dy*mid + (dy/d)*14,
-                    color
-                );
-            });
- 
- 
-            requestAnimationFrame(frame);
+            draw();
+            if (visible) requestAnimationFrame(frame); else lastT = null;
+        }
+
+        if (still) { draw(); return; }
+        if ('IntersectionObserver' in window) {
+            new IntersectionObserver(([e]) => {
+                const was = visible; visible = e.isIntersecting;
+                if (visible && !was) requestAnimationFrame(frame);
+            }).observe(canvas);
         }
         requestAnimationFrame(frame);
     })();
