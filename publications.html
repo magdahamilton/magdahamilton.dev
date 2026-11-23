@@ -12,8 +12,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#000000">
     <title>Publications — Magda Hamilton</title>
-    <meta name="description" content="Peer-reviewed papers and technical reports by Magda Hamilton on interactive art, viscoelastic simulation, WebAssembly, and authored unknowability in interactive systems.">
-    <meta name="keywords" content="Magda Hamilton, interactive art, viscoelastic simulation, WebAssembly, WebGL, generative systems, human-computer interaction, Stanisław Lem, Solaris, Velvet Disruption, Expanded 2026">
+    <meta name="description" content="Peer-reviewed papers and technical reports by Magda Hamilton on interactive art, viscoelastic simulation, WebAssembly, authored unknowability in interactive systems, and co-creation and the redistribution of creative agency.">
+    <meta name="keywords" content="Magda Hamilton, interactive art, viscoelastic simulation, WebAssembly, WebGL, generative systems, human-computer interaction, Stanisław Lem, Solaris, Velvet Disruption, Expanded 2026, Leonardo, co-creation, creative agency">
     <meta name="author" content="Magda Hamilton">
  
     <!-- Favicon -->
@@ -23,14 +23,14 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://magdahamilton.dev/publications.html">
     <meta property="og:title" content="Publications — Magda Hamilton">
-    <meta property="og:description" content="Peer-reviewed papers and technical reports on interactive art, viscoelastic simulation, and authored unknowability in interactive systems.">
+    <meta property="og:description" content="Peer-reviewed papers and technical reports on interactive art, viscoelastic simulation, authored unknowability in interactive systems, and co-creation and the redistribution of creative agency.">
     <meta property="og:image" content="https://magdahamilton.dev/images/og-image.jpg">
     <meta property="og:site_name" content="Magda Hamilton">
  
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Publications — Magda Hamilton">
-    <meta name="twitter:description" content="Peer-reviewed papers and technical reports on interactive art, viscoelastic simulation, and authored unknowability in interactive systems.">
+    <meta name="twitter:description" content="Peer-reviewed papers and technical reports on interactive art, viscoelastic simulation, authored unknowability in interactive systems, and co-creation and the redistribution of creative agency.">
     <meta name="twitter:image" content="https://magdahamilton.dev/images/og-image.jpg">
  
     <link rel="canonical" href="https://magdahamilton.dev/publications.html">
@@ -39,7 +39,8 @@
     <!-- Structured data. Note: Google Scholar does NOT read JSON-LD — it reads Highwire
          citation_* meta tags, and only on single-article pages. Scholar indexing comes from
          the Zenodo deposits and from crawling the hosted PDFs, not from this markup.
-         This graph is for the general knowledge graph / author entity consolidation. -->
+         This graph is for the general knowledge graph / author entity consolidation.
+         Leonardo 60(2) is intentionally absent until it appears in Just Accepted (see Entry 3). -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -335,6 +336,39 @@
  
             <div class="pub-list">
  
+                <!-- ============ Entry 3 — Leonardo 60(2), April 2027 (forthcoming) ============
+                     ACCEPTED. Until publication show ONLY: title, abstract, forthcoming
+                     status. No links, no PDF / AAM, no downloadable file, no DOI,
+                     no ScholarlyArticle JSON-LD.
+                     AFTER PUBLICATION IN JUST ACCEPTED: add a .pub-links div with
+                     the DOI as a live anchor (after the .pub-cite paragraph),
+                     add a ScholarlyArticle node to the JSON-LD graph (and its @id to
+                     CollectionPage.hasPart), add the DOI to the citation; page range
+                     once the issue is out.                                              -->
+                <div class="pub-item">
+                    <h2 class="pub-heading">
+                        <button class="pub-toggle" aria-expanded="false" aria-controls="pub-panel-3">
+                            <span class="pub-eyebrow">Journal Article</span>
+                            <span class="pub-year">2027</span>
+                            <span class="pub-title" id="pub-title-3">Co-creation without Communication: Unknowability and the Redistribution of Creative Agency</span>
+                            <svg class="pub-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <path d="M6 9l6 6 6-6"/>
+                            </svg>
+                        </button>
+                    </h2>
+                    <div class="pub-panel" id="pub-panel-3" role="region" aria-labelledby="pub-title-3">
+                        <div class="pub-panel-inner">
+                            <div class="pub-body">
+                                <p class="pub-meta">Leonardo 60(2), April 2027 (forthcoming). MIT Press.</p>
+                                <span class="pub-abstract-label">Abstract</span>
+                                <p class="pub-abstract">What happens to creative agency when a human and a computational system neither share a representation or intention nor converge on models of each other? Drawing on Stanisław Lem's cybernetic thought and the ocean of Solaris, this article frames unknowability as relational: interaction remains consequential without becoming communicatively closed. Solaris (2026), an interactive WebGL simulation, explores this condition through four design resources: category defeat, hidden state, timescale mismatch, and contentless channels. Its development reveals a precondition, a legible frame that makes illegibility experienceable, and an instructive failure, the mimoid. Against Pask's emphasis on potentially controllable novelty, and extending Lem's account of opacity built for control, the article proposes that authored unknowability may resist mastery and redistribute creative agency.</p>
+                                <span class="pub-abstract-label">Cite</span>
+                                <p class="pub-cite">Magda Hamilton. 2027. Co-creation without Communication: Unknowability and the Redistribution of Creative Agency. <em>Leonardo</em> 60, 2 (April 2027). MIT Press. Forthcoming.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- ============ Entry 1 — Expanded 2026 (ACM) ============
                      AFTER SEPT 9, 2026: change is-open/aria-expanded as you like, swap
                      "Forthcoming" for the published date, drop "creativeWorkStatus" from
