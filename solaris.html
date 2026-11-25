@@ -332,7 +332,10 @@
         }
     </style>
     
-    <!-- Enhanced Schema.org markup -->
+    <!-- Enhanced Schema.org markup.
+         The "authored unknowability" DefinedTerm (and its entry in the ACM paper's "about")
+         is held back until authored-unknowability.html goes live. -->
+
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -357,6 +360,7 @@
       },
       "publisher": {
         "@type": "Organization",
+        "@id": "https://velvetdisruption.com/#organization",
         "name": "Velvet Disruption",
         "url": "https://velvetdisruption.com"
       },
@@ -395,7 +399,51 @@
       }
     },
     {
-      "@id": "https://magdahamilton.dev/#person"
+      "@type": "Person",
+      "@id": "https://magdahamilton.dev/#person",
+      "name": "Magda Hamilton",
+      "url": "https://magdahamilton.dev/"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://doi.org/10.1145/3840416.3840469",
+      "name": "Solaris: Designing for Unknowability in Interactive Systems",
+      "headline": "Solaris: Designing for Unknowability in Interactive Systems",
+      "author": {
+        "@id": "https://magdahamilton.dev/#person"
+      },
+      "identifier": {
+        "@type": "PropertyValue",
+        "propertyID": "DOI",
+        "value": "10.1145/3840416.3840469"
+      },
+      "datePublished": "2026-11-24",
+      "isPartOf": {
+        "@type": "Book",
+        "@id": "https://magdahamilton.dev/#expanded-2026-proceedings",
+        "name": "Expanded 2026: Conference on Animation and Interactive Art",
+        "isbn": "979-8-4007-2865-5"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "@id": "https://www.acm.org/#organization",
+        "name": "ACM",
+        "alternateName": "Association for Computing Machinery"
+      },
+      "about": [
+        {
+          "@id": "https://solaris.observer/#creativework"
+        }
+      ],
+      "inLanguage": "en",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "encoding": {
+        "@type": "MediaObject",
+        "contentUrl": "https://magdahamilton.dev/publications/solaris-aam.pdf",
+        "encodingFormat": "application/pdf",
+        "description": "Preprint (author's version)"
+      },
+      "url": "https://doi.org/10.1145/3840416.3840469"
     }
   ]
 }
@@ -740,7 +788,11 @@ The aesthetic is intentional. A clean, modern UI would imply comprehension. The 
         <span class="section-marker">10 — Publications</span>
         <h2 id="research">Related Publications</h2>
         <ul style="line-height: 1.8; padding-left: 1.4rem;">
-            <li>Hamilton, Magda. 2026. Solaris: Designing for Unknowability in Interactive Systems. In <em>Expanded 2026: Conference on Animation and Interactive Art</em> (Expanded 2026), September 09–11, 2026, Linz, Austria. ACM, New York, NY, USA. Forthcoming. DOI 10.1145/3840416.3840469 (live on publication).<br><span style="font-size:0.85em; color:#888;">Develops the design argument behind this work — why it's built to resist interpretation, and where that approach succeeds and fails.</span></li>
+            <li>Hamilton, Magda. 2026. Solaris: Designing for Unknowability in Interactive Systems. In <em>Expanded 2026: Conference on Animation and Interactive Art</em> (Expanded 2026), September 09–11, 2026, Linz, Austria. ACM, New York, NY, USA. <a href="https://doi.org/10.1145/3840416.3840469" target="_blank" rel="noopener" style="color: inherit; text-decoration: none; border-bottom: 1px dotted currentColor;">https://doi.org/10.1145/3840416.3840469</a> · <a href="/publications/solaris-aam.pdf" style="color: inherit; text-decoration: none; border-bottom: 1px dotted currentColor;">Preprint (PDF)</a><br><span style="font-size:0.85em; color:#888;">Develops the design argument behind this work — why it's built to resist interpretation, and where that approach succeeds and fails — and introduces the concept of authored unknowability.</span></li>
+            <!-- Leonardo 60(2): accepted, not yet published. Until it appears in Just Accepted,
+                 show only title, citation and forthcoming status. No links, no DOI, no PDF,
+                 no JSON-LD. Afterwards: add the DOI link and a ScholarlyArticle node. -->
+            <li>Hamilton, Magda. 2027. Co-creation without Communication: Unknowability and the Redistribution of Creative Agency. <em>Leonardo</em> 60, 2 (April 2027). MIT Press. Forthcoming.<br><span style="font-size:0.85em; color:#888;">Frames unknowability as relational and asks what happens to creative agency when a human and a computational system never converge on models of each other, proposing that authored unknowability may redistribute it.</span></li>
         </ul>
  
         <!-- REFERENCES SECTION -->
@@ -787,7 +839,7 @@ The aesthetic is intentional. A clean, modern UI would imply comprehension. The 
         }
         .legend {
             display: flex;
-            gap: 2rem;
+            gap: 0.6rem 2rem;
             margin-top: 0.75rem;
             flex-wrap: wrap;
         }
@@ -1182,7 +1234,20 @@ The aesthetic is intentional. A clean, modern UI would imply comprehension. The 
             return a;
         }
 
-        function hairline(alpha, width) { ctx.lineWidth = width || 0.6; ctx.strokeStyle = `rgba(${INK},${alpha})`; }
+        // Responsive scale: the canvas is drawn at 720 logical px and shown at
+        // whatever width the column allows. On narrow screens text and lines
+        // are scaled up so they stay legible, and the sun labels give way to
+        // the legend below.
+        let T = 1, LW = 1, NARROW = false;
+        function measure() {
+            const w = canvas.getBoundingClientRect().width || W;
+            const k = W / w;                       // > 1 when shown smaller than 720
+            NARROW = w < 520;
+            T  = Math.min(Math.max(k * 0.85, 1), 2.3);
+            LW = Math.min(Math.max(Math.sqrt(k), 1), 1.7);
+        }
+
+        function hairline(alpha, width) { ctx.lineWidth = (width || 0.6) * LW; ctx.strokeStyle = `rgba(${INK},${alpha})`; }
 
         function drawPlate() {
             // Inset rule with corner marks, like a printed plate
@@ -1197,7 +1262,7 @@ The aesthetic is intentional. A clean, modern UI would imply comprehension. The 
                 ctx.moveTo(x, y - sy * m); ctx.lineTo(x, y - sy * (m + L));
                 ctx.stroke();
               });
-            ctx.font = `italic 12px ${SERIF}`;
+            ctx.font = `italic ${12 * T}px ${SERIF}`;
             ctx.textAlign = 'right';
             ctx.fillStyle = `rgba(${INK},0.45)`;
             ctx.fillText('orbits prescribed · tides computed', W - 28, H - 26);
@@ -1205,15 +1270,15 @@ The aesthetic is intentional. A clean, modern UI would imply comprehension. The 
 
         function drawOrbit(b) {
             // Dotted path plus an ephemeris: a tick for every second of travel
-            ctx.fillStyle = `rgba(${b.ink},0.28)`;
+            ctx.fillStyle = `rgba(${b.ink},0.45)`;
             const n = 170;
             for (let i = 0; i < n; i++) {
                 const t = (i / n) * Math.PI * 2;
                 ctx.beginPath();
-                ctx.arc(cx + Math.cos(t) * b.radius, cy + Math.sin(t) * b.radius * TILT, 0.55, 0, Math.PI * 2);
+                ctx.arc(cx + Math.cos(t) * b.radius, cy + Math.sin(t) * b.radius * TILT, 0.6 * LW, 0, Math.PI * 2);
                 ctx.fill();
             }
-            ctx.strokeStyle = `rgba(${b.ink},0.3)`; ctx.lineWidth = 0.5;
+            ctx.strokeStyle = `rgba(${b.ink},0.45)`; ctx.lineWidth = 0.55 * LW;
             const step = b.speed;                                  // one second of motion
             const ticks = Math.floor(Math.PI * 2 / step);
             for (let i = 0; i < ticks; i++) {
@@ -1234,10 +1299,10 @@ The aesthetic is intentional. A clean, modern UI would imply comprehension. The 
                 const t = b.angle - k * b.speed * 1.5;
                 ctx.beginPath();
                 ctx.arc(cx + Math.cos(t) * b.radius, cy + Math.sin(t) * b.radius * TILT, b.size * 0.42, 0, Math.PI * 2);
-                ctx.strokeStyle = `rgba(${b.ink},${0.32 - k * 0.05})`; ctx.lineWidth = 0.6; ctx.stroke();
+                ctx.strokeStyle = `rgba(${b.ink},${0.4 - k * 0.06})`; ctx.lineWidth = 0.6 * LW; ctx.stroke();
             }
             // Radiating hatch
-            ctx.strokeStyle = `rgba(${b.ink},0.55)`; ctx.lineWidth = 0.6;
+            ctx.strokeStyle = `rgba(${b.ink},0.55)`; ctx.lineWidth = 0.6 * LW;
             const rays = 24;
             for (let i = 0; i < rays; i++) {
                 const t = (i / rays) * Math.PI * 2 + b.angle * 0.5;
@@ -1250,7 +1315,8 @@ The aesthetic is intentional. A clean, modern UI would imply comprehension. The 
             ctx.beginPath(); ctx.arc(p.x, p.y, b.size, 0, Math.PI * 2);
             ctx.fillStyle = `rgba(${b.ink},0.92)`; ctx.fill();
 
-            ctx.font = `italic 12px ${SERIF}`;
+            if (NARROW) return;                  // the legend names the suns
+            ctx.font = `italic ${12 * T}px ${SERIF}`;
             ctx.fillStyle = `rgba(${b.ink},0.8)`;
             ctx.textAlign = p.x > cx ? 'left' : 'right';
             const off = p.x > cx ? b.size + 14 : -(b.size + 14);
@@ -1265,7 +1331,7 @@ The aesthetic is intentional. A clean, modern UI would imply comprehension. The 
                 ctx.beginPath();
                 ctx.moveTo(cx + dx / d * (R_PLANET + 16), cy + dy / d * (R_PLANET + 16));
                 ctx.lineTo(s.p.x - dx / d * (s.b.size + 14), s.p.y - dy / d * (s.b.size + 14));
-                ctx.strokeStyle = `rgba(${s.b.ink},0.3)`; ctx.lineWidth = 0.6; ctx.stroke();
+                ctx.strokeStyle = `rgba(${s.b.ink},0.35)`; ctx.lineWidth = 0.6 * LW; ctx.stroke();
                 ctx.restore();
             });
 
@@ -1277,7 +1343,7 @@ The aesthetic is intentional. A clean, modern UI would imply comprehension. The 
                 const load = Math.abs(tidalA(phi, suns)) / amax * (s.x * s.x + s.y * s.y);
                 if (load > s.t * 0.9) {
                     ctx.beginPath();
-                    ctx.arc(cx + s.x * R_PLANET, cy + s.y * R_PLANET, 0.6, 0, Math.PI * 2);
+                    ctx.arc(cx + s.x * R_PLANET, cy + s.y * R_PLANET, 0.6 * LW, 0, Math.PI * 2);
                     ctx.fill();
                 }
             }
@@ -1317,16 +1383,17 @@ The aesthetic is intentional. A clean, modern UI would imply comprehension. The 
             ctx.closePath();
             hairline(0.6, 0.7); ctx.stroke();
 
-            ctx.font = `italic 13px ${SERIF}`;
+            ctx.font = `italic ${13 * T}px ${SERIF}`;
             ctx.fillStyle = `rgba(${INK},0.8)`;
             ctx.textAlign = 'center';
-            ctx.fillText('Solaris', cx, cy + R_PLANET + 40);
+            ctx.fillText('Solaris', cx, cy + R_PLANET + 26 + 14 * T);
         }
 
         let lastT = null, visible = true;
         const still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         function draw() {
+            measure();
             ctx.clearRect(0, 0, W, H);
             drawPlate();
             drawOrbit(RED); drawOrbit(BLUE);
